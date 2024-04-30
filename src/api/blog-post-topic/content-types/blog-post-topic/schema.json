@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blog_post_topics",
+  "info": {
+    "singularName": "blog-post-topic",
+    "pluralName": "blog-post-topics",
+    "displayName": "Blog Post Topic"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "blog_posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog-post.blog-post",
+      "mappedBy": "blog-post-topic"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}
