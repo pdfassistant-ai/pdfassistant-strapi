@@ -1,11 +1,11 @@
 {
   "kind": "collectionType",
-  "collectionName": "articles",
+  "collectionName": "blog_posts",
   "info": {
-    "singularName": "article",
-    "pluralName": "articles",
-    "displayName": "Article",
-    "description": "Create your blog content"
+    "singularName": "blog-post",
+    "pluralName": "blog-posts",
+    "displayName": "Blog Post",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -39,11 +39,11 @@
       "target": "api::author.author",
       "inversedBy": "articles"
     },
-    "category": {
+    "blog_post_topics": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::category.category",
-      "inversedBy": "articles"
+      "relation": "manyToMany",
+      "target": "api::blog-post-topic.blog-post-topic",
+      "inversedBy": "blog_posts"
     },
     "blocks": {
       "type": "dynamiczone",
@@ -53,6 +53,12 @@
         "shared.rich-text",
         "shared.slider"
       ]
+    },
+    "blog_post_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::blog-post-type.blog-post-type",
+      "inversedBy": "blog_posts"
     }
   }
 }
