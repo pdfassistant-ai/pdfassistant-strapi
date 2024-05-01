@@ -4,7 +4,8 @@
   "info": {
     "singularName": "blog-post-type",
     "pluralName": "blog-post-types",
-    "displayName": "Blog Post Type"
+    "displayName": "Blog Post Type",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,14 +18,14 @@
     "slug": {
       "type": "uid"
     },
+    "description": {
+      "type": "text"
+    },
     "blog_posts": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::blog-post.blog-post",
-      "mappedBy": "blog-post-type"
-    },
-    "description": {
-      "type": "text"
+      "mappedBy": "blog_post_type"
     }
   }
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "blog-post-topic",
     "pluralName": "blog-post-topics",
-    "displayName": "Blog Post Topic"
+    "displayName": "Blog Post Topic",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,14 +18,14 @@
     "slug": {
       "type": "uid"
     },
-    "blog_posts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::blog-post.blog-post",
-      "mappedBy": "blog-post-topic"
-    },
     "description": {
       "type": "text"
+    },
+    "blog_posts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog-post.blog-post",
+      "inversedBy": "blog_post_topics"
     }
   }
 }

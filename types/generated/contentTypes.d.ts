@@ -882,18 +882,18 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
       'manyToOne',
       'api::author.author'
     >;
-    blog_post_type: Attribute.Relation<
-      'api::blog-post.blog-post',
-      'oneToOne',
-      'api::blog-post-type.blog-post-type'
-    >;
     blog_post_topics: Attribute.Relation<
       'api::blog-post.blog-post',
-      'oneToMany',
+      'manyToMany',
       'api::blog-post-topic.blog-post-topic'
     >;
     blocks: Attribute.DynamicZone<
       ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
+    >;
+    blog_post_type: Attribute.Relation<
+      'api::blog-post.blog-post',
+      'manyToOne',
+      'api::blog-post-type.blog-post-type'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -919,6 +919,7 @@ export interface ApiBlogPostTopicBlogPostTopic extends Schema.CollectionType {
     singularName: 'blog-post-topic';
     pluralName: 'blog-post-topics';
     displayName: 'Blog Post Topic';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -926,12 +927,12 @@ export interface ApiBlogPostTopicBlogPostTopic extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     slug: Attribute.UID;
+    description: Attribute.Text;
     blog_posts: Attribute.Relation<
       'api::blog-post-topic.blog-post-topic',
-      'oneToMany',
+      'manyToMany',
       'api::blog-post.blog-post'
     >;
-    description: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -956,6 +957,7 @@ export interface ApiBlogPostTypeBlogPostType extends Schema.CollectionType {
     singularName: 'blog-post-type';
     pluralName: 'blog-post-types';
     displayName: 'Blog Post Type';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -963,12 +965,12 @@ export interface ApiBlogPostTypeBlogPostType extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     slug: Attribute.UID;
+    description: Attribute.Text;
     blog_posts: Attribute.Relation<
       'api::blog-post-type.blog-post-type',
       'oneToMany',
       'api::blog-post.blog-post'
     >;
-    description: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
