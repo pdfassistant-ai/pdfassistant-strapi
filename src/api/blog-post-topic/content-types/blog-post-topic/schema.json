@@ -25,7 +25,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::blog-post.blog-post",
-      "inversedBy": "blog_post_topics"
+      "mappedBy": "blog_post_topics"
     }
   }
 }
