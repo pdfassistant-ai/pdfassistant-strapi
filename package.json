@@ -13,6 +13,7 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
     "strapi": "^3.6.11",
+    "strapi-plugin-duplicate-button": "^1.1.14",
     "styled-components": "5.3.3"
   },
   "name": "my-app-name",
