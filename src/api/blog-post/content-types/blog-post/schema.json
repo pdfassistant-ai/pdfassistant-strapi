@@ -46,13 +46,15 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::blog-post-topic.blog-post-topic",
-      "inversedBy": "blog_posts"
+      "inversedBy": "blog_posts",
+      "required": true
     },
     "blog_post_type": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::blog-post-type.blog-post-type",
-      "inversedBy": "blog_posts"
+      "inversedBy": "blog_posts",
+      "required": true
     },
     "blocks": {
       "type": "dynamiczone",

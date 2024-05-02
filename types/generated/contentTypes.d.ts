@@ -911,12 +911,14 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
       'api::blog-post.blog-post',
       'manyToMany',
       'api::blog-post-topic.blog-post-topic'
-    >;
+    > &
+      Attribute.Required;
     blog_post_type: Attribute.Relation<
       'api::blog-post.blog-post',
       'manyToOne',
       'api::blog-post-type.blog-post-type'
-    >;
+    > &
+      Attribute.Required;
     blocks: Attribute.DynamicZone<['shared.rich-text']> & Attribute.Required;
     seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
