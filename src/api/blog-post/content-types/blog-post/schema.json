@@ -13,15 +13,18 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
       "type": "text",
-      "maxLength": 80
+      "maxLength": 80,
+      "required": true
     },
     "slug": {
       "type": "uid",
-      "targetField": "title"
+      "targetField": "title",
+      "required": true
     },
     "cover": {
       "type": "media",
@@ -45,20 +48,18 @@
       "target": "api::blog-post-topic.blog-post-topic",
       "inversedBy": "blog_posts"
     },
-    "blocks": {
-      "type": "dynamiczone",
-      "components": [
-        "shared.media",
-        "shared.quote",
-        "shared.rich-text",
-        "shared.slider"
-      ]
-    },
     "blog_post_type": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::blog-post-type.blog-post-type",
       "inversedBy": "blog_posts"
+    },
+    "blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.rich-text"
+      ],
+      "required": true
     },
     "seo": {
       "type": "component",

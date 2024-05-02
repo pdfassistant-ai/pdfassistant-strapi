@@ -893,12 +893,14 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
+    title: Attribute.String & Attribute.Required;
     description: Attribute.Text &
+      Attribute.Required &
       Attribute.SetMinMaxLength<{
         maxLength: 80;
       }>;
-    slug: Attribute.UID<'api::blog-post.blog-post', 'title'>;
+    slug: Attribute.UID<'api::blog-post.blog-post', 'title'> &
+      Attribute.Required;
     cover: Attribute.Media;
     author: Attribute.Relation<
       'api::blog-post.blog-post',
@@ -910,14 +912,12 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
       'manyToMany',
       'api::blog-post-topic.blog-post-topic'
     >;
-    blocks: Attribute.DynamicZone<
-      ['shared.media', 'shared.quote', 'shared.rich-text', 'shared.slider']
-    >;
     blog_post_type: Attribute.Relation<
       'api::blog-post.blog-post',
       'manyToOne',
       'api::blog-post-type.blog-post-type'
     >;
+    blocks: Attribute.DynamicZone<['shared.rich-text']> & Attribute.Required;
     seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -949,8 +949,9 @@ export interface ApiBlogPostTopicBlogPostTopic extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
-    slug: Attribute.UID;
+    name: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'api::blog-post-topic.blog-post-topic', 'name'> &
+      Attribute.Required;
     description: Attribute.Text;
     blog_posts: Attribute.Relation<
       'api::blog-post-topic.blog-post-topic',
@@ -987,8 +988,9 @@ export interface ApiBlogPostTypeBlogPostType extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
-    slug: Attribute.UID;
+    name: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'api::blog-post-type.blog-post-type', 'name'> &
+      Attribute.Required;
     description: Attribute.Text;
     blog_posts: Attribute.Relation<
       'api::blog-post-type.blog-post-type',
