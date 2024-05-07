@@ -919,7 +919,8 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
       'api::blog-post-type.blog-post-type'
     > &
       Attribute.Required;
-    blocks: Attribute.DynamicZone<['shared.rich-text']> & Attribute.Required;
+    blocks: Attribute.DynamicZone<['shared.rich-text', 'shared.html']> &
+      Attribute.Required;
     seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

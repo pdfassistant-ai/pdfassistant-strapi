@@ -1,5 +1,17 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface SharedHtml extends Schema.Component {
+  collectionName: 'components_shared_htmls';
+  info: {
+    displayName: 'HTML';
+    icon: 'code';
+    description: '';
+  };
+  attributes: {
+    body: Attribute.RichText;
+  };
+}
+
 export interface SharedMedia extends Schema.Component {
   collectionName: 'components_shared_media';
   info: {
@@ -26,8 +38,8 @@ export interface SharedQuote extends Schema.Component {
 export interface SharedRichText extends Schema.Component {
   collectionName: 'components_shared_rich_texts';
   info: {
-    displayName: 'Rich text';
-    icon: 'align-justify';
+    displayName: 'Markdown';
+    icon: 'strikeThrough';
     description: '';
   };
   attributes: {
@@ -47,6 +59,7 @@ export interface SharedSeo extends Schema.Component {
     metaTitle: Attribute.String & Attribute.Required;
     metaDescription: Attribute.Text & Attribute.Required;
     shareImage: Attribute.Media;
+    canonicalUrl: Attribute.String;
   };
 }
 
@@ -65,6 +78,7 @@ export interface SharedSlider extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'shared.html': SharedHtml;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;

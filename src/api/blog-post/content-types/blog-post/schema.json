@@ -59,7 +59,8 @@
     "blocks": {
       "type": "dynamiczone",
       "components": [
-        "shared.rich-text"
+        "shared.rich-text",
+        "shared.html"
       ],
       "required": true
     },

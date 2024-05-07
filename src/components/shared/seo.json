@@ -23,6 +23,9 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "canonicalUrl": {
+      "type": "string"
     }
   }
 }
