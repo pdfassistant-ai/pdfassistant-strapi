@@ -38,7 +38,8 @@
     },
     "publish_date": {
       "type": "datetime",
-      "required": true
+      "required": true,
+      "default": "2024-05-14T05:00:01.148Z"
     },
     "blog_post_topics": {
       "type": "relation",

@@ -832,7 +832,9 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
     slug: Attribute.UID<'api::blog-post.blog-post', 'title'> &
       Attribute.Required;
     cover: Attribute.Media;
-    publish_date: Attribute.DateTime & Attribute.Required;
+    publish_date: Attribute.DateTime &
+      Attribute.Required &
+      Attribute.DefaultTo<'2024-05-14T05:00:01.148Z'>;
     blog_post_topics: Attribute.Relation<
       'api::blog-post.blog-post',
       'manyToMany',
