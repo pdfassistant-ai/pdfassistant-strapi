@@ -42,6 +42,10 @@
       "target": "api::author.author",
       "inversedBy": "articles"
     },
+    "publish_date": {
+      "type": "datetime",
+      "required": true
+    },
     "blog_post_topics": {
       "type": "relation",
       "relation": "manyToMany",

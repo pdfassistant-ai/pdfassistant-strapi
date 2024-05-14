@@ -907,6 +907,7 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
       'manyToOne',
       'api::author.author'
     >;
+    publish_date: Attribute.DateTime & Attribute.Required;
     blog_post_topics: Attribute.Relation<
       'api::blog-post.blog-post',
       'manyToMany',
