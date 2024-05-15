@@ -1,6 +1,9 @@
 module.exports = () => ({
-    'duplicate-button': true,
-    seo: {
-        enabled: true,
-      },
+  'duplicate-button': true,
+  seo: {
+      enabled: true,
+    },
+  'publisher': {
+    enabled: true,
+  },
 });
