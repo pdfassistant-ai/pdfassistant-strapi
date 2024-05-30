@@ -987,6 +987,40 @@ export interface ApiBlogPostTypeBlogPostType extends Schema.CollectionType {
   };
 }
 
+export interface ApiChatFeedbackModalChatFeedbackModal
+  extends Schema.SingleType {
+  collectionName: 'chat_feedback_modals';
+  info: {
+    singularName: 'chat-feedback-modal';
+    pluralName: 'chat-feedback-modals';
+    displayName: 'Chat Feedback Modal';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    prompts: Attribute.Component<'shared.rich-text', true>;
+    input_placeholder: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::chat-feedback-modal.chat-feedback-modal',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::chat-feedback-modal.chat-feedback-modal',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Schema.SingleType {
   collectionName: 'globals';
   info: {
@@ -1043,6 +1077,7 @@ declare module '@strapi/types' {
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
       'api::blog-post-topic.blog-post-topic': ApiBlogPostTopicBlogPostTopic;
       'api::blog-post-type.blog-post-type': ApiBlogPostTypeBlogPostType;
+      'api::chat-feedback-modal.chat-feedback-modal': ApiChatFeedbackModalChatFeedbackModal;
       'api::global.global': ApiGlobalGlobal;
     }
   }

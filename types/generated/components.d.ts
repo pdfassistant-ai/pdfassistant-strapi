@@ -43,7 +43,7 @@ export interface SharedRichText extends Schema.Component {
     description: '';
   };
   attributes: {
-    body: Attribute.RichText;
+    text: Attribute.String;
   };
 }
 

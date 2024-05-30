@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "chat_feedback_modals",
+  "info": {
+    "singularName": "chat-feedback-modal",
+    "pluralName": "chat-feedback-modals",
+    "displayName": "Chat Feedback Modal",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "prompts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.rich-text"
+    },
+    "input_placeholder": {
+      "type": "string"
+    }
+  }
+}
