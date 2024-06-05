@@ -7,8 +7,8 @@
   },
   "options": {},
   "attributes": {
-    "text": {
-      "type": "string"
+    "body": {
+      "type": "richtext"
     }
   }
 }

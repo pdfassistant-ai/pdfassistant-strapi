@@ -15,13 +15,14 @@
     "title": {
       "type": "string"
     },
-    "prompts": {
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.rich-text"
-    },
     "input_placeholder": {
       "type": "string"
+    },
+    "prompts": {
+      "displayName": "String",
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.string"
     }
   }
 }

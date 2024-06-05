@@ -1001,8 +1001,8 @@ export interface ApiChatFeedbackModalChatFeedbackModal
   };
   attributes: {
     title: Attribute.String;
-    prompts: Attribute.Component<'shared.rich-text', true>;
     input_placeholder: Attribute.String;
+    prompts: Attribute.Component<'shared.string', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

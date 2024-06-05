@@ -43,7 +43,7 @@ export interface SharedRichText extends Schema.Component {
     description: '';
   };
   attributes: {
-    text: Attribute.String;
+    body: Attribute.RichText;
   };
 }
 
@@ -75,6 +75,16 @@ export interface SharedSlider extends Schema.Component {
   };
 }
 
+export interface SharedString extends Schema.Component {
+  collectionName: 'components_shared_strings';
+  info: {
+    displayName: 'String';
+  };
+  attributes: {
+    text: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -84,6 +94,7 @@ declare module '@strapi/types' {
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
+      'shared.string': SharedString;
     }
   }
 }
