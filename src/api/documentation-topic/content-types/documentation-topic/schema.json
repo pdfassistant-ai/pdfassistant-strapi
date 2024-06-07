@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "documentation_topics",
+  "info": {
+    "singularName": "documentation-topic",
+    "pluralName": "documentation-topics",
+    "displayName": "Documentation Topic",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "required": false
+    },
+    "creation_date": {
+      "type": "date"
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "description": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "documentation_sections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::documentation-section.documentation-section"
+    }
+  }
+}
