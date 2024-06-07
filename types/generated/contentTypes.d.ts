@@ -1021,6 +1021,129 @@ export interface ApiChatFeedbackModalChatFeedbackModal
   };
 }
 
+export interface ApiDocumentationDocumentation extends Schema.SingleType {
+  collectionName: 'documentations';
+  info: {
+    singularName: 'documentation';
+    pluralName: 'documentations';
+    displayName: 'Documentation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    seo: Attribute.Component<'shared.seo'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::documentation.documentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::documentation.documentation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDocumentationSectionDocumentationSection
+  extends Schema.CollectionType {
+  collectionName: 'documentation_sections';
+  info: {
+    singularName: 'documentation-section';
+    pluralName: 'documentation-sections';
+    displayName: 'Documentation Section';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Attribute.RichText & Attribute.Required;
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    creation_date: Attribute.Date;
+    documentation_subsections: Attribute.Relation<
+      'api::documentation-section.documentation-section',
+      'oneToMany',
+      'api::documentation-section.documentation-section'
+    >;
+    slug: Attribute.UID<
+      'api::documentation-section.documentation-section',
+      'title'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::documentation-section.documentation-section',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::documentation-section.documentation-section',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiDocumentationTopicDocumentationTopic
+  extends Schema.CollectionType {
+  collectionName: 'documentation_topics';
+  info: {
+    singularName: 'documentation-topic';
+    pluralName: 'documentation-topics';
+    displayName: 'Documentation Topic';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Attribute.RichText;
+    creation_date: Attribute.Date;
+    title: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    slug: Attribute.UID<
+      'api::documentation-topic.documentation-topic',
+      'title'
+    > &
+      Attribute.Required;
+    documentation_sections: Attribute.Relation<
+      'api::documentation-topic.documentation-topic',
+      'oneToMany',
+      'api::documentation-section.documentation-section'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::documentation-topic.documentation-topic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::documentation-topic.documentation-topic',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+
+
 export interface ApiGlobalGlobal extends Schema.SingleType {
   collectionName: 'globals';
   info: {
@@ -1078,6 +1201,9 @@ declare module '@strapi/types' {
       'api::blog-post-topic.blog-post-topic': ApiBlogPostTopicBlogPostTopic;
       'api::blog-post-type.blog-post-type': ApiBlogPostTypeBlogPostType;
       'api::chat-feedback-modal.chat-feedback-modal': ApiChatFeedbackModalChatFeedbackModal;
+      'api::documentation.documentation': ApiDocumentationDocumentation;
+      'api::documentation-section.documentation-section': ApiDocumentationSectionDocumentationSection;
+      'api::documentation-topic.documentation-topic': ApiDocumentationTopicDocumentationTopic;
       'api::global.global': ApiGlobalGlobal;
     }
   }
