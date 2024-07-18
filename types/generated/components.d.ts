@@ -1,5 +1,23 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
+  };
+}
+
 export interface SharedHtml extends Schema.Component {
   collectionName: 'components_shared_htmls';
   info: {
@@ -88,6 +106,7 @@ export interface SharedString extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'header.link': HeaderLink;
       'shared.html': SharedHtml;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
