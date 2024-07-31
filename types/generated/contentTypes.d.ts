@@ -872,7 +872,7 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
       }>;
     slug: Attribute.UID<'api::blog-post.blog-post', 'title'> &
       Attribute.Required;
-    cover: Attribute.Media;
+    cover: Attribute.Media<'images' | 'files' | 'videos'>;
     publish_date: Attribute.DateTime &
       Attribute.Required &
       Attribute.DefaultTo<'2024-05-14T05:00:01.148Z'>;
@@ -1155,7 +1155,7 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
   attributes: {
     siteName: Attribute.String & Attribute.Required;
-    favicon: Attribute.Media;
+    favicon: Attribute.Media<'images' | 'files' | 'videos'>;
     siteDescription: Attribute.Text & Attribute.Required;
     defaultSeo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
@@ -1180,7 +1180,8 @@ export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
   info: {
     singularName: 'pdfrest-global';
     pluralName: 'pdfrest-globals';
-    displayName: 'pdfrest Global';
+    displayName: 'PdfRest Global';
+    description: '';
   };
   options: {
     draftAndPublish: true;
