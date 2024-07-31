@@ -15,6 +15,7 @@
     "react-router-dom": "5.3.4",
     "strapi": "^3.6.11",
     "strapi-plugin-duplicate-button": "^1.1.14",
+    "strapi-plugin-import-export-entries": "^1.23.1",
     "strapi-plugin-publisher": "^1.5.7",
     "styled-components": "5.3.3"
   },
