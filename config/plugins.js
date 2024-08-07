@@ -6,4 +6,7 @@ module.exports = () => ({
   'publisher': {
     enabled: true,
   },
+  'import-export-entries': {
+    enabled: true,
+  },
 });

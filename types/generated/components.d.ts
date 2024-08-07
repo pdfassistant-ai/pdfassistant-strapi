@@ -1,37 +1,40 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface SharedHtml extends Schema.Component {
-  collectionName: 'components_shared_htmls';
+export interface SharedString extends Schema.Component {
+  collectionName: 'components_shared_strings';
   info: {
-    displayName: 'HTML';
-    icon: 'code';
+    displayName: 'String';
+  };
+  attributes: {
+    text: Attribute.String;
+  };
+}
+
+export interface SharedSlider extends Schema.Component {
+  collectionName: 'components_shared_sliders';
+  info: {
+    displayName: 'Slider';
+    icon: 'address-book';
     description: '';
   };
   attributes: {
-    body: Attribute.RichText;
+    files: Attribute.Media<'images', true>;
   };
 }
 
-export interface SharedMedia extends Schema.Component {
-  collectionName: 'components_shared_media';
+export interface SharedSeo extends Schema.Component {
+  collectionName: 'components_shared_seos';
   info: {
-    displayName: 'Media';
-    icon: 'file-video';
+    name: 'Seo';
+    icon: 'allergies';
+    displayName: 'Seo';
+    description: '';
   };
   attributes: {
-    file: Attribute.Media;
-  };
-}
-
-export interface SharedQuote extends Schema.Component {
-  collectionName: 'components_shared_quotes';
-  info: {
-    displayName: 'Quote';
-    icon: 'indent';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.Text;
+    metaTitle: Attribute.String & Attribute.Required;
+    metaDescription: Attribute.Text & Attribute.Required;
+    shareImage: Attribute.Media<'images'>;
+    canonicalUrl: Attribute.String;
   };
 }
 
@@ -47,54 +50,70 @@ export interface SharedRichText extends Schema.Component {
   };
 }
 
-export interface SharedSeo extends Schema.Component {
-  collectionName: 'components_shared_seos';
+export interface SharedQuote extends Schema.Component {
+  collectionName: 'components_shared_quotes';
   info: {
-    name: 'Seo';
-    icon: 'allergies';
-    displayName: 'Seo';
-    description: '';
+    displayName: 'Quote';
+    icon: 'indent';
   };
   attributes: {
-    metaTitle: Attribute.String & Attribute.Required;
-    metaDescription: Attribute.Text & Attribute.Required;
-    shareImage: Attribute.Media;
-    canonicalUrl: Attribute.String;
+    title: Attribute.String;
+    body: Attribute.Text;
   };
 }
 
-export interface SharedSlider extends Schema.Component {
-  collectionName: 'components_shared_sliders';
+export interface SharedMedia extends Schema.Component {
+  collectionName: 'components_shared_media';
   info: {
-    displayName: 'Slider';
-    icon: 'address-book';
-    description: '';
+    displayName: 'Media';
+    icon: 'file-video';
   };
   attributes: {
-    files: Attribute.Media;
+    file: Attribute.Media<'images' | 'files' | 'videos'>;
   };
 }
 
-export interface SharedString extends Schema.Component {
-  collectionName: 'components_shared_strings';
+export interface SharedHtml extends Schema.Component {
+  collectionName: 'components_shared_htmls';
   info: {
-    displayName: 'String';
+    displayName: 'HTML';
+    icon: 'code';
+    description: '';
   };
   attributes: {
-    text: Attribute.String;
+    body: Attribute.RichText;
+  };
+}
+
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
   };
 }
 
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'shared.html': SharedHtml;
-      'shared.media': SharedMedia;
-      'shared.quote': SharedQuote;
-      'shared.rich-text': SharedRichText;
-      'shared.seo': SharedSeo;
-      'shared.slider': SharedSlider;
       'shared.string': SharedString;
+      'shared.slider': SharedSlider;
+      'shared.seo': SharedSeo;
+      'shared.rich-text': SharedRichText;
+      'shared.quote': SharedQuote;
+      'shared.media': SharedMedia;
+      'shared.html': SharedHtml;
+      'header.link': HeaderLink;
     }
   }
 }

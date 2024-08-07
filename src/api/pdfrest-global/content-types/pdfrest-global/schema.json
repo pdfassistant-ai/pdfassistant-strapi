@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfrest_globals",
+  "info": {
+    "singularName": "pdfrest-global",
+    "pluralName": "pdfrest-globals",
+    "displayName": "PdfRest Global",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nav": {
+      "type": "dynamiczone",
+      "components": [
+        "header.link"
+      ]
+    }
+  }
+}

@@ -872,7 +872,7 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
       }>;
     slug: Attribute.UID<'api::blog-post.blog-post', 'title'> &
       Attribute.Required;
-    cover: Attribute.Media;
+    cover: Attribute.Media<'images' | 'files' | 'videos'>;
     publish_date: Attribute.DateTime &
       Attribute.Required &
       Attribute.DefaultTo<'2024-05-14T05:00:01.148Z'>;
@@ -1142,8 +1142,6 @@ export interface ApiDocumentationTopicDocumentationTopic
   };
 }
 
-
-
 export interface ApiGlobalGlobal extends Schema.SingleType {
   collectionName: 'globals';
   info: {
@@ -1157,7 +1155,7 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
   attributes: {
     siteName: Attribute.String & Attribute.Required;
-    favicon: Attribute.Media;
+    favicon: Attribute.Media<'images' | 'files' | 'videos'>;
     siteDescription: Attribute.Text & Attribute.Required;
     defaultSeo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
@@ -1170,6 +1168,37 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::global.global',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
+  collectionName: 'pdfrest_globals';
+  info: {
+    singularName: 'pdfrest-global';
+    pluralName: 'pdfrest-globals';
+    displayName: 'PdfRest Global';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    nav: Attribute.DynamicZone<['header.link']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-global.pdfrest-global',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-global.pdfrest-global',
       'oneToOne',
       'admin::user'
     > &
@@ -1205,6 +1234,7 @@ declare module '@strapi/types' {
       'api::documentation-section.documentation-section': ApiDocumentationSectionDocumentationSection;
       'api::documentation-topic.documentation-topic': ApiDocumentationTopicDocumentationTopic;
       'api::global.global': ApiGlobalGlobal;
+      'api::pdfrest-global.pdfrest-global': ApiPdfrestGlobalPdfrestGlobal;
     }
   }
 }
