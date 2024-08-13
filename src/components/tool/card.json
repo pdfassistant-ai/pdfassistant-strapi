@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_tool_cards",
+  "info": {
+    "displayName": "Card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext"
+    }
+  }
+}

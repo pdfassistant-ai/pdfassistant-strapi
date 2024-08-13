@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "api_tool_endpoints",
+  "info": {
+    "singularName": "api-tool-endpoint",
+    "pluralName": "api-tool-endpoints",
+    "displayName": "API Tool Endpoint"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "endpoint": {
+      "type": "string"
+    },
+    "api_lab_json": {
+      "type": "json"
+    },
+    "api_tool": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::api-tool.api-tool",
+      "inversedBy": "api_tool_endpoints"
+    }
+  }
+}

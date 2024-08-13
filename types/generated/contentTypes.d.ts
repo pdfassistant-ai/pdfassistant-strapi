@@ -829,6 +829,134 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiApiToolApiTool extends Schema.CollectionType {
+  collectionName: 'api_tools';
+  info: {
+    singularName: 'api-tool';
+    pluralName: 'api-tools';
+    displayName: 'API Tool';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    tool_page_desc: Attribute.RichText;
+    new_tool: Attribute.Boolean;
+    pro_tool: Attribute.Boolean;
+    api_tool_bucket: Attribute.Relation<
+      'api::api-tool.api-tool',
+      'manyToOne',
+      'api::api-tool-bucket.api-tool-bucket'
+    >;
+    header_blurb: Attribute.String;
+    tool_card_desc: Attribute.Text;
+    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    youtube_url: Attribute.String;
+    parameters: Attribute.DynamicZone<['tool.parameter']>;
+    api_tool_endpoints: Attribute.Relation<
+      'api::api-tool.api-tool',
+      'oneToMany',
+      'api::api-tool-endpoint.api-tool-endpoint'
+    >;
+    why_cards: Attribute.DynamicZone<['tool.card']>;
+    why_section_title: Attribute.String;
+    why_section_desc: Attribute.Text;
+    slug: Attribute.UID<'api::api-tool.api-tool', 'name'>;
+    seo: Attribute.Component<'shared.seo'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::api-tool.api-tool',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::api-tool.api-tool',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiApiToolBucketApiToolBucket extends Schema.CollectionType {
+  collectionName: 'api_tool_buckets';
+  info: {
+    singularName: 'api-tool-bucket';
+    pluralName: 'api-tool-buckets';
+    displayName: 'API Tool Bucket';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.Text;
+    api_tools: Attribute.Relation<
+      'api::api-tool-bucket.api-tool-bucket',
+      'oneToMany',
+      'api::api-tool.api-tool'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::api-tool-bucket.api-tool-bucket',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::api-tool-bucket.api-tool-bucket',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiApiToolEndpointApiToolEndpoint
+  extends Schema.CollectionType {
+  collectionName: 'api_tool_endpoints';
+  info: {
+    singularName: 'api-tool-endpoint';
+    pluralName: 'api-tool-endpoints';
+    displayName: 'API Tool Endpoint';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    endpoint: Attribute.String;
+    api_lab_json: Attribute.JSON;
+    api_tool: Attribute.Relation<
+      'api::api-tool-endpoint.api-tool-endpoint',
+      'manyToOne',
+      'api::api-tool.api-tool'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::api-tool-endpoint.api-tool-endpoint',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::api-tool-endpoint.api-tool-endpoint',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiBlogBlog extends Schema.SingleType {
   collectionName: 'blogs';
   info: {
@@ -1188,6 +1316,7 @@ export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
   };
   attributes: {
     nav: Attribute.DynamicZone<['header.link']>;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1225,6 +1354,9 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::api-tool.api-tool': ApiApiToolApiTool;
+      'api::api-tool-bucket.api-tool-bucket': ApiApiToolBucketApiToolBucket;
+      'api::api-tool-endpoint.api-tool-endpoint': ApiApiToolEndpointApiToolEndpoint;
       'api::blog.blog': ApiBlogBlog;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
       'api::blog-post-topic.blog-post-topic': ApiBlogPostTopicBlogPostTopic;

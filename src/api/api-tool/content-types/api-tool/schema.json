@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "api_tools",
+  "info": {
+    "singularName": "api-tool",
+    "pluralName": "api-tools",
+    "displayName": "API Tool",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "tool_page_desc": {
+      "type": "richtext"
+    },
+    "new_tool": {
+      "type": "boolean"
+    },
+    "pro_tool": {
+      "type": "boolean"
+    },
+    "api_tool_bucket": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::api-tool-bucket.api-tool-bucket",
+      "inversedBy": "api_tools"
+    },
+    "header_blurb": {
+      "type": "string"
+    },
+    "tool_card_desc": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "youtube_url": {
+      "type": "string"
+    },
+    "parameters": {
+      "type": "dynamiczone",
+      "components": [
+        "tool.parameter"
+      ]
+    },
+    "api_tool_endpoints": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::api-tool-endpoint.api-tool-endpoint",
+      "mappedBy": "api_tool"
+    },
+    "why_cards": {
+      "type": "dynamiczone",
+      "components": [
+        "tool.card"
+      ]
+    },
+    "why_section_title": {
+      "type": "string"
+    },
+    "why_section_desc": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}
