@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "api_tool_buckets",
+  "info": {
+    "singularName": "api-tool-bucket",
+    "pluralName": "api-tool-buckets",
+    "displayName": "API Tool Bucket",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "api_tools": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::api-tool.api-tool",
+      "mappedBy": "api_tool_bucket"
+    }
+  }
+}

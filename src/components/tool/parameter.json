@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_tool_parameters",
+  "info": {
+    "displayName": "Parameter",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}
