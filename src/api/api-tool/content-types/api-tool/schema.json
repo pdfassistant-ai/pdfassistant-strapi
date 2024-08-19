@@ -82,6 +82,12 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.seo"
+    },
+    "faq": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.faq"
+      ]
     }
   }
 }

@@ -865,6 +865,7 @@ export interface ApiApiToolApiTool extends Schema.CollectionType {
     why_section_desc: Attribute.Text;
     slug: Attribute.UID<'api::api-tool.api-tool', 'name'>;
     seo: Attribute.Component<'shared.seo'>;
+    faq: Attribute.DynamicZone<['shared.faq']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
