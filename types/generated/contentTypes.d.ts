@@ -865,6 +865,7 @@ export interface ApiApiToolApiTool extends Schema.CollectionType {
     why_section_desc: Attribute.Text;
     slug: Attribute.UID<'api::api-tool.api-tool', 'name'>;
     seo: Attribute.Component<'shared.seo'>;
+    faq: Attribute.DynamicZone<['shared.faq']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -992,32 +993,26 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String & Attribute.Required;
+    title: Attribute.String;
     description: Attribute.Text &
-      Attribute.Required &
       Attribute.SetMinMaxLength<{
         maxLength: 80;
       }>;
-    slug: Attribute.UID<'api::blog-post.blog-post', 'title'> &
-      Attribute.Required;
+    slug: Attribute.UID<'api::blog-post.blog-post', 'title'>;
     cover: Attribute.Media<'images' | 'files' | 'videos'>;
     publish_date: Attribute.DateTime &
-      Attribute.Required &
       Attribute.DefaultTo<'2024-05-14T05:00:01.148Z'>;
     blog_post_topics: Attribute.Relation<
       'api::blog-post.blog-post',
       'manyToMany',
       'api::blog-post-topic.blog-post-topic'
-    > &
-      Attribute.Required;
+    >;
     blog_post_type: Attribute.Relation<
       'api::blog-post.blog-post',
       'manyToOne',
       'api::blog-post-type.blog-post-type'
-    > &
-      Attribute.Required;
-    blocks: Attribute.DynamicZone<['shared.rich-text', 'shared.html']> &
-      Attribute.Required;
+    >;
+    blocks: Attribute.DynamicZone<['shared.rich-text', 'shared.html']>;
     seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

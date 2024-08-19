@@ -14,17 +14,17 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "description": {
       "type": "text",
       "maxLength": 80,
-      "required": true
+      "required": false
     },
     "slug": {
       "type": "uid",
       "targetField": "title",
-      "required": true
+      "required": false
     },
     "cover": {
       "type": "media",
@@ -38,7 +38,7 @@
     },
     "publish_date": {
       "type": "datetime",
-      "required": true,
+      "required": false,
       "default": "2024-05-14T05:00:01.148Z"
     },
     "blog_post_topics": {
@@ -46,14 +46,14 @@
       "relation": "manyToMany",
       "target": "api::blog-post-topic.blog-post-topic",
       "inversedBy": "blog_posts",
-      "required": true
+      "required": false
     },
     "blog_post_type": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::blog-post-type.blog-post-type",
       "inversedBy": "blog_posts",
-      "required": true
+      "required": false
     },
     "blocks": {
       "type": "dynamiczone",
@@ -61,7 +61,7 @@
         "shared.rich-text",
         "shared.html"
       ],
-      "required": true
+      "required": false
     },
     "seo": {
       "type": "component",
