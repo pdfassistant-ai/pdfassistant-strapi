@@ -24,6 +24,24 @@ export interface ToolCard extends Schema.Component {
   };
 }
 
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
+  };
+}
+
 export interface SharedString extends Schema.Component {
   collectionName: 'components_shared_strings';
   info: {
@@ -121,29 +139,12 @@ export interface SharedFaq extends Schema.Component {
   };
 }
 
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'tool.parameter': ToolParameter;
       'tool.card': ToolCard;
+      'header.link': HeaderLink;
       'shared.string': SharedString;
       'shared.slider': SharedSlider;
       'shared.seo': SharedSeo;
@@ -152,7 +153,6 @@ declare module '@strapi/types' {
       'shared.media': SharedMedia;
       'shared.html': SharedHtml;
       'shared.faq': SharedFaq;
-      'header.link': HeaderLink;
     }
   }
 }
