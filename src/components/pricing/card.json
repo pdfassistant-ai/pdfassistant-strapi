@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_pricing_cards",
+  "info": {
+    "displayName": "card",
+    "icon": "priceTag",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "features": {
+      "displayName": "Feature",
+      "type": "component",
+      "repeatable": true,
+      "component": "pricing.feature"
+    },
+    "price": {
+      "type": "string"
+    },
+    "discounted_price": {
+      "type": "string"
+    },
+    "user_state": {
+      "type": "json"
+    },
+    "discount_text": {
+      "type": "string"
+    }
+  }
+}
