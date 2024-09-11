@@ -1,0 +1,34 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfassistant_pricings",
+  "info": {
+    "singularName": "pdfassistant-pricing",
+    "pluralName": "pdfassistant-pricings",
+    "displayName": "Pdfassistant Pricing",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "faq": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.faq"
+      ]
+    },
+    "credit_plans": {
+      "type": "dynamiczone",
+      "components": [
+        "pricing.card"
+      ]
+    }
+  }
+}
