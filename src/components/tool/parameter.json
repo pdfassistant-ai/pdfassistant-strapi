@@ -2,7 +2,8 @@
   "collectionName": "components_tool_parameters",
   "info": {
     "displayName": "Parameter",
-    "icon": "apps"
+    "icon": "apps",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -11,6 +12,10 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "highlighted_parameter": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
