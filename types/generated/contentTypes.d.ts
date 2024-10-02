@@ -1349,6 +1349,12 @@ export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
   attributes: {
     nav: Attribute.DynamicZone<['header.link']>;
     seo: Attribute.Component<'shared.seo'>;
+    api_tool_buckets: Attribute.Relation<
+      'api::pdfrest-global.pdfrest-global',
+      'oneToMany',
+      'api::api-tool-bucket.api-tool-bucket'
+    >;
+    footer_developers: Attribute.DynamicZone<['header.link']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
