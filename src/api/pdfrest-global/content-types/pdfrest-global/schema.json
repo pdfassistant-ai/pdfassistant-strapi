@@ -22,6 +22,17 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.seo"
+    },
+    "api_tool_buckets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::api-tool-bucket.api-tool-bucket"
+    },
+    "footer_developers": {
+      "type": "dynamiczone",
+      "components": [
+        "header.link"
+      ]
     }
   }
 }
