@@ -1355,6 +1355,7 @@ export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
       'api::api-tool-bucket.api-tool-bucket'
     >;
     footer_developers: Attribute.DynamicZone<['header.link']>;
+    footer_products: Attribute.DynamicZone<['header.link']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
