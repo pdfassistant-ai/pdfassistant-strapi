@@ -33,6 +33,12 @@
       "components": [
         "header.link"
       ]
+    },
+    "footer_products": {
+      "type": "dynamiczone",
+      "components": [
+        "header.link"
+      ]
     }
   }
 }
