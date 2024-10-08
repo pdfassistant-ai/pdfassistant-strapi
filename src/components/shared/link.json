@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_shared_links",
+  "info": {
+    "displayName": "Link",
+    "icon": "link"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "external": {
+      "type": "boolean"
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": [
+        "_blank"
+      ]
+    },
+    "children": {
+      "type": "json"
+    }
+  }
+}
