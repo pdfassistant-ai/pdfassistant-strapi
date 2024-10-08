@@ -1347,15 +1347,15 @@ export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    nav: Attribute.DynamicZone<['shared.link']>;
+    nav: Attribute.DynamicZone<['header.link']>;
     seo: Attribute.Component<'shared.seo'>;
     api_tool_buckets: Attribute.Relation<
       'api::pdfrest-global.pdfrest-global',
       'oneToMany',
       'api::api-tool-bucket.api-tool-bucket'
     >;
-    footer_developers: Attribute.DynamicZone<['shared.link']>;
-    footer_products: Attribute.DynamicZone<['shared.link']>;
+    footer_developers: Attribute.DynamicZone<['header.link']>;
+    footer_products: Attribute.DynamicZone<['header.link']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1367,57 +1367,6 @@ export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::pdfrest-global.pdfrest-global',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
-  collectionName: 'pdfrest_products';
-  info: {
-    singularName: 'pdfrest-product';
-    pluralName: 'pdfrest-products';
-    displayName: 'Pdfrest Product';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    cta: Attribute.Component<'shared.cta'>;
-    overview_cards: Attribute.DynamicZone<['shared.card']>;
-    overview_sections: Attribute.DynamicZone<['shared.card']>;
-    tools_section_title: Attribute.String;
-    tools_section_description: Attribute.RichText;
-    tools: Attribute.Component<'product.tool-group', true>;
-    pricing_section_title: Attribute.String & Attribute.DefaultTo<'Pricing'>;
-    pricing_section_description: Attribute.RichText;
-    pricing_content: Attribute.DynamicZone<
-      ['pricing.card', 'shared.rich-text']
-    >;
-    pricing_links: Attribute.Component<'shared.link', true>;
-    docs_section_title: Attribute.String;
-    docs_section_description: Attribute.RichText;
-    docs_links: Attribute.Component<'shared.link', true>;
-    icon: Attribute.String;
-    slug: Attribute.UID<'api::pdfrest-product.pdfrest-product', 'title'>;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-product.pdfrest-product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-product.pdfrest-product',
       'oneToOne',
       'admin::user'
     > &
@@ -1458,7 +1407,6 @@ declare module '@strapi/types' {
       'api::global.global': ApiGlobalGlobal;
       'api::pdfassistant-pricing.pdfassistant-pricing': ApiPdfassistantPricingPdfassistantPricing;
       'api::pdfrest-global.pdfrest-global': ApiPdfrestGlobalPdfrestGlobal;
-      'api::pdfrest-product.pdfrest-product': ApiPdfrestProductPdfrestProduct;
     }
   }
 }
