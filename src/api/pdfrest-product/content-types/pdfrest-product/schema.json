@@ -1,0 +1,100 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pdfrest_products",
+  "info": {
+    "singularName": "pdfrest-product",
+    "pluralName": "pdfrest-products",
+    "displayName": "Pdfrest Product"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "cta": {
+      "displayName": "CTA",
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
+    },
+    "overview_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "overview_sections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "tools_section_title": {
+      "type": "string"
+    },
+    "tools_section_description": {
+      "type": "richtext"
+    },
+    "tool_groups": {
+      "displayName": "Tool Group",
+      "type": "component",
+      "repeatable": true,
+      "component": "product.tool-group"
+    },
+    "pricing_section_title": {
+      "type": "string"
+    },
+    "pricing_section_description": {
+      "type": "richtext"
+    },
+    "pricing_content": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.rich-text",
+        "pricing.card"
+      ]
+    },
+    "pricing_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "header.link"
+    },
+    "docs_section_title": {
+      "type": "string"
+    },
+    "docs_section_description": {
+      "type": "richtext"
+    },
+    "docs_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "header.link"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}
