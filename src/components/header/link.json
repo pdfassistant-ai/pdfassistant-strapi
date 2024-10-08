@@ -1,8 +1,9 @@
 {
-  "collectionName": "components_shared_links",
+  "collectionName": "components_header_links",
   "info": {
     "displayName": "Link",
-    "icon": "link"
+    "icon": "link",
+    "description": ""
   },
   "options": {},
   "attributes": {

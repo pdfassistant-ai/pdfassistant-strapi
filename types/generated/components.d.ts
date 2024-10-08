@@ -1,5 +1,78 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface ToolParameter extends Schema.Component {
+  collectionName: 'components_tool_parameters';
+  info: {
+    displayName: 'Parameter';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText;
+    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
+  };
+}
+
+export interface ToolCard extends Schema.Component {
+  collectionName: 'components_tool_cards';
+  info: {
+    displayName: 'Card';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.RichText;
+  };
+}
+
+export interface ProductToolGroup extends Schema.Component {
+  collectionName: 'components_product_tool_groups';
+  info: {
+    displayName: 'Tool Group';
+    icon: 'apps';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    api_tools: Attribute.Relation<
+      'product.tool-group',
+      'oneToMany',
+      'api::api-tool.api-tool'
+    >;
+  };
+}
+
+export interface PricingFeature extends Schema.Component {
+  collectionName: 'components_pricing_features';
+  info: {
+    displayName: 'Feature';
+    icon: 'check';
+    description: '';
+  };
+  attributes: {
+    detail: Attribute.String;
+  };
+}
+
+export interface PricingCard extends Schema.Component {
+  collectionName: 'components_pricing_cards';
+  info: {
+    displayName: 'card';
+    icon: 'priceTag';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    features: Attribute.Component<'pricing.feature', true>;
+    price: Attribute.String;
+    discounted_price: Attribute.String;
+    user_state: Attribute.JSON;
+    discount_text: Attribute.String;
+  };
+}
+
 export interface SharedString extends Schema.Component {
   collectionName: 'components_shared_strings';
   info: {
@@ -78,7 +151,6 @@ export interface SharedLink extends Schema.Component {
   info: {
     displayName: 'Link';
     icon: 'link';
-    description: '';
   };
   attributes: {
     label: Attribute.String;
@@ -116,16 +188,15 @@ export interface SharedFaq extends Schema.Component {
 }
 
 export interface SharedCta extends Schema.Component {
-  collectionName: 'components_cta_ctas';
+  collectionName: 'components_shared_ctas';
   info: {
     displayName: 'CTA';
     icon: 'cursor';
-    description: '';
   };
   attributes: {
     title: Attribute.String;
     description: Attribute.RichText;
-    links: Attribute.Component<'shared.link', true>;
+    links: Attribute.Component<'header.link', true>;
   };
 }
 
@@ -143,84 +214,32 @@ export interface SharedCard extends Schema.Component {
   };
 }
 
-export interface ToolParameter extends Schema.Component {
-  collectionName: 'components_tool_parameters';
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
   info: {
-    displayName: 'Parameter';
-    icon: 'apps';
+    displayName: 'Link';
+    icon: 'link';
     description: '';
   };
   attributes: {
-    name: Attribute.String;
-    description: Attribute.RichText;
-    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
-export interface ToolCard extends Schema.Component {
-  collectionName: 'components_tool_cards';
-  info: {
-    displayName: 'Card';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
-  };
-}
-
-export interface PricingFeature extends Schema.Component {
-  collectionName: 'components_pricing_features';
-  info: {
-    displayName: 'Feature';
-    icon: 'check';
-    description: '';
-  };
-  attributes: {
-    detail: Attribute.String;
-  };
-}
-
-export interface PricingCard extends Schema.Component {
-  collectionName: 'components_pricing_cards';
-  info: {
-    displayName: 'card';
-    icon: 'priceTag';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    features: Attribute.Component<'pricing.feature', true>;
-    price: Attribute.String;
-    discounted_price: Attribute.String;
-    user_state: Attribute.JSON;
-    discount_text: Attribute.String;
-    highlight: Attribute.Boolean;
-  };
-}
-
-export interface ProductToolGroup extends Schema.Component {
-  collectionName: 'components_product_tool_groups';
-  info: {
-    displayName: 'Tool Group';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    api_tools: Attribute.Relation<
-      'product.tool-group',
-      'oneToMany',
-      'api::api-tool.api-tool'
-    >;
-    title: Attribute.String;
-    description: Attribute.Text;
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
   };
 }
 
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'tool.parameter': ToolParameter;
+      'tool.card': ToolCard;
+      'product.tool-group': ProductToolGroup;
+      'pricing.feature': PricingFeature;
+      'pricing.card': PricingCard;
       'shared.string': SharedString;
       'shared.slider': SharedSlider;
       'shared.seo': SharedSeo;
@@ -232,11 +251,7 @@ declare module '@strapi/types' {
       'shared.faq': SharedFaq;
       'shared.cta': SharedCta;
       'shared.card': SharedCard;
-      'tool.parameter': ToolParameter;
-      'tool.card': ToolCard;
-      'pricing.feature': PricingFeature;
-      'pricing.card': PricingCard;
-      'product.tool-group': ProductToolGroup;
+      'header.link': HeaderLink;
     }
   }
 }

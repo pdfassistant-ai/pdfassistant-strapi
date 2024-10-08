@@ -1,9 +1,8 @@
 {
-  "collectionName": "components_cta_ctas",
+  "collectionName": "components_shared_ctas",
   "info": {
     "displayName": "CTA",
-    "icon": "cursor",
-    "description": ""
+    "icon": "cursor"
   },
   "options": {},
   "attributes": {
@@ -16,7 +15,7 @@
     "links": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.link"
+      "component": "header.link"
     }
   }
 }

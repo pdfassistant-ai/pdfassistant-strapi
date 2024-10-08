@@ -1347,15 +1347,15 @@ export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    nav: Attribute.DynamicZone<['shared.link']>;
+    nav: Attribute.DynamicZone<['header.link']>;
     seo: Attribute.Component<'shared.seo'>;
     api_tool_buckets: Attribute.Relation<
       'api::pdfrest-global.pdfrest-global',
       'oneToMany',
       'api::api-tool-bucket.api-tool-bucket'
     >;
-    footer_developers: Attribute.DynamicZone<['shared.link']>;
-    footer_products: Attribute.DynamicZone<['shared.link']>;
+    footer_developers: Attribute.DynamicZone<['header.link']>;
+    footer_products: Attribute.DynamicZone<['header.link']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1380,7 +1380,6 @@ export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
     singularName: 'pdfrest-product';
     pluralName: 'pdfrest-products';
     displayName: 'Pdfrest Product';
-    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1390,20 +1389,20 @@ export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
     description: Attribute.Text;
     image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     cta: Attribute.Component<'shared.cta'>;
-    overview_cards: Attribute.DynamicZone<['shared.card']>;
-    overview_sections: Attribute.DynamicZone<['shared.card']>;
+    overview_cards: Attribute.Component<'shared.card', true>;
+    overview_sections: Attribute.Component<'shared.card', true>;
     tools_section_title: Attribute.String;
     tools_section_description: Attribute.RichText;
-    tools: Attribute.Component<'product.tool-group', true>;
-    pricing_section_title: Attribute.String & Attribute.DefaultTo<'Pricing'>;
+    tool_groups: Attribute.Component<'product.tool-group', true>;
+    pricing_section_title: Attribute.String;
     pricing_section_description: Attribute.RichText;
     pricing_content: Attribute.DynamicZone<
-      ['pricing.card', 'shared.rich-text']
+      ['shared.rich-text', 'pricing.card']
     >;
-    pricing_links: Attribute.Component<'shared.link', true>;
+    pricing_links: Attribute.Component<'header.link', true>;
     docs_section_title: Attribute.String;
     docs_section_description: Attribute.RichText;
-    docs_links: Attribute.Component<'shared.link', true>;
+    docs_links: Attribute.Component<'header.link', true>;
     icon: Attribute.String;
     slug: Attribute.UID<'api::pdfrest-product.pdfrest-product', 'title'>;
     seo: Attribute.Component<'shared.seo'>;

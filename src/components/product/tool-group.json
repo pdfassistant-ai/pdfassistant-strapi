@@ -2,21 +2,20 @@
   "collectionName": "components_product_tool_groups",
   "info": {
     "displayName": "Tool Group",
-    "icon": "apps",
-    "description": ""
+    "icon": "apps"
   },
   "options": {},
   "attributes": {
-    "api_tools": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::api-tool.api-tool"
-    },
     "title": {
       "type": "string"
     },
     "description": {
-      "type": "text"
+      "type": "richtext"
+    },
+    "api_tools": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::api-tool.api-tool"
     }
   }
 }

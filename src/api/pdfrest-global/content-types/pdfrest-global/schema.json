@@ -15,7 +15,7 @@
     "nav": {
       "type": "dynamiczone",
       "components": [
-        "shared.link"
+        "header.link"
       ]
     },
     "seo": {
@@ -31,13 +31,13 @@
     "footer_developers": {
       "type": "dynamiczone",
       "components": [
-        "shared.link"
+        "header.link"
       ]
     },
     "footer_products": {
       "type": "dynamiczone",
       "components": [
-        "shared.link"
+        "header.link"
       ]
     }
   }

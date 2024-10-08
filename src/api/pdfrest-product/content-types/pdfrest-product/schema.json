@@ -4,8 +4,7 @@
   "info": {
     "singularName": "pdfrest-product",
     "pluralName": "pdfrest-products",
-    "displayName": "Pdfrest Product",
-    "description": ""
+    "displayName": "Pdfrest Product"
   },
   "options": {
     "draftAndPublish": true
@@ -19,15 +18,14 @@
       "type": "text"
     },
     "image": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ]
+      ],
+      "type": "media",
+      "multiple": false
     },
     "cta": {
       "displayName": "CTA",
@@ -36,16 +34,14 @@
       "component": "shared.cta"
     },
     "overview_cards": {
-      "type": "dynamiczone",
-      "components": [
-        "shared.card"
-      ]
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
     },
     "overview_sections": {
-      "type": "dynamiczone",
-      "components": [
-        "shared.card"
-      ]
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
     },
     "tools_section_title": {
       "type": "string"
@@ -53,14 +49,14 @@
     "tools_section_description": {
       "type": "richtext"
     },
-    "tools": {
+    "tool_groups": {
+      "displayName": "Tool Group",
       "type": "component",
       "repeatable": true,
       "component": "product.tool-group"
     },
     "pricing_section_title": {
-      "type": "string",
-      "default": "Pricing"
+      "type": "string"
     },
     "pricing_section_description": {
       "type": "richtext"
@@ -68,14 +64,14 @@
     "pricing_content": {
       "type": "dynamiczone",
       "components": [
-        "pricing.card",
-        "shared.rich-text"
+        "shared.rich-text",
+        "pricing.card"
       ]
     },
     "pricing_links": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.link"
+      "component": "header.link"
     },
     "docs_section_title": {
       "type": "string"
@@ -86,7 +82,7 @@
     "docs_links": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.link"
+      "component": "header.link"
     },
     "icon": {
       "type": "string"

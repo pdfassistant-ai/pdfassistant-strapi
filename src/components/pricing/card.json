@@ -30,9 +30,6 @@
     },
     "discount_text": {
       "type": "string"
-    },
-    "highlight": {
-      "type": "boolean"
     }
   }
 }
