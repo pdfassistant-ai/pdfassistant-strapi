@@ -1,31 +1,5 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface ToolParameter extends Schema.Component {
-  collectionName: 'components_tool_parameters';
-  info: {
-    displayName: 'Parameter';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    name: Attribute.String;
-    description: Attribute.RichText;
-    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
-export interface ToolCard extends Schema.Component {
-  collectionName: 'components_tool_cards';
-  info: {
-    displayName: 'Card';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
-  };
-}
-
 export interface SharedString extends Schema.Component {
   collectionName: 'components_shared_strings';
   info: {
@@ -99,6 +73,24 @@ export interface SharedMedia extends Schema.Component {
   };
 }
 
+export interface SharedLink extends Schema.Component {
+  collectionName: 'components_shared_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
+  };
+}
+
 export interface SharedHtml extends Schema.Component {
   collectionName: 'components_shared_htmls';
   info: {
@@ -120,6 +112,60 @@ export interface SharedFaq extends Schema.Component {
   attributes: {
     label: Attribute.String;
     content: Attribute.RichText;
+  };
+}
+
+export interface SharedCta extends Schema.Component {
+  collectionName: 'components_cta_ctas';
+  info: {
+    displayName: 'CTA';
+    icon: 'cursor';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    links: Attribute.Component<'shared.link', true>;
+  };
+}
+
+export interface SharedCard extends Schema.Component {
+  collectionName: 'components_shared_cards';
+  info: {
+    displayName: 'Card';
+    icon: 'dashboard';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    icon: Attribute.String;
+  };
+}
+
+export interface ToolParameter extends Schema.Component {
+  collectionName: 'components_tool_parameters';
+  info: {
+    displayName: 'Parameter';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText;
+    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
+  };
+}
+
+export interface ToolCard extends Schema.Component {
+  collectionName: 'components_tool_cards';
+  info: {
+    displayName: 'Card';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.RichText;
   };
 }
 
@@ -150,43 +196,47 @@ export interface PricingCard extends Schema.Component {
     discounted_price: Attribute.String;
     user_state: Attribute.JSON;
     discount_text: Attribute.String;
+    highlight: Attribute.Boolean;
   };
 }
 
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
+export interface ProductToolGroup extends Schema.Component {
+  collectionName: 'components_product_tool_groups';
   info: {
-    displayName: 'Link';
-    icon: 'link';
+    displayName: 'Tool Group';
+    icon: 'apps';
     description: '';
   };
   attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
+    api_tools: Attribute.Relation<
+      'product.tool-group',
+      'oneToMany',
+      'api::api-tool.api-tool'
+    >;
+    title: Attribute.String;
+    description: Attribute.Text;
   };
 }
 
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'tool.parameter': ToolParameter;
-      'tool.card': ToolCard;
       'shared.string': SharedString;
       'shared.slider': SharedSlider;
       'shared.seo': SharedSeo;
       'shared.rich-text': SharedRichText;
       'shared.quote': SharedQuote;
       'shared.media': SharedMedia;
+      'shared.link': SharedLink;
       'shared.html': SharedHtml;
       'shared.faq': SharedFaq;
+      'shared.cta': SharedCta;
+      'shared.card': SharedCard;
+      'tool.parameter': ToolParameter;
+      'tool.card': ToolCard;
       'pricing.feature': PricingFeature;
       'pricing.card': PricingCard;
-      'header.link': HeaderLink;
+      'product.tool-group': ProductToolGroup;
     }
   }
 }

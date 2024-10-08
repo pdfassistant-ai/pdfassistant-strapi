@@ -1,0 +1,104 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pdfrest_products",
+  "info": {
+    "singularName": "pdfrest-product",
+    "pluralName": "pdfrest-products",
+    "displayName": "Pdfrest Product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "cta": {
+      "displayName": "CTA",
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
+    },
+    "overview_cards": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.card"
+      ]
+    },
+    "overview_sections": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.card"
+      ]
+    },
+    "tools_section_title": {
+      "type": "string"
+    },
+    "tools_section_description": {
+      "type": "richtext"
+    },
+    "tools": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product.tool-group"
+    },
+    "pricing_section_title": {
+      "type": "string",
+      "default": "Pricing"
+    },
+    "pricing_section_description": {
+      "type": "richtext"
+    },
+    "pricing_content": {
+      "type": "dynamiczone",
+      "components": [
+        "pricing.card",
+        "shared.rich-text"
+      ]
+    },
+    "pricing_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "docs_section_title": {
+      "type": "string"
+    },
+    "docs_section_description": {
+      "type": "richtext"
+    },
+    "docs_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}
