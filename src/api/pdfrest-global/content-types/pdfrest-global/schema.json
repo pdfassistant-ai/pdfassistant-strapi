@@ -39,6 +39,9 @@
       "components": [
         "header.link"
       ]
+    },
+    "stateful_cta": {
+      "type": "json"
     }
   }
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pdfrest-product",
     "pluralName": "pdfrest-products",
-    "displayName": "Pdfrest Product"
+    "displayName": "Pdfrest Product",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,14 +19,15 @@
       "type": "text"
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "cta": {
       "displayName": "CTA",
@@ -95,6 +97,11 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.seo"
+    },
+    "final_cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
     }
   }
 }

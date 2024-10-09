@@ -162,11 +162,13 @@ export interface SharedCta extends Schema.Component {
   info: {
     displayName: 'CTA';
     icon: 'cursor';
+    description: '';
   };
   attributes: {
     title: Attribute.String;
     description: Attribute.RichText;
     links: Attribute.Component<'header.link', true>;
+    stateful: Attribute.Boolean;
   };
 }
 
