@@ -1380,6 +1380,7 @@ export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
     singularName: 'pdfrest-product';
     pluralName: 'pdfrest-products';
     displayName: 'Pdfrest Product';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1406,6 +1407,7 @@ export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
     icon: Attribute.String;
     slug: Attribute.UID<'api::pdfrest-product.pdfrest-product', 'title'>;
     seo: Attribute.Component<'shared.seo'>;
+    final_cta: Attribute.Component<'shared.cta'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
