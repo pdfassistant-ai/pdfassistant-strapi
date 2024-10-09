@@ -1356,6 +1356,7 @@ export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
     >;
     footer_developers: Attribute.DynamicZone<['header.link']>;
     footer_products: Attribute.DynamicZone<['header.link']>;
+    stateful_cta: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
