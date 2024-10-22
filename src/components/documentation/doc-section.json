@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_documentation_doc_sections",
+  "info": {
+    "displayName": "Doc Section",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "text_content": {
+      "type": "richtext"
+    },
+    "tabs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "tool.parameter"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "header.link"
+    }
+  }
+}

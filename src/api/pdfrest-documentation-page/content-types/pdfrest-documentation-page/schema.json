@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pdfrest_documentation_pages",
+  "info": {
+    "singularName": "pdfrest-documentation-page",
+    "pluralName": "pdfrest-documentation-pages",
+    "displayName": "Pdfrest Documentation Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "documentation.doc-section",
+        "shared.rich-text",
+        "shared.html",
+        "shared.card"
+      ]
+    }
+  }
+}
