@@ -52,8 +52,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::blog-post-type.blog-post-type",
-      "inversedBy": "blog_posts",
-      "required": false
+      "inversedBy": "blog_posts"
     },
     "blocks": {
       "type": "dynamiczone",

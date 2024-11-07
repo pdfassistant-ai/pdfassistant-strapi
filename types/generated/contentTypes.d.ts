@@ -1094,6 +1094,7 @@ export interface ApiBlogPostTypeBlogPostType extends Schema.CollectionType {
       'oneToMany',
       'api::blog-post.blog-post'
     >;
+    rank: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

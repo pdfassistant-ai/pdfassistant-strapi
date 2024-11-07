@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@retikolo/drag-drop-content-types": "^1.7.1",
     "@strapi/plugin-cloud": "4.25.6",
     "@strapi/plugin-graphql": "^4.0.5",
     "@strapi/plugin-i18n": "4.25.6",
