@@ -29,6 +29,9 @@
       "relation": "oneToMany",
       "target": "api::blog-post.blog-post",
       "mappedBy": "blog_post_type"
+    },
+    "rank": {
+      "type": "integer"
     }
   }
 }
