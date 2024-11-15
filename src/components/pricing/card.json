@@ -39,6 +39,9 @@
     },
     "cycle": {
       "type": "string"
+    },
+    "stripe_data": {
+      "type": "json"
     }
   }
 }

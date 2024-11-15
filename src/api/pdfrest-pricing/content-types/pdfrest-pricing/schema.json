@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfrest_pricings",
+  "info": {
+    "singularName": "pdfrest-pricing",
+    "pluralName": "pdfrest-pricings",
+    "displayName": "Pdfrest Pricing",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "pricing_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pricing.card"
+    },
+    "features_table": {
+      "type": "json"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

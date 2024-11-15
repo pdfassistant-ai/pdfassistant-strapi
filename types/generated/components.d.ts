@@ -26,39 +26,6 @@ export interface ToolCard extends Schema.Component {
   };
 }
 
-export interface PricingFeature extends Schema.Component {
-  collectionName: 'components_pricing_features';
-  info: {
-    displayName: 'Feature';
-    icon: 'check';
-    description: '';
-  };
-  attributes: {
-    detail: Attribute.String;
-  };
-}
-
-export interface PricingCard extends Schema.Component {
-  collectionName: 'components_pricing_cards';
-  info: {
-    displayName: 'card';
-    icon: 'priceTag';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    features: Attribute.Component<'pricing.feature', true>;
-    price: Attribute.String;
-    discounted_price: Attribute.String;
-    user_state: Attribute.JSON;
-    discount_text: Attribute.String;
-    highlight: Attribute.Boolean;
-    badge_text: Attribute.String;
-    cycle: Attribute.String;
-  };
-}
-
 export interface SharedString extends Schema.Component {
   collectionName: 'components_shared_strings';
   info: {
@@ -202,18 +169,21 @@ export interface SharedCard extends Schema.Component {
   };
 }
 
-export interface DocumentationDocSection extends Schema.Component {
-  collectionName: 'components_documentation_doc_sections';
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
   info: {
-    displayName: 'Doc Section';
-    icon: 'file';
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    text_content: Attribute.RichText;
-    tabs: Attribute.Component<'tool.parameter', true>;
-    links: Attribute.Component<'header.link', true>;
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
   };
 }
 
@@ -234,21 +204,52 @@ export interface ProductToolGroup extends Schema.Component {
   };
 }
 
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
+export interface PricingFeature extends Schema.Component {
+  collectionName: 'components_pricing_features';
   info: {
-    displayName: 'Link';
-    icon: 'link';
+    displayName: 'Feature';
+    icon: 'check';
     description: '';
   };
   attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
+    detail: Attribute.String;
+  };
+}
+
+export interface PricingCard extends Schema.Component {
+  collectionName: 'components_pricing_cards';
+  info: {
+    displayName: 'card';
+    icon: 'priceTag';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    features: Attribute.Component<'pricing.feature', true>;
+    price: Attribute.String;
+    discounted_price: Attribute.String;
+    user_state: Attribute.JSON;
+    discount_text: Attribute.String;
+    highlight: Attribute.Boolean;
+    badge_text: Attribute.String;
+    cycle: Attribute.String;
+    stripe_data: Attribute.JSON;
+  };
+}
+
+export interface DocumentationDocSection extends Schema.Component {
+  collectionName: 'components_documentation_doc_sections';
+  info: {
+    displayName: 'Doc Section';
+    icon: 'file';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    text_content: Attribute.RichText;
+    tabs: Attribute.Component<'tool.parameter', true>;
+    links: Attribute.Component<'header.link', true>;
   };
 }
 
@@ -257,8 +258,6 @@ declare module '@strapi/types' {
     export interface Components {
       'tool.parameter': ToolParameter;
       'tool.card': ToolCard;
-      'pricing.feature': PricingFeature;
-      'pricing.card': PricingCard;
       'shared.string': SharedString;
       'shared.slider': SharedSlider;
       'shared.seo': SharedSeo;
@@ -270,9 +269,11 @@ declare module '@strapi/types' {
       'shared.faq': SharedFaq;
       'shared.cta': SharedCta;
       'shared.card': SharedCard;
-      'documentation.doc-section': DocumentationDocSection;
-      'product.tool-group': ProductToolGroup;
       'header.link': HeaderLink;
+      'product.tool-group': ProductToolGroup;
+      'pricing.feature': PricingFeature;
+      'pricing.card': PricingCard;
+      'documentation.doc-section': DocumentationDocSection;
     }
   }
 }
