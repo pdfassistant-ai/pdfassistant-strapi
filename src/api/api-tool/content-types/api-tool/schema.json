@@ -92,6 +92,9 @@
     "publish_date": {
       "type": "datetime",
       "default": "2024-08-29T05:00:00.000Z"
+    },
+    "rank": {
+      "type": "integer"
     }
   }
 }

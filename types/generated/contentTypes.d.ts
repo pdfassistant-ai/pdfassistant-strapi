@@ -868,6 +868,7 @@ export interface ApiApiToolApiTool extends Schema.CollectionType {
     faq: Attribute.DynamicZone<['shared.faq']>;
     publish_date: Attribute.DateTime &
       Attribute.DefaultTo<'2024-08-29T05:00:00.000Z'>;
+    rank: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

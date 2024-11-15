@@ -1,5 +1,31 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface ToolParameter extends Schema.Component {
+  collectionName: 'components_tool_parameters';
+  info: {
+    displayName: 'Parameter';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText;
+    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
+  };
+}
+
+export interface ToolCard extends Schema.Component {
+  collectionName: 'components_tool_cards';
+  info: {
+    displayName: 'Card';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.RichText;
+  };
+}
+
 export interface SharedString extends Schema.Component {
   collectionName: 'components_shared_strings';
   info: {
@@ -143,29 +169,21 @@ export interface SharedCard extends Schema.Component {
   };
 }
 
-export interface ToolParameter extends Schema.Component {
-  collectionName: 'components_tool_parameters';
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
   info: {
-    displayName: 'Parameter';
-    icon: 'apps';
+    displayName: 'Link';
+    icon: 'link';
     description: '';
   };
   attributes: {
-    name: Attribute.String;
-    description: Attribute.RichText;
-    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
-export interface ToolCard extends Schema.Component {
-  collectionName: 'components_tool_cards';
-  info: {
-    displayName: 'Card';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
   };
 }
 
@@ -183,24 +201,6 @@ export interface ProductToolGroup extends Schema.Component {
       'oneToMany',
       'api::api-tool.api-tool'
     >;
-  };
-}
-
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
   };
 }
 
@@ -256,6 +256,8 @@ export interface DocumentationDocSection extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'tool.parameter': ToolParameter;
+      'tool.card': ToolCard;
       'shared.string': SharedString;
       'shared.slider': SharedSlider;
       'shared.seo': SharedSeo;
@@ -267,10 +269,8 @@ declare module '@strapi/types' {
       'shared.faq': SharedFaq;
       'shared.cta': SharedCta;
       'shared.card': SharedCard;
-      'tool.parameter': ToolParameter;
-      'tool.card': ToolCard;
-      'product.tool-group': ProductToolGroup;
       'header.link': HeaderLink;
+      'product.tool-group': ProductToolGroup;
       'pricing.feature': PricingFeature;
       'pricing.card': PricingCard;
       'documentation.doc-section': DocumentationDocSection;
