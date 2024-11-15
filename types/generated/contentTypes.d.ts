@@ -1421,6 +1421,41 @@ export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
   };
 }
 
+export interface ApiPdfrestPricingPdfrestPricing extends Schema.SingleType {
+  collectionName: 'pdfrest_pricings';
+  info: {
+    singularName: 'pdfrest-pricing';
+    pluralName: 'pdfrest-pricings';
+    displayName: 'Pdfrest Pricing';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    pricing_cards: Attribute.Component<'pricing.card', true>;
+    features_table: Attribute.JSON;
+    seo: Attribute.Component<'shared.seo'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-pricing.pdfrest-pricing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-pricing.pdfrest-pricing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
   collectionName: 'pdfrest_products';
   info: {
@@ -1507,6 +1542,7 @@ declare module '@strapi/types' {
       'api::pdfassistant-pricing.pdfassistant-pricing': ApiPdfassistantPricingPdfassistantPricing;
       'api::pdfrest-documentation-page.pdfrest-documentation-page': ApiPdfrestDocumentationPagePdfrestDocumentationPage;
       'api::pdfrest-global.pdfrest-global': ApiPdfrestGlobalPdfrestGlobal;
+      'api::pdfrest-pricing.pdfrest-pricing': ApiPdfrestPricingPdfrestPricing;
       'api::pdfrest-product.pdfrest-product': ApiPdfrestProductPdfrestProduct;
     }
   }
