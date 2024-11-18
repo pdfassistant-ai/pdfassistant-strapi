@@ -23,6 +23,9 @@
       "relation": "oneToMany",
       "target": "api::api-tool.api-tool",
       "mappedBy": "api_tool_bucket"
+    },
+    "rank": {
+      "type": "integer"
     }
   }
 }
