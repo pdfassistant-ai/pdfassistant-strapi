@@ -906,6 +906,7 @@ export interface ApiApiToolBucketApiToolBucket extends Schema.CollectionType {
       'oneToMany',
       'api::api-tool.api-tool'
     >;
+    rank: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
