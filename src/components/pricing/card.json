@@ -42,6 +42,9 @@
     },
     "stripe_data": {
       "type": "json"
+    },
+    "price_data": {
+      "type": "json"
     }
   }
 }
