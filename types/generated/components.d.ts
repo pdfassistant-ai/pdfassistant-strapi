@@ -169,41 +169,6 @@ export interface SharedCard extends Schema.Component {
   };
 }
 
-export interface PricingFeature extends Schema.Component {
-  collectionName: 'components_pricing_features';
-  info: {
-    displayName: 'Feature';
-    icon: 'check';
-    description: '';
-  };
-  attributes: {
-    detail: Attribute.String;
-  };
-}
-
-export interface PricingCard extends Schema.Component {
-  collectionName: 'components_pricing_cards';
-  info: {
-    displayName: 'card';
-    icon: 'priceTag';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    features: Attribute.Component<'pricing.feature', true>;
-    price: Attribute.String;
-    discounted_price: Attribute.String;
-    user_state: Attribute.JSON;
-    discount_text: Attribute.String;
-    highlight: Attribute.Boolean;
-    badge_text: Attribute.String;
-    cycle: Attribute.String;
-    stripe_data: Attribute.JSON;
-    price_data: Attribute.JSON;
-  };
-}
-
 export interface ProductToolGroup extends Schema.Component {
   collectionName: 'components_product_tool_groups';
   info: {
@@ -224,7 +189,7 @@ export interface ProductToolGroup extends Schema.Component {
 export interface ProductPdfassistantProductSection extends Schema.Component {
   collectionName: 'components_product_pdfassistant_product_sections';
   info: {
-    displayName: 'Pdfassistant Product Section';
+    displayName: 'Section';
     icon: 'apps';
     description: '';
   };
@@ -234,11 +199,11 @@ export interface ProductPdfassistantProductSection extends Schema.Component {
     align: Attribute.Enumeration<['left', 'center', 'right']>;
     features: Attribute.Component<'shared.card', true>;
     landing_cards: Attribute.Component<'shared.card', true>;
-    pricing_cards: Attribute.Component<'pricing.card', true>;
     full_width: Attribute.Boolean;
     image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     subsections: Attribute.JSON;
     overrides: Attribute.JSON;
+    pricing_cards: Attribute.JSON;
   };
 }
 
@@ -275,6 +240,41 @@ export interface DocumentationDocSection extends Schema.Component {
   };
 }
 
+export interface PricingFeature extends Schema.Component {
+  collectionName: 'components_pricing_features';
+  info: {
+    displayName: 'Feature';
+    icon: 'check';
+    description: '';
+  };
+  attributes: {
+    detail: Attribute.String;
+  };
+}
+
+export interface PricingCard extends Schema.Component {
+  collectionName: 'components_pricing_cards';
+  info: {
+    displayName: 'card';
+    icon: 'priceTag';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    features: Attribute.Component<'pricing.feature', true>;
+    price: Attribute.String;
+    discounted_price: Attribute.String;
+    user_state: Attribute.JSON;
+    discount_text: Attribute.String;
+    highlight: Attribute.Boolean;
+    badge_text: Attribute.String;
+    cycle: Attribute.String;
+    stripe_data: Attribute.JSON;
+    price_data: Attribute.JSON;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -291,12 +291,12 @@ declare module '@strapi/types' {
       'shared.faq': SharedFaq;
       'shared.cta': SharedCta;
       'shared.card': SharedCard;
-      'pricing.feature': PricingFeature;
-      'pricing.card': PricingCard;
       'product.tool-group': ProductToolGroup;
       'product.pdfassistant-product-section': ProductPdfassistantProductSection;
       'header.link': HeaderLink;
       'documentation.doc-section': DocumentationDocSection;
+      'pricing.feature': PricingFeature;
+      'pricing.card': PricingCard;
     }
   }
 }
