@@ -189,7 +189,7 @@ export interface ProductToolGroup extends Schema.Component {
 export interface ProductPdfassistantProductSection extends Schema.Component {
   collectionName: 'components_product_pdfassistant_product_sections';
   info: {
-    displayName: 'Pdfassistant Product Section';
+    displayName: 'Section';
     icon: 'apps';
     description: '';
   };
@@ -204,6 +204,39 @@ export interface ProductPdfassistantProductSection extends Schema.Component {
     subsections: Attribute.JSON;
     overrides: Attribute.JSON;
     pricing_cards: Attribute.JSON;
+  };
+}
+
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
+  };
+}
+
+export interface DocumentationDocSection extends Schema.Component {
+  collectionName: 'components_documentation_doc_sections';
+  info: {
+    displayName: 'Doc Section';
+    icon: 'file';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    text_content: Attribute.RichText;
+    tabs: Attribute.Component<'tool.parameter', true>;
+    links: Attribute.Component<'header.link', true>;
   };
 }
 
@@ -242,39 +275,6 @@ export interface PricingCard extends Schema.Component {
   };
 }
 
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
-  };
-}
-
-export interface DocumentationDocSection extends Schema.Component {
-  collectionName: 'components_documentation_doc_sections';
-  info: {
-    displayName: 'Doc Section';
-    icon: 'file';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    text_content: Attribute.RichText;
-    tabs: Attribute.Component<'tool.parameter', true>;
-    links: Attribute.Component<'header.link', true>;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -293,10 +293,10 @@ declare module '@strapi/types' {
       'shared.card': SharedCard;
       'product.tool-group': ProductToolGroup;
       'product.pdfassistant-product-section': ProductPdfassistantProductSection;
-      'pricing.feature': PricingFeature;
-      'pricing.card': PricingCard;
       'header.link': HeaderLink;
       'documentation.doc-section': DocumentationDocSection;
+      'pricing.feature': PricingFeature;
+      'pricing.card': PricingCard;
     }
   }
 }
