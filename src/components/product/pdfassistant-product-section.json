@@ -1,0 +1,60 @@
+{
+  "collectionName": "components_product_pdfassistant_product_sections",
+  "info": {
+    "displayName": "Pdfassistant Product Section",
+    "icon": "apps",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "align": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "landing_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "pricing_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pricing.card"
+    },
+    "full_width": {
+      "type": "boolean"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "subsections": {
+      "type": "json"
+    },
+    "overrides": {
+      "type": "json"
+    }
+  }
+}

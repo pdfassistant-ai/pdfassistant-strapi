@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pdfassistant_products",
+  "info": {
+    "singularName": "pdfassistant-product",
+    "pluralName": "pdfassistant-products",
+    "displayName": "Pdfassistant Product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "product.pdfassistant-product-section"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.seo"
+    }
+  }
+}
