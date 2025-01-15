@@ -169,6 +169,44 @@ export interface SharedCard extends Schema.Component {
   };
 }
 
+export interface ProductToolGroup extends Schema.Component {
+  collectionName: 'components_product_tool_groups';
+  info: {
+    displayName: 'Tool Group';
+    icon: 'apps';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    api_tools: Attribute.Relation<
+      'product.tool-group',
+      'oneToMany',
+      'api::api-tool.api-tool'
+    >;
+  };
+}
+
+export interface ProductPdfassistantProductSection extends Schema.Component {
+  collectionName: 'components_product_pdfassistant_product_sections';
+  info: {
+    displayName: 'Pdfassistant Product Section';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    align: Attribute.Enumeration<['left', 'center', 'right']>;
+    features: Attribute.Component<'shared.card', true>;
+    landing_cards: Attribute.Component<'shared.card', true>;
+    full_width: Attribute.Boolean;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    subsections: Attribute.JSON;
+    overrides: Attribute.JSON;
+    pricing_cards: Attribute.JSON;
+  };
+}
+
 export interface PricingFeature extends Schema.Component {
   collectionName: 'components_pricing_features';
   info: {
@@ -201,44 +239,6 @@ export interface PricingCard extends Schema.Component {
     cycle: Attribute.String;
     stripe_data: Attribute.JSON;
     price_data: Attribute.JSON;
-  };
-}
-
-export interface ProductToolGroup extends Schema.Component {
-  collectionName: 'components_product_tool_groups';
-  info: {
-    displayName: 'Tool Group';
-    icon: 'apps';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    api_tools: Attribute.Relation<
-      'product.tool-group',
-      'oneToMany',
-      'api::api-tool.api-tool'
-    >;
-  };
-}
-
-export interface ProductPdfassistantProductSection extends Schema.Component {
-  collectionName: 'components_product_pdfassistant_product_sections';
-  info: {
-    displayName: 'Pdfassistant Product Section';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    align: Attribute.Enumeration<['left', 'center', 'right']>;
-    features: Attribute.Component<'shared.card', true>;
-    landing_cards: Attribute.Component<'shared.card', true>;
-    pricing_cards: Attribute.Component<'pricing.card', true>;
-    full_width: Attribute.Boolean;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    subsections: Attribute.JSON;
-    overrides: Attribute.JSON;
   };
 }
 
@@ -291,10 +291,10 @@ declare module '@strapi/types' {
       'shared.faq': SharedFaq;
       'shared.cta': SharedCta;
       'shared.card': SharedCard;
-      'pricing.feature': PricingFeature;
-      'pricing.card': PricingCard;
       'product.tool-group': ProductToolGroup;
       'product.pdfassistant-product-section': ProductPdfassistantProductSection;
+      'pricing.feature': PricingFeature;
+      'pricing.card': PricingCard;
       'header.link': HeaderLink;
       'documentation.doc-section': DocumentationDocSection;
     }

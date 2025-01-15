@@ -31,11 +31,6 @@
       "repeatable": true,
       "component": "shared.card"
     },
-    "pricing_cards": {
-      "type": "component",
-      "repeatable": true,
-      "component": "pricing.card"
-    },
     "full_width": {
       "type": "boolean"
     },
@@ -54,6 +49,9 @@
       "type": "json"
     },
     "overrides": {
+      "type": "json"
+    },
+    "pricing_cards": {
       "type": "json"
     }
   }
