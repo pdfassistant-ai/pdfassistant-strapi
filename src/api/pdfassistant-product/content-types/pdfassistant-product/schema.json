@@ -32,12 +32,12 @@
     "content": {
       "type": "dynamiczone",
       "components": [
-        "product.pdfassistant-product-section"
+        "shared.pdfassistant-product-section"
       ]
     },
     "seo": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "component": "shared.seo"
     }
   }
