@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfrest_securities",
+  "info": {
+    "singularName": "pdfrest-security",
+    "pluralName": "pdfrest-securities",
+    "displayName": "Pdfrest Security",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "content": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.pdfassistant-product-section"
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.pdfassistant-product-section"
+    }
+  }
+}

@@ -88,6 +88,30 @@ export interface SharedQuote extends Schema.Component {
   };
 }
 
+export interface SharedPdfassistantProductSection extends Schema.Component {
+  collectionName: 'components_product_pdfassistant_product_sections';
+  info: {
+    displayName: 'Section';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    align: Attribute.Enumeration<['left', 'center', 'right']>;
+    features: Attribute.Component<'shared.card', true>;
+    cards: Attribute.Component<'shared.card', true>;
+    full_width: Attribute.Boolean;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    subsections: Attribute.JSON;
+    overrides: Attribute.JSON;
+    pricing_cards: Attribute.JSON;
+    links: Attribute.Component<'shared.link', true>;
+    icon: Attribute.String;
+    card_style: Attribute.Enumeration<['landing']>;
+  };
+}
+
 export interface SharedMedia extends Schema.Component {
   collectionName: 'components_shared_media';
   info: {
@@ -160,6 +184,7 @@ export interface SharedCard extends Schema.Component {
   info: {
     displayName: 'Card';
     icon: 'dashboard';
+    description: '';
   };
   attributes: {
     title: Attribute.String;
@@ -183,60 +208,6 @@ export interface ProductToolGroup extends Schema.Component {
       'oneToMany',
       'api::api-tool.api-tool'
     >;
-  };
-}
-
-export interface ProductPdfassistantProductSection extends Schema.Component {
-  collectionName: 'components_product_pdfassistant_product_sections';
-  info: {
-    displayName: 'Section';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    align: Attribute.Enumeration<['left', 'center', 'right']>;
-    features: Attribute.Component<'shared.card', true>;
-    landing_cards: Attribute.Component<'shared.card', true>;
-    full_width: Attribute.Boolean;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    subsections: Attribute.JSON;
-    overrides: Attribute.JSON;
-    pricing_cards: Attribute.JSON;
-  };
-}
-
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
-  };
-}
-
-export interface DocumentationDocSection extends Schema.Component {
-  collectionName: 'components_documentation_doc_sections';
-  info: {
-    displayName: 'Doc Section';
-    icon: 'file';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    text_content: Attribute.RichText;
-    tabs: Attribute.Component<'tool.parameter', true>;
-    links: Attribute.Component<'header.link', true>;
   };
 }
 
@@ -275,6 +246,39 @@ export interface PricingCard extends Schema.Component {
   };
 }
 
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
+  };
+}
+
+export interface DocumentationDocSection extends Schema.Component {
+  collectionName: 'components_documentation_doc_sections';
+  info: {
+    displayName: 'Doc Section';
+    icon: 'file';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    text_content: Attribute.RichText;
+    tabs: Attribute.Component<'tool.parameter', true>;
+    links: Attribute.Component<'header.link', true>;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -285,6 +289,7 @@ declare module '@strapi/types' {
       'shared.seo': SharedSeo;
       'shared.rich-text': SharedRichText;
       'shared.quote': SharedQuote;
+      'shared.pdfassistant-product-section': SharedPdfassistantProductSection;
       'shared.media': SharedMedia;
       'shared.link': SharedLink;
       'shared.html': SharedHtml;
@@ -292,11 +297,10 @@ declare module '@strapi/types' {
       'shared.cta': SharedCta;
       'shared.card': SharedCard;
       'product.tool-group': ProductToolGroup;
-      'product.pdfassistant-product-section': ProductPdfassistantProductSection;
-      'header.link': HeaderLink;
-      'documentation.doc-section': DocumentationDocSection;
       'pricing.feature': PricingFeature;
       'pricing.card': PricingCard;
+      'header.link': HeaderLink;
+      'documentation.doc-section': DocumentationDocSection;
     }
   }
 }

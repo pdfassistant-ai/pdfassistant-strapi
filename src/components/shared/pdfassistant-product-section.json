@@ -26,7 +26,7 @@
       "repeatable": true,
       "component": "shared.card"
     },
-    "landing_cards": {
+    "cards": {
       "type": "component",
       "repeatable": true,
       "component": "shared.card"
@@ -53,6 +53,20 @@
     },
     "pricing_cards": {
       "type": "json"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "card_style": {
+      "type": "enumeration",
+      "enum": [
+        "landing"
+      ]
     }
   }
 }

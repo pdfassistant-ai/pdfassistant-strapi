@@ -1354,8 +1354,8 @@ export interface ApiPdfassistantProductPdfassistantProduct
     title: Attribute.String;
     description: Attribute.RichText;
     icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    content: Attribute.DynamicZone<['product.pdfassistant-product-section']>;
-    seo: Attribute.Component<'shared.seo', true>;
+    content: Attribute.DynamicZone<['shared.pdfassistant-product-section']>;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1401,6 +1401,7 @@ export interface ApiPdfrestDocumentationPagePdfrestDocumentationPage
         'shared.card'
       ]
     >;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1546,6 +1547,40 @@ export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
   };
 }
 
+export interface ApiPdfrestSecurityPdfrestSecurity extends Schema.SingleType {
+  collectionName: 'pdfrest_securities';
+  info: {
+    singularName: 'pdfrest-security';
+    pluralName: 'pdfrest-securities';
+    displayName: 'Pdfrest Security';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    seo: Attribute.Component<'shared.seo'>;
+    content: Attribute.Component<'shared.pdfassistant-product-section', true>;
+    cta: Attribute.Component<'shared.cta'>;
+    hero: Attribute.Component<'shared.pdfassistant-product-section'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-security.pdfrest-security',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-security.pdfrest-security',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1583,6 +1618,7 @@ declare module '@strapi/types' {
       'api::pdfrest-global.pdfrest-global': ApiPdfrestGlobalPdfrestGlobal;
       'api::pdfrest-pricing.pdfrest-pricing': ApiPdfrestPricingPdfrestPricing;
       'api::pdfrest-product.pdfrest-product': ApiPdfrestProductPdfrestProduct;
+      'api::pdfrest-security.pdfrest-security': ApiPdfrestSecurityPdfrestSecurity;
     }
   }
 }

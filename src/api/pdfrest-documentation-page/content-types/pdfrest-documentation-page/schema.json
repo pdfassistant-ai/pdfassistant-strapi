@@ -30,6 +30,11 @@
         "shared.html",
         "shared.card"
       ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }
