@@ -1356,6 +1356,10 @@ export interface ApiPdfassistantProductPdfassistantProduct
     icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     seo: Attribute.Component<'shared.seo'>;
     content: Attribute.DynamicZone<['shared.content-section']>;
+    slug: Attribute.UID<
+      'api::pdfassistant-product.pdfassistant-product',
+      'title'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

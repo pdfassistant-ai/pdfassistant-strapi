@@ -167,6 +167,50 @@ export interface SharedCard extends Schema.Component {
   };
 }
 
+export interface ToolParameter extends Schema.Component {
+  collectionName: 'components_tool_parameters';
+  info: {
+    displayName: 'Parameter';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText;
+    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
+  };
+}
+
+export interface ToolCard extends Schema.Component {
+  collectionName: 'components_tool_cards';
+  info: {
+    displayName: 'Card';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.RichText;
+  };
+}
+
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
+  };
+}
+
 export interface ProductToolGroup extends Schema.Component {
   collectionName: 'components_product_tool_groups';
   info: {
@@ -205,50 +249,6 @@ export interface ProductPdfassistantProductSection extends Schema.Component {
     links: Attribute.Component<'shared.link', true>;
     icon: Attribute.String;
     card_style: Attribute.Enumeration<['landing']>;
-  };
-}
-
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
-  };
-}
-
-export interface ToolParameter extends Schema.Component {
-  collectionName: 'components_tool_parameters';
-  info: {
-    displayName: 'Parameter';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    name: Attribute.String;
-    description: Attribute.RichText;
-    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
-export interface ToolCard extends Schema.Component {
-  collectionName: 'components_tool_cards';
-  info: {
-    displayName: 'Card';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
   };
 }
 
@@ -317,11 +317,11 @@ declare module '@strapi/types' {
       'shared.cta': SharedCta;
       'shared.content-section': SharedContentSection;
       'shared.card': SharedCard;
-      'product.tool-group': ProductToolGroup;
-      'product.pdfassistant-product-section': ProductPdfassistantProductSection;
-      'header.link': HeaderLink;
       'tool.parameter': ToolParameter;
       'tool.card': ToolCard;
+      'header.link': HeaderLink;
+      'product.tool-group': ProductToolGroup;
+      'product.pdfassistant-product-section': ProductPdfassistantProductSection;
       'pricing.feature': PricingFeature;
       'pricing.card': PricingCard;
       'documentation.doc-section': DocumentationDocSection;

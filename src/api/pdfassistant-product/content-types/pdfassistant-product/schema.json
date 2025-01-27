@@ -39,6 +39,10 @@
       "components": [
         "shared.content-section"
       ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
     }
   }
 }
