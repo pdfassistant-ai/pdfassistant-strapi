@@ -20,7 +20,7 @@
     "content": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.pdfassistant-product-section"
+      "component": "product.pdfassistant-product-section"
     },
     "cta": {
       "type": "component",
@@ -30,7 +30,7 @@
     "hero": {
       "type": "component",
       "repeatable": false,
-      "component": "shared.pdfassistant-product-section"
+      "component": "product.pdfassistant-product-section"
     }
   }
 }

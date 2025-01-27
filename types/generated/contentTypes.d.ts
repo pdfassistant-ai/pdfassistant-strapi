@@ -1354,8 +1354,8 @@ export interface ApiPdfassistantProductPdfassistantProduct
     title: Attribute.String;
     description: Attribute.RichText;
     icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    content: Attribute.DynamicZone<['shared.pdfassistant-product-section']>;
     seo: Attribute.Component<'shared.seo'>;
+    content: Attribute.DynamicZone<['shared.content-section']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1560,9 +1560,9 @@ export interface ApiPdfrestSecurityPdfrestSecurity extends Schema.SingleType {
   };
   attributes: {
     seo: Attribute.Component<'shared.seo'>;
-    content: Attribute.Component<'shared.pdfassistant-product-section', true>;
+    content: Attribute.Component<'product.pdfassistant-product-section', true>;
     cta: Attribute.Component<'shared.cta'>;
-    hero: Attribute.Component<'shared.pdfassistant-product-section'>;
+    hero: Attribute.Component<'product.pdfassistant-product-section'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

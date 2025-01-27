@@ -1,0 +1,70 @@
+{
+  "collectionName": "components_shared_content_sections",
+  "info": {
+    "displayName": "Content Section",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "align": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    "card_style": {
+      "type": "enumeration",
+      "enum": [
+        "landing"
+      ]
+    },
+    "icon": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "full_width": {
+      "type": "boolean"
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "pricing_cards": {
+      "type": "json"
+    },
+    "subsections": {
+      "type": "json"
+    },
+    "overrides": {
+      "type": "json"
+    }
+  }
+}

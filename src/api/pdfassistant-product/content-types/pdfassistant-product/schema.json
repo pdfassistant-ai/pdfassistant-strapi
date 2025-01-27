@@ -29,16 +29,16 @@
         "audios"
       ]
     },
-    "content": {
-      "type": "dynamiczone",
-      "components": [
-        "shared.pdfassistant-product-section"
-      ]
-    },
     "seo": {
       "type": "component",
       "repeatable": false,
       "component": "shared.seo"
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.content-section"
+      ]
     }
   }
 }
