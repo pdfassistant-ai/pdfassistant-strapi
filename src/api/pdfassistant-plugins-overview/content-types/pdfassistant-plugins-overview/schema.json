@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfassistant_plugins_overviews",
+  "info": {
+    "singularName": "pdfassistant-plugins-overview",
+    "pluralName": "pdfassistant-plugins-overviews",
+    "displayName": "Pdfassistant Plugins Overview",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.content-section",
+        "product.plugins-group"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.content-section"
+    }
+  }
+}
