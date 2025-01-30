@@ -1303,6 +1303,42 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
 }
 
+export interface ApiPdfassistantPluginsOverviewPdfassistantPluginsOverview
+  extends Schema.SingleType {
+  collectionName: 'pdfassistant_plugins_overviews';
+  info: {
+    singularName: 'pdfassistant-plugins-overview';
+    pluralName: 'pdfassistant-plugins-overviews';
+    displayName: 'Pdfassistant Plugins Overview';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Attribute.DynamicZone<
+      ['shared.content-section', 'product.plugins-group']
+    >;
+    seo: Attribute.Component<'shared.seo'>;
+    hero: Attribute.Component<'shared.content-section'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPdfassistantPricingPdfassistantPricing
   extends Schema.SingleType {
   collectionName: 'pdfassistant_pricings';
@@ -1616,6 +1652,7 @@ declare module '@strapi/types' {
       'api::documentation-section.documentation-section': ApiDocumentationSectionDocumentationSection;
       'api::documentation-topic.documentation-topic': ApiDocumentationTopicDocumentationTopic;
       'api::global.global': ApiGlobalGlobal;
+      'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview': ApiPdfassistantPluginsOverviewPdfassistantPluginsOverview;
       'api::pdfassistant-pricing.pdfassistant-pricing': ApiPdfassistantPricingPdfassistantPricing;
       'api::pdfassistant-product.pdfassistant-product': ApiPdfassistantProductPdfassistantProduct;
       'api::pdfrest-documentation-page.pdfrest-documentation-page': ApiPdfrestDocumentationPagePdfrestDocumentationPage;

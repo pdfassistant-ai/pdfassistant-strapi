@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_product_plugins_groups",
+  "info": {
+    "displayName": "Plugins Group",
+    "icon": "apps",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "pdfassistant_products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pdfassistant-product.pdfassistant-product"
+    }
+  }
+}
