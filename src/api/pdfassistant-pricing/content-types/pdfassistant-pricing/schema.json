@@ -29,6 +29,11 @@
       "components": [
         "pricing.card"
       ]
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.seo"
     }
   }
 }

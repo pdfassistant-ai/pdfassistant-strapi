@@ -1087,9 +1087,8 @@ export interface ApiBlogPostTypeBlogPostType extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String & Attribute.Required;
-    slug: Attribute.UID<'api::blog-post-type.blog-post-type', 'name'> &
-      Attribute.Required;
+    name: Attribute.String;
+    slug: Attribute.UID<'api::blog-post-type.blog-post-type', 'name'>;
     description: Attribute.Text;
     blog_posts: Attribute.Relation<
       'api::blog-post-type.blog-post-type',
@@ -1097,6 +1096,12 @@ export interface ApiBlogPostTypeBlogPostType extends Schema.CollectionType {
       'api::blog-post.blog-post'
     >;
     rank: Attribute.Integer;
+    name_plural: Attribute.String;
+    slug_plural: Attribute.UID<
+      'api::blog-post-type.blog-post-type',
+      'name_plural'
+    >;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1356,6 +1361,7 @@ export interface ApiPdfassistantPricingPdfassistantPricing
     description: Attribute.Text;
     faq: Attribute.DynamicZone<['shared.faq']>;
     credit_plans: Attribute.DynamicZone<['pricing.card']>;
+    seo: Attribute.Component<'shared.seo', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
