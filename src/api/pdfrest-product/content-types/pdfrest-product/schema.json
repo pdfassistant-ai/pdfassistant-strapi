@@ -102,6 +102,11 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.cta"
+    },
+    "availability": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.content-section"
     }
   }
 }
