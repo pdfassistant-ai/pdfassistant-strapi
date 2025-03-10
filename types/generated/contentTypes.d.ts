@@ -1575,7 +1575,7 @@ export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
     slug: Attribute.UID<'api::pdfrest-product.pdfrest-product', 'title'>;
     seo: Attribute.Component<'shared.seo'>;
     final_cta: Attribute.Component<'shared.cta'>;
-    availability: Attribute.Component<'shared.content-section'>;
+    deployment: Attribute.Component<'shared.content-section'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
