@@ -226,50 +226,6 @@ export interface ProductPdfassistantProductSection extends Schema.Component {
   };
 }
 
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
-  };
-}
-
-export interface ToolParameter extends Schema.Component {
-  collectionName: 'components_tool_parameters';
-  info: {
-    displayName: 'Parameter';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    name: Attribute.String;
-    description: Attribute.RichText;
-    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
-export interface ToolCard extends Schema.Component {
-  collectionName: 'components_tool_cards';
-  info: {
-    displayName: 'Card';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
-  };
-}
-
 export interface PricingFeature extends Schema.Component {
   collectionName: 'components_pricing_features';
   info: {
@@ -305,6 +261,24 @@ export interface PricingCard extends Schema.Component {
   };
 }
 
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
+  };
+}
+
 export interface DocumentationDocSection extends Schema.Component {
   collectionName: 'components_documentation_doc_sections';
   info: {
@@ -317,6 +291,32 @@ export interface DocumentationDocSection extends Schema.Component {
     text_content: Attribute.RichText;
     tabs: Attribute.Component<'tool.parameter', true>;
     links: Attribute.Component<'header.link', true>;
+  };
+}
+
+export interface ToolParameter extends Schema.Component {
+  collectionName: 'components_tool_parameters';
+  info: {
+    displayName: 'Parameter';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText;
+    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
+  };
+}
+
+export interface ToolCard extends Schema.Component {
+  collectionName: 'components_tool_cards';
+  info: {
+    displayName: 'Card';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.RichText;
   };
 }
 
@@ -338,12 +338,12 @@ declare module '@strapi/types' {
       'product.tool-group': ProductToolGroup;
       'product.plugins-group': ProductPluginsGroup;
       'product.pdfassistant-product-section': ProductPdfassistantProductSection;
-      'header.link': HeaderLink;
-      'tool.parameter': ToolParameter;
-      'tool.card': ToolCard;
       'pricing.feature': PricingFeature;
       'pricing.card': PricingCard;
+      'header.link': HeaderLink;
       'documentation.doc-section': DocumentationDocSection;
+      'tool.parameter': ToolParameter;
+      'tool.card': ToolCard;
     }
   }
 }

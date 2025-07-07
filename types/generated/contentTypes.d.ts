@@ -1523,6 +1523,12 @@ export interface ApiPdfrestPricingPdfrestPricing extends Schema.SingleType {
     pricing_cards: Attribute.Component<'pricing.card', true>;
     features_table: Attribute.JSON;
     seo: Attribute.Component<'shared.seo'>;
+    title_cloud: Attribute.String;
+    description_cloud: Attribute.RichText;
+    title_container: Attribute.String;
+    description_container: Attribute.RichText;
+    title_on_aws: Attribute.String;
+    description_on_aws: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1576,6 +1582,8 @@ export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
     seo: Attribute.Component<'shared.seo'>;
     final_cta: Attribute.Component<'shared.cta'>;
     deployment: Attribute.Component<'shared.content-section'>;
+    pro_tools_title: Attribute.String;
+    pro_tools_description: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

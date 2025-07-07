@@ -107,6 +107,12 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.content-section"
+    },
+    "pro_tools_title": {
+      "type": "string"
+    },
+    "pro_tools_description": {
+      "type": "richtext"
     }
   }
 }
