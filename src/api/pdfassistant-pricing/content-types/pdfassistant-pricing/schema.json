@@ -34,6 +34,9 @@
       "type": "component",
       "repeatable": true,
       "component": "shared.seo"
+    },
+    "plan_details_table": {
+      "type": "json"
     }
   }
 }
