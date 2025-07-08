@@ -1362,6 +1362,7 @@ export interface ApiPdfassistantPricingPdfassistantPricing
     faq: Attribute.DynamicZone<['shared.faq']>;
     credit_plans: Attribute.DynamicZone<['pricing.card']>;
     seo: Attribute.Component<'shared.seo', true>;
+    plan_details_table: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
