@@ -2,6 +2,26 @@
 
 Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
 
+## localhost - IPv4 vs. IPv6
+If you're having issues sending calls to your Strapi instance, the issue could be related to Node.js.
+
+In Node versions 18+, Node defaults to resolving the string `localhost` to `::1`, the IPv6 format for the loopback address. It seems that Strapi is not bound to the IPv6 address in all cases, instead defaulting to the IPv4 loopback address, `127.0.0.1`. 
+
+When a Node project (such as a Nuxt site) attempts to resolve `localhost` to `::1` while Strapi is bound to `127.0.0.1`, the Nuxt site's API calls won't be routed to the server properly. You might experience this if you can connect to the Strapi Admin dashboard, or can send requests via cURL, but receive `500` responses for calls sent from a Nuxt site.
+
+This can be fixed by changing the Strapi server's URL in your `.env` from 
+
+```
+http://localhost:1337/
+```
+
+to explicitly using the IPv4 loopback address like:
+
+```
+http://127.0.0.1:1337/
+```
+
+
 ### `develop`
 
 Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
