@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pdfrest_pricing_cards",
+  "info": {
+    "singularName": "pdfrest-pricing-card",
+    "pluralName": "pdfrest-pricing-cards",
+    "displayName": "Pdfrest Pricing Card Group",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "card": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pricing.card"
+    },
+    "title": {
+      "type": "string",
+      "private": true,
+      "required": true
+    }
+  }
+}

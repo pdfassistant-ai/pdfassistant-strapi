@@ -63,13 +63,6 @@
     "pricing_section_description": {
       "type": "richtext"
     },
-    "pricing_content": {
-      "type": "dynamiczone",
-      "components": [
-        "shared.rich-text",
-        "pricing.card"
-      ]
-    },
     "pricing_links": {
       "type": "component",
       "repeatable": true,
@@ -113,6 +106,11 @@
     },
     "pro_tools_description": {
       "type": "richtext"
+    },
+    "pdfrest_pricing_card_group": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::pdfrest-pricing-card.pdfrest-pricing-card"
     }
   }
 }

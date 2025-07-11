@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_pricing_section_pricing_links",
+  "info": {
+    "displayName": "Pricing Link",
+    "icon": "link"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

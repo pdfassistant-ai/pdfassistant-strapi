@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_pricing_section_features",
+  "info": {
+    "displayName": "Feature",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

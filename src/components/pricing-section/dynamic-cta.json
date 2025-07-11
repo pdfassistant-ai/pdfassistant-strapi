@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_pricing_section_dynamic_ctas",
+  "info": {
+    "displayName": "Dynamic CTA",
+    "icon": "phone"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "condition": {
+      "type": "enumeration",
+      "enum": [
+        "no_account",
+        "is_starter",
+        "is_premium_or_pro",
+        "is_enterprise"
+      ]
+    }
+  }
+}
