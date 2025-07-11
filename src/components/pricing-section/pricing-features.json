@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_pricing_section_pricing_features",
+  "info": {
+    "displayName": "Pricing Features",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "feature": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pricing-section.feature"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pdfrest_pricing_sections",
+  "info": {
+    "singularName": "pdfrest-pricing-section",
+    "pluralName": "pdfrest-pricing-sections",
+    "displayName": "Pdfrest Pricing Section",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "section_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pricing-section.pricing-section"
+    },
+    "features": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pricing-section.pricing-features"
+    },
+    "cta_link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pricing-section.pricing-link"
+    },
+    "pdfrest_pricing_card_group": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::pdfrest-pricing-card.pdfrest-pricing-card"
+    },
+    "pricing_card_title": {
+      "type": "string"
+    },
+    "pricing_card_description": {
+      "type": "text"
+    },
+    "dynamic_cta": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pricing-section.dynamic-cta"
+    },
+    "Title": {
+      "type": "string",
+      "required": true,
+      "private": true
+    }
+  }
+}

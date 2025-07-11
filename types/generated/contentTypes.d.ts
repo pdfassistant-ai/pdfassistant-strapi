@@ -1521,15 +1521,20 @@ export interface ApiPdfrestPricingPdfrestPricing extends Schema.SingleType {
   attributes: {
     title: Attribute.String;
     description: Attribute.RichText;
-    pricing_cards: Attribute.Component<'pricing.card', true>;
     features_table: Attribute.JSON;
     seo: Attribute.Component<'shared.seo'>;
     title_cloud: Attribute.String;
     description_cloud: Attribute.RichText;
-    title_container: Attribute.String;
-    description_container: Attribute.RichText;
-    title_on_aws: Attribute.String;
-    description_on_aws: Attribute.RichText;
+    pdfrest_pricing_card_group: Attribute.Relation<
+      'api::pdfrest-pricing.pdfrest-pricing',
+      'oneToOne',
+      'api::pdfrest-pricing-card.pdfrest-pricing-card'
+    >;
+    pdfrest_pricing_sections: Attribute.Relation<
+      'api::pdfrest-pricing.pdfrest-pricing',
+      'oneToMany',
+      'api::pdfrest-pricing-section.pdfrest-pricing-section'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1541,6 +1546,82 @@ export interface ApiPdfrestPricingPdfrestPricing extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::pdfrest-pricing.pdfrest-pricing',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPdfrestPricingCardPdfrestPricingCard
+  extends Schema.CollectionType {
+  collectionName: 'pdfrest_pricing_cards';
+  info: {
+    singularName: 'pdfrest-pricing-card';
+    pluralName: 'pdfrest-pricing-cards';
+    displayName: 'Pdfrest Pricing Card Group';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    card: Attribute.Component<'pricing.card', true>;
+    title: Attribute.String & Attribute.Required & Attribute.Private;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-pricing-card.pdfrest-pricing-card',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-pricing-card.pdfrest-pricing-card',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPdfrestPricingSectionPdfrestPricingSection
+  extends Schema.CollectionType {
+  collectionName: 'pdfrest_pricing_sections';
+  info: {
+    singularName: 'pdfrest-pricing-section';
+    pluralName: 'pdfrest-pricing-sections';
+    displayName: 'Pdfrest Pricing Section';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    section_header: Attribute.Component<'pricing-section.pricing-section'>;
+    features: Attribute.Component<'pricing-section.pricing-features'>;
+    cta_link: Attribute.Component<'pricing-section.pricing-link'>;
+    pdfrest_pricing_card_group: Attribute.Relation<
+      'api::pdfrest-pricing-section.pdfrest-pricing-section',
+      'oneToOne',
+      'api::pdfrest-pricing-card.pdfrest-pricing-card'
+    >;
+    pricing_card_title: Attribute.String;
+    pricing_card_description: Attribute.Text;
+    dynamic_cta: Attribute.Component<'pricing-section.dynamic-cta', true>;
+    Title: Attribute.String & Attribute.Required & Attribute.Private;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-pricing-section.pdfrest-pricing-section',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-pricing-section.pdfrest-pricing-section',
       'oneToOne',
       'admin::user'
     > &
@@ -1571,9 +1652,6 @@ export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
     tool_groups: Attribute.Component<'product.tool-group', true>;
     pricing_section_title: Attribute.String;
     pricing_section_description: Attribute.RichText;
-    pricing_content: Attribute.DynamicZone<
-      ['shared.rich-text', 'pricing.card']
-    >;
     pricing_links: Attribute.Component<'header.link', true>;
     docs_section_title: Attribute.String;
     docs_section_description: Attribute.RichText;
@@ -1585,6 +1663,11 @@ export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
     deployment: Attribute.Component<'shared.content-section'>;
     pro_tools_title: Attribute.String;
     pro_tools_description: Attribute.RichText;
+    pdfrest_pricing_card_group: Attribute.Relation<
+      'api::pdfrest-product.pdfrest-product',
+      'oneToOne',
+      'api::pdfrest-pricing-card.pdfrest-pricing-card'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1674,6 +1757,8 @@ declare module '@strapi/types' {
       'api::pdfrest-documentation-page.pdfrest-documentation-page': ApiPdfrestDocumentationPagePdfrestDocumentationPage;
       'api::pdfrest-global.pdfrest-global': ApiPdfrestGlobalPdfrestGlobal;
       'api::pdfrest-pricing.pdfrest-pricing': ApiPdfrestPricingPdfrestPricing;
+      'api::pdfrest-pricing-card.pdfrest-pricing-card': ApiPdfrestPricingCardPdfrestPricingCard;
+      'api::pdfrest-pricing-section.pdfrest-pricing-section': ApiPdfrestPricingSectionPdfrestPricingSection;
       'api::pdfrest-product.pdfrest-product': ApiPdfrestProductPdfrestProduct;
       'api::pdfrest-security.pdfrest-security': ApiPdfrestSecurityPdfrestSecurity;
     }

@@ -167,85 +167,6 @@ export interface SharedCard extends Schema.Component {
   };
 }
 
-export interface PricingFeature extends Schema.Component {
-  collectionName: 'components_pricing_features';
-  info: {
-    displayName: 'Feature';
-    icon: 'check';
-    description: '';
-  };
-  attributes: {
-    detail: Attribute.String;
-  };
-}
-
-export interface PricingCard extends Schema.Component {
-  collectionName: 'components_pricing_cards';
-  info: {
-    displayName: 'card';
-    icon: 'priceTag';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    features: Attribute.Component<'pricing.feature', true>;
-    price: Attribute.String;
-    discounted_price: Attribute.String;
-    user_state: Attribute.JSON;
-    discount_text: Attribute.String;
-    highlight: Attribute.Boolean;
-    badge_text: Attribute.String;
-    cycle: Attribute.String;
-    stripe_data: Attribute.JSON;
-    price_data: Attribute.JSON;
-  };
-}
-
-export interface ToolParameter extends Schema.Component {
-  collectionName: 'components_tool_parameters';
-  info: {
-    displayName: 'Parameter';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    name: Attribute.String;
-    description: Attribute.RichText;
-    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
-export interface ToolCard extends Schema.Component {
-  collectionName: 'components_tool_cards';
-  info: {
-    displayName: 'Card';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
-  };
-}
-
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
-  };
-}
-
 export interface ProductToolGroup extends Schema.Component {
   collectionName: 'components_product_tool_groups';
   info: {
@@ -305,6 +226,152 @@ export interface ProductPdfassistantProductSection extends Schema.Component {
   };
 }
 
+export interface PricingFeature extends Schema.Component {
+  collectionName: 'components_pricing_features';
+  info: {
+    displayName: 'Feature';
+    icon: 'check';
+    description: '';
+  };
+  attributes: {
+    detail: Attribute.String;
+  };
+}
+
+export interface PricingCard extends Schema.Component {
+  collectionName: 'components_pricing_cards';
+  info: {
+    displayName: 'card';
+    icon: 'priceTag';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    features: Attribute.Component<'pricing.feature', true>;
+    price: Attribute.String;
+    discounted_price: Attribute.String;
+    user_state: Attribute.JSON;
+    discount_text: Attribute.String;
+    highlight: Attribute.Boolean;
+    badge_text: Attribute.String;
+    cycle: Attribute.String;
+    stripe_data: Attribute.JSON;
+    price_data: Attribute.JSON;
+  };
+}
+
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
+  };
+}
+
+export interface ToolParameter extends Schema.Component {
+  collectionName: 'components_tool_parameters';
+  info: {
+    displayName: 'Parameter';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText;
+    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
+  };
+}
+
+export interface ToolCard extends Schema.Component {
+  collectionName: 'components_tool_cards';
+  info: {
+    displayName: 'Card';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.RichText;
+  };
+}
+
+export interface PricingSectionPricingSection extends Schema.Component {
+  collectionName: 'components_pricing_section_pricing_sections';
+  info: {
+    displayName: 'Pricing Section';
+    icon: 'expand';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    body: Attribute.RichText;
+    description_link: Attribute.Component<'pricing-section.pricing-link'>;
+  };
+}
+
+export interface PricingSectionPricingLink extends Schema.Component {
+  collectionName: 'components_pricing_section_pricing_links';
+  info: {
+    displayName: 'Pricing Link';
+    icon: 'link';
+  };
+  attributes: {
+    title: Attribute.String;
+    url: Attribute.String;
+  };
+}
+
+export interface PricingSectionPricingFeatures extends Schema.Component {
+  collectionName: 'components_pricing_section_pricing_features';
+  info: {
+    displayName: 'Pricing Features';
+    icon: 'bulletList';
+  };
+  attributes: {
+    title: Attribute.String;
+    feature: Attribute.Component<'pricing-section.feature', true>;
+  };
+}
+
+export interface PricingSectionFeature extends Schema.Component {
+  collectionName: 'components_pricing_section_features';
+  info: {
+    displayName: 'Feature';
+    icon: 'check';
+  };
+  attributes: {
+    title: Attribute.String;
+    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    description: Attribute.RichText;
+  };
+}
+
+export interface PricingSectionDynamicCta extends Schema.Component {
+  collectionName: 'components_pricing_section_dynamic_ctas';
+  info: {
+    displayName: 'Dynamic CTA';
+    icon: 'phone';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    condition: Attribute.Enumeration<
+      ['no_account', 'is_starter', 'is_premium_or_pro', 'is_enterprise']
+    >;
+  };
+}
+
 export interface DocumentationDocSection extends Schema.Component {
   collectionName: 'components_documentation_doc_sections';
   info: {
@@ -335,14 +402,19 @@ declare module '@strapi/types' {
       'shared.cta': SharedCta;
       'shared.content-section': SharedContentSection;
       'shared.card': SharedCard;
-      'pricing.feature': PricingFeature;
-      'pricing.card': PricingCard;
-      'tool.parameter': ToolParameter;
-      'tool.card': ToolCard;
-      'header.link': HeaderLink;
       'product.tool-group': ProductToolGroup;
       'product.plugins-group': ProductPluginsGroup;
       'product.pdfassistant-product-section': ProductPdfassistantProductSection;
+      'pricing.feature': PricingFeature;
+      'pricing.card': PricingCard;
+      'header.link': HeaderLink;
+      'tool.parameter': ToolParameter;
+      'tool.card': ToolCard;
+      'pricing-section.pricing-section': PricingSectionPricingSection;
+      'pricing-section.pricing-link': PricingSectionPricingLink;
+      'pricing-section.pricing-features': PricingSectionPricingFeatures;
+      'pricing-section.feature': PricingSectionFeature;
+      'pricing-section.dynamic-cta': PricingSectionDynamicCta;
       'documentation.doc-section': DocumentationDocSection;
     }
   }

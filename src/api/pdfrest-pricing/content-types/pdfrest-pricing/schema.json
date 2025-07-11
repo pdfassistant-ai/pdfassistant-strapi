@@ -18,11 +18,6 @@
     "description": {
       "type": "richtext"
     },
-    "pricing_cards": {
-      "type": "component",
-      "repeatable": true,
-      "component": "pricing.card"
-    },
     "features_table": {
       "type": "json"
     },
@@ -37,17 +32,15 @@
     "description_cloud": {
       "type": "richtext"
     },
-    "title_container": {
-      "type": "string"
+    "pdfrest_pricing_card_group": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::pdfrest-pricing-card.pdfrest-pricing-card"
     },
-    "description_container": {
-      "type": "richtext"
-    },
-    "title_on_aws": {
-      "type": "string"
-    },
-    "description_on_aws": {
-      "type": "richtext"
+    "pdfrest_pricing_sections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pdfrest-pricing-section.pdfrest-pricing-section"
     }
   }
 }

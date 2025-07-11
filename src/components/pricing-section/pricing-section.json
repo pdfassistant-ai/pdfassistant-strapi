@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_pricing_section_pricing_sections",
+  "info": {
+    "displayName": "Pricing Section",
+    "icon": "expand",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "body": {
+      "type": "richtext"
+    },
+    "description_link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pricing-section.pricing-link"
+    }
+  }
+}
