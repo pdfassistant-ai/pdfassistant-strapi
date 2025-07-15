@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_pricing_section_ctas",
+  "info": {
+    "displayName": "CTA",
+    "icon": "magic",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pricing-section.pricing-link"
+    }
+  }
+}

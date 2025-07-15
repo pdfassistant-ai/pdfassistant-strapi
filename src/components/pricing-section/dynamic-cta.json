@@ -2,7 +2,8 @@
   "collectionName": "components_pricing_section_dynamic_ctas",
   "info": {
     "displayName": "Dynamic CTA",
-    "icon": "phone"
+    "icon": "phone",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -20,6 +21,19 @@
         "is_premium_or_pro",
         "is_enterprise"
       ]
+    },
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "iconify_icon_name": {
+      "type": "string"
     }
   }
 }
