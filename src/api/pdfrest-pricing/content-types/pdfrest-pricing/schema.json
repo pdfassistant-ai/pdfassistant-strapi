@@ -41,6 +41,20 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::pdfrest-pricing-section.pdfrest-pricing-section"
+    },
+    "image_cloud": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "features_table_title": {
+      "type": "string"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "collectionName": "components_pricing_section_pricing_sections",
   "info": {
-    "displayName": "Pricing Section",
+    "displayName": "Section Header",
     "icon": "expand",
     "description": ""
   },
@@ -20,6 +20,16 @@
       "type": "component",
       "repeatable": false,
       "component": "pricing-section.pricing-link"
+    },
+    "title_image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

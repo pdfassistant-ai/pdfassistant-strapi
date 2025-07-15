@@ -1535,6 +1535,8 @@ export interface ApiPdfrestPricingPdfrestPricing extends Schema.SingleType {
       'oneToMany',
       'api::pdfrest-pricing-section.pdfrest-pricing-section'
     >;
+    image_cloud: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    features_table_title: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
