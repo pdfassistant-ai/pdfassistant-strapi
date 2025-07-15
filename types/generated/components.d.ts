@@ -1,5 +1,90 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface ToolParameter extends Schema.Component {
+  collectionName: 'components_tool_parameters';
+  info: {
+    displayName: 'Parameter';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText;
+    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
+  };
+}
+
+export interface ToolCard extends Schema.Component {
+  collectionName: 'components_tool_cards';
+  info: {
+    displayName: 'Card';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.RichText;
+  };
+}
+
+export interface ProductToolGroup extends Schema.Component {
+  collectionName: 'components_product_tool_groups';
+  info: {
+    displayName: 'Tool Group';
+    icon: 'apps';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    api_tools: Attribute.Relation<
+      'product.tool-group',
+      'oneToMany',
+      'api::api-tool.api-tool'
+    >;
+  };
+}
+
+export interface ProductPluginsGroup extends Schema.Component {
+  collectionName: 'components_product_plugins_groups';
+  info: {
+    displayName: 'Plugins Group';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    pdfassistant_products: Attribute.Relation<
+      'product.plugins-group',
+      'oneToMany',
+      'api::pdfassistant-product.pdfassistant-product'
+    >;
+  };
+}
+
+export interface ProductPdfassistantProductSection extends Schema.Component {
+  collectionName: 'components_product_pdfassistant_product_sections';
+  info: {
+    displayName: 'Section';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    align: Attribute.Enumeration<['left', 'center', 'right']>;
+    features: Attribute.Component<'shared.card', true>;
+    cards: Attribute.Component<'shared.card', true>;
+    full_width: Attribute.Boolean;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    subsections: Attribute.JSON;
+    overrides: Attribute.JSON;
+    pricing_cards: Attribute.JSON;
+    links: Attribute.Component<'shared.link', true>;
+    icon: Attribute.String;
+    card_style: Attribute.Enumeration<['landing']>;
+  };
+}
+
 export interface SharedString extends Schema.Component {
   collectionName: 'components_shared_strings';
   info: {
@@ -167,62 +252,71 @@ export interface SharedCard extends Schema.Component {
   };
 }
 
-export interface ProductToolGroup extends Schema.Component {
-  collectionName: 'components_product_tool_groups';
+export interface PricingSectionPricingSection extends Schema.Component {
+  collectionName: 'components_pricing_section_pricing_sections';
   info: {
-    displayName: 'Tool Group';
-    icon: 'apps';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    api_tools: Attribute.Relation<
-      'product.tool-group',
-      'oneToMany',
-      'api::api-tool.api-tool'
-    >;
-  };
-}
-
-export interface ProductPluginsGroup extends Schema.Component {
-  collectionName: 'components_product_plugins_groups';
-  info: {
-    displayName: 'Plugins Group';
-    icon: 'apps';
+    displayName: 'Section Header';
+    icon: 'expand';
     description: '';
   };
   attributes: {
     title: Attribute.String;
-    description: Attribute.RichText;
-    pdfassistant_products: Attribute.Relation<
-      'product.plugins-group',
-      'oneToMany',
-      'api::pdfassistant-product.pdfassistant-product'
-    >;
+    description: Attribute.Text;
+    body: Attribute.RichText;
+    description_link: Attribute.Component<'pricing-section.pricing-link'>;
+    title_image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 
-export interface ProductPdfassistantProductSection extends Schema.Component {
-  collectionName: 'components_product_pdfassistant_product_sections';
+export interface PricingSectionPricingLink extends Schema.Component {
+  collectionName: 'components_pricing_section_pricing_links';
   info: {
-    displayName: 'Section';
-    icon: 'apps';
-    description: '';
+    displayName: 'Pricing Link';
+    icon: 'link';
+  };
+  attributes: {
+    title: Attribute.String;
+    url: Attribute.String;
+  };
+}
+
+export interface PricingSectionPricingFeatures extends Schema.Component {
+  collectionName: 'components_pricing_section_pricing_features';
+  info: {
+    displayName: 'Pricing Features';
+    icon: 'bulletList';
+  };
+  attributes: {
+    title: Attribute.String;
+    feature: Attribute.Component<'pricing-section.feature', true>;
+  };
+}
+
+export interface PricingSectionFeature extends Schema.Component {
+  collectionName: 'components_pricing_section_features';
+  info: {
+    displayName: 'Feature';
+    icon: 'check';
+  };
+  attributes: {
+    title: Attribute.String;
+    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    description: Attribute.RichText;
+  };
+}
+
+export interface PricingSectionDynamicCta extends Schema.Component {
+  collectionName: 'components_pricing_section_dynamic_ctas';
+  info: {
+    displayName: 'Dynamic CTA';
+    icon: 'phone';
   };
   attributes: {
     title: Attribute.String;
     description: Attribute.RichText;
-    align: Attribute.Enumeration<['left', 'center', 'right']>;
-    features: Attribute.Component<'shared.card', true>;
-    cards: Attribute.Component<'shared.card', true>;
-    full_width: Attribute.Boolean;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    subsections: Attribute.JSON;
-    overrides: Attribute.JSON;
-    pricing_cards: Attribute.JSON;
-    links: Attribute.Component<'shared.link', true>;
-    icon: Attribute.String;
-    card_style: Attribute.Enumeration<['landing']>;
+    condition: Attribute.Enumeration<
+      ['no_account', 'is_starter', 'is_premium_or_pro', 'is_enterprise']
+    >;
   };
 }
 
@@ -279,99 +373,6 @@ export interface HeaderLink extends Schema.Component {
   };
 }
 
-export interface ToolParameter extends Schema.Component {
-  collectionName: 'components_tool_parameters';
-  info: {
-    displayName: 'Parameter';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    name: Attribute.String;
-    description: Attribute.RichText;
-    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
-  };
-}
-
-export interface ToolCard extends Schema.Component {
-  collectionName: 'components_tool_cards';
-  info: {
-    displayName: 'Card';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
-  };
-}
-
-export interface PricingSectionPricingSection extends Schema.Component {
-  collectionName: 'components_pricing_section_pricing_sections';
-  info: {
-    displayName: 'Pricing Section';
-    icon: 'expand';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    body: Attribute.RichText;
-    description_link: Attribute.Component<'pricing-section.pricing-link'>;
-  };
-}
-
-export interface PricingSectionPricingLink extends Schema.Component {
-  collectionName: 'components_pricing_section_pricing_links';
-  info: {
-    displayName: 'Pricing Link';
-    icon: 'link';
-  };
-  attributes: {
-    title: Attribute.String;
-    url: Attribute.String;
-  };
-}
-
-export interface PricingSectionPricingFeatures extends Schema.Component {
-  collectionName: 'components_pricing_section_pricing_features';
-  info: {
-    displayName: 'Pricing Features';
-    icon: 'bulletList';
-  };
-  attributes: {
-    title: Attribute.String;
-    feature: Attribute.Component<'pricing-section.feature', true>;
-  };
-}
-
-export interface PricingSectionFeature extends Schema.Component {
-  collectionName: 'components_pricing_section_features';
-  info: {
-    displayName: 'Feature';
-    icon: 'check';
-  };
-  attributes: {
-    title: Attribute.String;
-    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    description: Attribute.RichText;
-  };
-}
-
-export interface PricingSectionDynamicCta extends Schema.Component {
-  collectionName: 'components_pricing_section_dynamic_ctas';
-  info: {
-    displayName: 'Dynamic CTA';
-    icon: 'phone';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    condition: Attribute.Enumeration<
-      ['no_account', 'is_starter', 'is_premium_or_pro', 'is_enterprise']
-    >;
-  };
-}
-
 export interface DocumentationDocSection extends Schema.Component {
   collectionName: 'components_documentation_doc_sections';
   info: {
@@ -390,6 +391,11 @@ export interface DocumentationDocSection extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'tool.parameter': ToolParameter;
+      'tool.card': ToolCard;
+      'product.tool-group': ProductToolGroup;
+      'product.plugins-group': ProductPluginsGroup;
+      'product.pdfassistant-product-section': ProductPdfassistantProductSection;
       'shared.string': SharedString;
       'shared.slider': SharedSlider;
       'shared.seo': SharedSeo;
@@ -402,19 +408,14 @@ declare module '@strapi/types' {
       'shared.cta': SharedCta;
       'shared.content-section': SharedContentSection;
       'shared.card': SharedCard;
-      'product.tool-group': ProductToolGroup;
-      'product.plugins-group': ProductPluginsGroup;
-      'product.pdfassistant-product-section': ProductPdfassistantProductSection;
-      'pricing.feature': PricingFeature;
-      'pricing.card': PricingCard;
-      'header.link': HeaderLink;
-      'tool.parameter': ToolParameter;
-      'tool.card': ToolCard;
       'pricing-section.pricing-section': PricingSectionPricingSection;
       'pricing-section.pricing-link': PricingSectionPricingLink;
       'pricing-section.pricing-features': PricingSectionPricingFeatures;
       'pricing-section.feature': PricingSectionFeature;
       'pricing-section.dynamic-cta': PricingSectionDynamicCta;
+      'pricing.feature': PricingFeature;
+      'pricing.card': PricingCard;
+      'header.link': HeaderLink;
       'documentation.doc-section': DocumentationDocSection;
     }
   }
