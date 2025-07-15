@@ -1537,6 +1537,7 @@ export interface ApiPdfrestPricingPdfrestPricing extends Schema.SingleType {
     >;
     image_cloud: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     features_table_title: Attribute.String;
+    dynamic_cta: Attribute.Component<'pricing-section.dynamic-cta', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1611,8 +1612,9 @@ export interface ApiPdfrestPricingSectionPdfrestPricingSection
     >;
     pricing_card_title: Attribute.String;
     pricing_card_description: Attribute.Text;
-    dynamic_cta: Attribute.Component<'pricing-section.dynamic-cta', true>;
     Title: Attribute.String & Attribute.Required & Attribute.Private;
+    cta_title: Attribute.String;
+    ctas: Attribute.Component<'pricing-section.cta', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

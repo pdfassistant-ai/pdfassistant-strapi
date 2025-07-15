@@ -55,6 +55,11 @@
     },
     "features_table_title": {
       "type": "string"
+    },
+    "dynamic_cta": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pricing-section.dynamic-cta"
     }
   }
 }
