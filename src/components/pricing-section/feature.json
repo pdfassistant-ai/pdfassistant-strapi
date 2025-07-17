@@ -2,7 +2,8 @@
   "collectionName": "components_pricing_section_features",
   "info": {
     "displayName": "Feature",
-    "icon": "check"
+    "icon": "check",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -10,17 +11,21 @@
       "type": "string"
     },
     "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "description": {
       "type": "richtext"
+    },
+    "iconify_icon": {
+      "type": "string"
     }
   }
 }
