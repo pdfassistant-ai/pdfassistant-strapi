@@ -65,6 +65,11 @@
       "type": "component",
       "repeatable": true,
       "component": "faq.faq-section"
+    },
+    "cloud_faq_link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pricing-section.pricing-link"
     }
   }
 }
