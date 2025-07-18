@@ -1539,6 +1539,7 @@ export interface ApiPdfrestPricingPdfrestPricing extends Schema.SingleType {
     features_table_title: Attribute.String;
     dynamic_cta: Attribute.Component<'pricing-section.dynamic-cta', true>;
     faq_sections: Attribute.Component<'faq.faq-section', true>;
+    cloud_faq_link: Attribute.Component<'pricing-section.pricing-link'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1616,6 +1617,7 @@ export interface ApiPdfrestPricingSectionPdfrestPricingSection
     Title: Attribute.String & Attribute.Required & Attribute.Private;
     cta_title: Attribute.String;
     ctas: Attribute.Component<'pricing-section.cta', true>;
+    faq_link: Attribute.Component<'pricing-section.pricing-link'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
