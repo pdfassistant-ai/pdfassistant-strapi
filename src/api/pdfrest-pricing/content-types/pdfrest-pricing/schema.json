@@ -60,6 +60,11 @@
       "type": "component",
       "repeatable": true,
       "component": "pricing-section.dynamic-cta"
+    },
+    "faq_sections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "faq.faq-section"
     }
   }
 }
