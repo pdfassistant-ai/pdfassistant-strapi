@@ -1,0 +1,38 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfrest_security_certifications",
+  "info": {
+    "singularName": "pdfrest-security-certification",
+    "pluralName": "pdfrest-security-certifications",
+    "displayName": "Pdfrest Security Certification",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "certification_icons": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pricing-section.pricing-link"
+    }
+  }
+}

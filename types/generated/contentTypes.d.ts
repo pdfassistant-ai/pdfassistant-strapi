@@ -1727,6 +1727,44 @@ export interface ApiPdfrestSecurityPdfrestSecurity extends Schema.SingleType {
   };
 }
 
+export interface ApiPdfrestSecurityCertificationPdfrestSecurityCertification
+  extends Schema.SingleType {
+  collectionName: 'pdfrest_security_certifications';
+  info: {
+    singularName: 'pdfrest-security-certification';
+    pluralName: 'pdfrest-security-certifications';
+    displayName: 'Pdfrest Security Certification';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    certification_icons: Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    links: Attribute.Component<'pricing-section.pricing-link', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-security-certification.pdfrest-security-certification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-security-certification.pdfrest-security-certification',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1768,6 +1806,7 @@ declare module '@strapi/types' {
       'api::pdfrest-pricing-section.pdfrest-pricing-section': ApiPdfrestPricingSectionPdfrestPricingSection;
       'api::pdfrest-product.pdfrest-product': ApiPdfrestProductPdfrestProduct;
       'api::pdfrest-security.pdfrest-security': ApiPdfrestSecurityPdfrestSecurity;
+      'api::pdfrest-security-certification.pdfrest-security-certification': ApiPdfrestSecurityCertificationPdfrestSecurityCertification;
     }
   }
 }
