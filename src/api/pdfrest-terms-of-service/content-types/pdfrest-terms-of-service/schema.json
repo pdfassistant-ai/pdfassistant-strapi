@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfrest_terms_of_services",
+  "info": {
+    "singularName": "pdfrest-terms-of-service",
+    "pluralName": "pdfrest-terms-of-services",
+    "displayName": "Pdfrest Terms of Service"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "body": {
+      "type": "richtext"
+    }
+  }
+}

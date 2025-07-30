@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfrest_privacy_policies",
+  "info": {
+    "singularName": "pdfrest-privacy-policy",
+    "pluralName": "pdfrest-privacy-policies",
+    "displayName": "Pdfrest Privacy Policy"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "body": {
+      "type": "richtext"
+    }
+  }
+}
