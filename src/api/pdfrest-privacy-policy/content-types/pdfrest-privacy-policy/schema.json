@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pdfrest-privacy-policy",
     "pluralName": "pdfrest-privacy-policies",
-    "displayName": "Pdfrest Privacy Policy"
+    "displayName": "Pdfrest Privacy Policy",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +20,11 @@
     },
     "body": {
       "type": "richtext"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }

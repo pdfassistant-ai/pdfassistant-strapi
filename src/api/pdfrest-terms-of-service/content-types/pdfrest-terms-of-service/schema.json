@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pdfrest-terms-of-service",
     "pluralName": "pdfrest-terms-of-services",
-    "displayName": "Pdfrest Terms of Service"
+    "displayName": "Pdfrest Terms of Service",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +20,11 @@
     },
     "body": {
       "type": "richtext"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }
