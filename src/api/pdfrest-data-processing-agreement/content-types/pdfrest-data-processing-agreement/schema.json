@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pdfrest-data-processing-agreement",
     "pluralName": "pdfrest-data-processing-agreements",
-    "displayName": "Pdfrest Data Processing Agreement"
+    "displayName": "Pdfrest Data Processing Agreement",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +20,11 @@
     },
     "body": {
       "type": "richtext"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }

@@ -1428,6 +1428,7 @@ export interface ApiPdfrestDataProcessingAgreementPdfrestDataProcessingAgreement
     singularName: 'pdfrest-data-processing-agreement';
     pluralName: 'pdfrest-data-processing-agreements';
     displayName: 'Pdfrest Data Processing Agreement';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1436,6 +1437,7 @@ export interface ApiPdfrestDataProcessingAgreementPdfrestDataProcessingAgreement
     title: Attribute.String;
     description: Attribute.Text;
     body: Attribute.RichText;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1676,6 +1678,7 @@ export interface ApiPdfrestPrivacyPolicyPdfrestPrivacyPolicy
     singularName: 'pdfrest-privacy-policy';
     pluralName: 'pdfrest-privacy-policies';
     displayName: 'Pdfrest Privacy Policy';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1684,6 +1687,7 @@ export interface ApiPdfrestPrivacyPolicyPdfrestPrivacyPolicy
     title: Attribute.String;
     description: Attribute.Text;
     body: Attribute.RichText;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1838,6 +1842,7 @@ export interface ApiPdfrestTermsOfServicePdfrestTermsOfService
     singularName: 'pdfrest-terms-of-service';
     pluralName: 'pdfrest-terms-of-services';
     displayName: 'Pdfrest Terms of Service';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1846,6 +1851,7 @@ export interface ApiPdfrestTermsOfServicePdfrestTermsOfService
     title: Attribute.String;
     description: Attribute.Text;
     body: Attribute.RichText;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
