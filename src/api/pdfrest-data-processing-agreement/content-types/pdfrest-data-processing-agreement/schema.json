@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfrest_data_processing_agreements",
+  "info": {
+    "singularName": "pdfrest-data-processing-agreement",
+    "pluralName": "pdfrest-data-processing-agreements",
+    "displayName": "Pdfrest Data Processing Agreement"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "body": {
+      "type": "richtext"
+    }
+  }
+}

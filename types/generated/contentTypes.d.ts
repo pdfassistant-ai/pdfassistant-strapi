@@ -1421,6 +1421,39 @@ export interface ApiPdfassistantProductPdfassistantProduct
   };
 }
 
+export interface ApiPdfrestDataProcessingAgreementPdfrestDataProcessingAgreement
+  extends Schema.SingleType {
+  collectionName: 'pdfrest_data_processing_agreements';
+  info: {
+    singularName: 'pdfrest-data-processing-agreement';
+    pluralName: 'pdfrest-data-processing-agreements';
+    displayName: 'Pdfrest Data Processing Agreement';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    body: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-data-processing-agreement.pdfrest-data-processing-agreement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-data-processing-agreement.pdfrest-data-processing-agreement',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPdfrestDocumentationPagePdfrestDocumentationPage
   extends Schema.CollectionType {
   collectionName: 'pdfrest_documentation_pages';
@@ -1636,6 +1669,39 @@ export interface ApiPdfrestPricingSectionPdfrestPricingSection
   };
 }
 
+export interface ApiPdfrestPrivacyPolicyPdfrestPrivacyPolicy
+  extends Schema.SingleType {
+  collectionName: 'pdfrest_privacy_policies';
+  info: {
+    singularName: 'pdfrest-privacy-policy';
+    pluralName: 'pdfrest-privacy-policies';
+    displayName: 'Pdfrest Privacy Policy';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    body: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-privacy-policy.pdfrest-privacy-policy',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-privacy-policy.pdfrest-privacy-policy',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
   collectionName: 'pdfrest_products';
   info: {
@@ -1765,6 +1831,39 @@ export interface ApiPdfrestSecurityCertificationPdfrestSecurityCertification
   };
 }
 
+export interface ApiPdfrestTermsOfServicePdfrestTermsOfService
+  extends Schema.SingleType {
+  collectionName: 'pdfrest_terms_of_services';
+  info: {
+    singularName: 'pdfrest-terms-of-service';
+    pluralName: 'pdfrest-terms-of-services';
+    displayName: 'Pdfrest Terms of Service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    body: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-terms-of-service.pdfrest-terms-of-service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-terms-of-service.pdfrest-terms-of-service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1799,14 +1898,17 @@ declare module '@strapi/types' {
       'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview': ApiPdfassistantPluginsOverviewPdfassistantPluginsOverview;
       'api::pdfassistant-pricing.pdfassistant-pricing': ApiPdfassistantPricingPdfassistantPricing;
       'api::pdfassistant-product.pdfassistant-product': ApiPdfassistantProductPdfassistantProduct;
+      'api::pdfrest-data-processing-agreement.pdfrest-data-processing-agreement': ApiPdfrestDataProcessingAgreementPdfrestDataProcessingAgreement;
       'api::pdfrest-documentation-page.pdfrest-documentation-page': ApiPdfrestDocumentationPagePdfrestDocumentationPage;
       'api::pdfrest-global.pdfrest-global': ApiPdfrestGlobalPdfrestGlobal;
       'api::pdfrest-pricing.pdfrest-pricing': ApiPdfrestPricingPdfrestPricing;
       'api::pdfrest-pricing-card.pdfrest-pricing-card': ApiPdfrestPricingCardPdfrestPricingCard;
       'api::pdfrest-pricing-section.pdfrest-pricing-section': ApiPdfrestPricingSectionPdfrestPricingSection;
+      'api::pdfrest-privacy-policy.pdfrest-privacy-policy': ApiPdfrestPrivacyPolicyPdfrestPrivacyPolicy;
       'api::pdfrest-product.pdfrest-product': ApiPdfrestProductPdfrestProduct;
       'api::pdfrest-security.pdfrest-security': ApiPdfrestSecurityPdfrestSecurity;
       'api::pdfrest-security-certification.pdfrest-security-certification': ApiPdfrestSecurityCertificationPdfrestSecurityCertification;
+      'api::pdfrest-terms-of-service.pdfrest-terms-of-service': ApiPdfrestTermsOfServicePdfrestTermsOfService;
     }
   }
 }

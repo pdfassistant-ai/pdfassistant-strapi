@@ -320,6 +320,31 @@ export interface DocumentationDocSection extends Schema.Component {
   };
 }
 
+export interface FaqQuestion extends Schema.Component {
+  collectionName: 'components_faq_questions';
+  info: {
+    displayName: 'Question';
+    icon: 'question';
+  };
+  attributes: {
+    title: Attribute.String;
+    body: Attribute.RichText;
+  };
+}
+
+export interface FaqFaqSection extends Schema.Component {
+  collectionName: 'components_faq_faq_sections';
+  info: {
+    displayName: 'FAQ Section';
+    icon: 'question';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    questions: Attribute.Component<'faq.question', true>;
+  };
+}
+
 export interface PricingSectionPricingSection extends Schema.Component {
   collectionName: 'components_pricing_section_pricing_sections';
   info: {
@@ -409,31 +434,6 @@ export interface PricingSectionCta extends Schema.Component {
   };
 }
 
-export interface FaqQuestion extends Schema.Component {
-  collectionName: 'components_faq_questions';
-  info: {
-    displayName: 'Question';
-    icon: 'question';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
-  };
-}
-
-export interface FaqFaqSection extends Schema.Component {
-  collectionName: 'components_faq_faq_sections';
-  info: {
-    displayName: 'FAQ Section';
-    icon: 'question';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    questions: Attribute.Component<'faq.question', true>;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
@@ -458,14 +458,14 @@ declare module '@strapi/types' {
       'tool.parameter': ToolParameter;
       'tool.card': ToolCard;
       'documentation.doc-section': DocumentationDocSection;
+      'faq.question': FaqQuestion;
+      'faq.faq-section': FaqFaqSection;
       'pricing-section.pricing-section': PricingSectionPricingSection;
       'pricing-section.pricing-link': PricingSectionPricingLink;
       'pricing-section.pricing-features': PricingSectionPricingFeatures;
       'pricing-section.feature': PricingSectionFeature;
       'pricing-section.dynamic-cta': PricingSectionDynamicCta;
       'pricing-section.cta': PricingSectionCta;
-      'faq.question': FaqQuestion;
-      'faq.faq-section': FaqFaqSection;
     }
   }
 }
