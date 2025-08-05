@@ -26,65 +26,6 @@ export interface ToolCard extends Schema.Component {
   };
 }
 
-export interface ProductToolGroup extends Schema.Component {
-  collectionName: 'components_product_tool_groups';
-  info: {
-    displayName: 'Tool Group';
-    icon: 'apps';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    api_tools: Attribute.Relation<
-      'product.tool-group',
-      'oneToMany',
-      'api::api-tool.api-tool'
-    >;
-  };
-}
-
-export interface ProductPluginsGroup extends Schema.Component {
-  collectionName: 'components_product_plugins_groups';
-  info: {
-    displayName: 'Plugins Group';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    pdfassistant_products: Attribute.Relation<
-      'product.plugins-group',
-      'oneToMany',
-      'api::pdfassistant-product.pdfassistant-product'
-    >;
-  };
-}
-
-export interface ProductPdfassistantProductSection extends Schema.Component {
-  collectionName: 'components_product_pdfassistant_product_sections';
-  info: {
-    displayName: 'Section';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    align: Attribute.Enumeration<['left', 'center', 'right']>;
-    features: Attribute.Component<'shared.card', true>;
-    cards: Attribute.Component<'shared.card', true>;
-    full_width: Attribute.Boolean;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    subsections: Attribute.JSON;
-    overrides: Attribute.JSON;
-    pricing_cards: Attribute.JSON;
-    links: Attribute.Component<'shared.link', true>;
-    icon: Attribute.String;
-    card_style: Attribute.Enumeration<['landing']>;
-  };
-}
-
 export interface SharedString extends Schema.Component {
   collectionName: 'components_shared_strings';
   info: {
@@ -249,6 +190,65 @@ export interface SharedCard extends Schema.Component {
     description: Attribute.RichText;
     image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     icon: Attribute.String;
+  };
+}
+
+export interface ProductToolGroup extends Schema.Component {
+  collectionName: 'components_product_tool_groups';
+  info: {
+    displayName: 'Tool Group';
+    icon: 'apps';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    api_tools: Attribute.Relation<
+      'product.tool-group',
+      'oneToMany',
+      'api::api-tool.api-tool'
+    >;
+  };
+}
+
+export interface ProductPluginsGroup extends Schema.Component {
+  collectionName: 'components_product_plugins_groups';
+  info: {
+    displayName: 'Plugins Group';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    pdfassistant_products: Attribute.Relation<
+      'product.plugins-group',
+      'oneToMany',
+      'api::pdfassistant-product.pdfassistant-product'
+    >;
+  };
+}
+
+export interface ProductPdfassistantProductSection extends Schema.Component {
+  collectionName: 'components_product_pdfassistant_product_sections';
+  info: {
+    displayName: 'Section';
+    icon: 'apps';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    align: Attribute.Enumeration<['left', 'center', 'right']>;
+    features: Attribute.Component<'shared.card', true>;
+    cards: Attribute.Component<'shared.card', true>;
+    full_width: Attribute.Boolean;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    subsections: Attribute.JSON;
+    overrides: Attribute.JSON;
+    pricing_cards: Attribute.JSON;
+    links: Attribute.Component<'shared.link', true>;
+    icon: Attribute.String;
+    card_style: Attribute.Enumeration<['landing']>;
   };
 }
 
@@ -439,9 +439,6 @@ declare module '@strapi/types' {
     export interface Components {
       'tool.parameter': ToolParameter;
       'tool.card': ToolCard;
-      'product.tool-group': ProductToolGroup;
-      'product.plugins-group': ProductPluginsGroup;
-      'product.pdfassistant-product-section': ProductPdfassistantProductSection;
       'shared.string': SharedString;
       'shared.slider': SharedSlider;
       'shared.seo': SharedSeo;
@@ -454,6 +451,9 @@ declare module '@strapi/types' {
       'shared.cta': SharedCta;
       'shared.content-section': SharedContentSection;
       'shared.card': SharedCard;
+      'product.tool-group': ProductToolGroup;
+      'product.plugins-group': ProductPluginsGroup;
+      'product.pdfassistant-product-section': ProductPdfassistantProductSection;
       'pricing-section.pricing-section': PricingSectionPricingSection;
       'pricing-section.pricing-link': PricingSectionPricingLink;
       'pricing-section.pricing-features': PricingSectionPricingFeatures;

@@ -1018,6 +1018,8 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
     >;
     blocks: Attribute.DynamicZone<['shared.rich-text', 'shared.html']>;
     seo: Attribute.Component<'shared.seo'>;
+    short_title: Attribute.String;
+    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

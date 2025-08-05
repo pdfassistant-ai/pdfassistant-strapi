@@ -66,6 +66,19 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.seo"
+    },
+    "short_title": {
+      "type": "string"
+    },
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
