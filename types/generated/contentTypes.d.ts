@@ -1104,6 +1104,7 @@ export interface ApiBlogPostTypeBlogPostType extends Schema.CollectionType {
       'name_plural'
     >;
     seo: Attribute.Component<'shared.seo'>;
+    icon: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
