@@ -1424,6 +1424,39 @@ export interface ApiPdfassistantProductPdfassistantProduct
   };
 }
 
+export interface ApiPdfrestContainerLicenseKeyRequestPdfrestContainerLicenseKeyRequest
+  extends Schema.SingleType {
+  collectionName: 'pdfrest_container_license_key_requests';
+  info: {
+    singularName: 'pdfrest-container-license-key-request';
+    pluralName: 'pdfrest-container-license-key-requests';
+    displayName: 'Pdfrest Container License Key Request';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.RichText;
+    seo: Attribute.Component<'shared.seo'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfrest-container-license-key-request.pdfrest-container-license-key-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfrest-container-license-key-request.pdfrest-container-license-key-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPdfrestDataProcessingAgreementPdfrestDataProcessingAgreement
   extends Schema.SingleType {
   collectionName: 'pdfrest_data_processing_agreements';
@@ -1907,6 +1940,7 @@ declare module '@strapi/types' {
       'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview': ApiPdfassistantPluginsOverviewPdfassistantPluginsOverview;
       'api::pdfassistant-pricing.pdfassistant-pricing': ApiPdfassistantPricingPdfassistantPricing;
       'api::pdfassistant-product.pdfassistant-product': ApiPdfassistantProductPdfassistantProduct;
+      'api::pdfrest-container-license-key-request.pdfrest-container-license-key-request': ApiPdfrestContainerLicenseKeyRequestPdfrestContainerLicenseKeyRequest;
       'api::pdfrest-data-processing-agreement.pdfrest-data-processing-agreement': ApiPdfrestDataProcessingAgreementPdfrestDataProcessingAgreement;
       'api::pdfrest-documentation-page.pdfrest-documentation-page': ApiPdfrestDocumentationPagePdfrestDocumentationPage;
       'api::pdfrest-global.pdfrest-global': ApiPdfrestGlobalPdfrestGlobal;

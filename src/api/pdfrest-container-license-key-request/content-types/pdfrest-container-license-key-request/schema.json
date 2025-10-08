@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfrest_container_license_key_requests",
+  "info": {
+    "singularName": "pdfrest-container-license-key-request",
+    "pluralName": "pdfrest-container-license-key-requests",
+    "displayName": "Pdfrest Container License Key Request"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}
