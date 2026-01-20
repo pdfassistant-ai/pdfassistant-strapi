@@ -95,6 +95,9 @@
     },
     "rank": {
       "type": "integer"
+    },
+    "cloud_only": {
+      "type": "boolean"
     }
   }
 }

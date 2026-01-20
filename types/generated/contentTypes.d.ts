@@ -869,6 +869,7 @@ export interface ApiApiToolApiTool extends Schema.CollectionType {
     publish_date: Attribute.DateTime &
       Attribute.DefaultTo<'2024-08-29T05:00:00.000Z'>;
     rank: Attribute.Integer;
+    cloud_only: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
