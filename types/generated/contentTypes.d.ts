@@ -1689,6 +1689,7 @@ export interface ApiPdfrestPricingSectionPdfrestPricingSection
     cta_title: Attribute.String;
     ctas: Attribute.Component<'pricing-section.cta', true>;
     faq_link: Attribute.Component<'pricing-section.pricing-link'>;
+    features_table: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

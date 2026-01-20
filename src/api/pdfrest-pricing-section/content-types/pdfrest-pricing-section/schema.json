@@ -55,6 +55,9 @@
       "type": "component",
       "repeatable": false,
       "component": "pricing-section.pricing-link"
+    },
+    "features_table": {
+      "type": "json"
     }
   }
 }
