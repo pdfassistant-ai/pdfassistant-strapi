@@ -869,6 +869,7 @@ export interface ApiApiToolApiTool extends Schema.CollectionType {
     publish_date: Attribute.DateTime &
       Attribute.DefaultTo<'2024-08-29T05:00:00.000Z'>;
     rank: Attribute.Integer;
+    cloud_only: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1689,6 +1690,7 @@ export interface ApiPdfrestPricingSectionPdfrestPricingSection
     cta_title: Attribute.String;
     ctas: Attribute.Component<'pricing-section.cta', true>;
     faq_link: Attribute.Component<'pricing-section.pricing-link'>;
+    features_table: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
