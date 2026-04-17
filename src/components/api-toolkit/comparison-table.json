@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_api_toolkit_comparison_tables",
+  "info": {
+    "displayName": "Comparison Table"
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "string"
+    },
+    "content": {
+      "type": "json"
+    }
+  }
+}
