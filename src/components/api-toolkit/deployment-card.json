@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_api_toolkit_deployment_cards",
+  "info": {
+    "displayName": "Deployment Card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "features": {
+      "displayName": "Card Feature",
+      "type": "component",
+      "repeatable": true,
+      "component": "api-toolkit.card-feature"
+    },
+    "primaryAction": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "secondaryAction": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "backgroundLetter": {
+      "type": "string"
+    },
+    "featured": {
+      "type": "boolean"
+    }
+  }
+}

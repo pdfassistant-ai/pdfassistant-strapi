@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_api_toolkit_security_compliance_contents",
+  "info": {
+    "displayName": "Security Compliance Content",
+    "icon": "shield"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "titleLeading": {
+      "type": "string"
+    },
+    "titleAccent": {
+      "type": "string"
+    },
+    "titleTrailing": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "primaryAction": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "secondaryAction": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "credentials": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "comparisonTable": {
+      "displayName": "Comparison Table",
+      "type": "component",
+      "repeatable": false,
+      "component": "api-toolkit.comparison-table"
+    }
+  }
+}

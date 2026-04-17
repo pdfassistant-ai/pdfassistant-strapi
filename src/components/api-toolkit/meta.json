@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_api_toolkit_metas",
+  "info": {
+    "displayName": "meta"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    }
+  }
+}

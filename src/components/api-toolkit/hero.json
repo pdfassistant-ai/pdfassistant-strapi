@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_api_toolkit_heroes",
+  "info": {
+    "displayName": "Hero",
+    "icon": "alien",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "titleLeading": {
+      "type": "string"
+    },
+    "titleAccent": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "meta": {
+      "displayName": "meta",
+      "type": "component",
+      "repeatable": true,
+      "component": "api-toolkit.meta"
+    }
+  }
+}

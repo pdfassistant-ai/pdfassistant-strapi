@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "pdfrest_api_toolkits",
+  "info": {
+    "singularName": "pdfrest-api-toolkit",
+    "pluralName": "pdfrest-api-toolkits",
+    "displayName": "Pdfrest API Toolkit",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroContent": {
+      "type": "component",
+      "repeatable": false,
+      "component": "api-toolkit.hero"
+    },
+    "securityComplianceContent": {
+      "type": "component",
+      "repeatable": false,
+      "component": "api-toolkit.security-compliance-content"
+    },
+    "midPageCtaContent": {
+      "type": "component",
+      "repeatable": false,
+      "component": "api-toolkit.cta"
+    },
+    "deploymentContent": {
+      "type": "component",
+      "repeatable": false,
+      "component": "api-toolkit.deployment-content"
+    },
+    "deploymentCards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "api-toolkit.deployment-card"
+    }
+  }
+}

@@ -26,6 +26,9 @@
     },
     "icon": {
       "type": "string"
+    },
+    "badge": {
+      "type": "string"
     }
   }
 }

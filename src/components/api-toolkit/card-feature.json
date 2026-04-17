@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_api_toolkit_card_features",
+  "info": {
+    "displayName": "Card Feature"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "highlighted": {
+      "type": "boolean"
+    }
+  }
+}
