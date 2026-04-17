@@ -42,7 +42,7 @@ export interface ApiToolkitDeploymentCard extends Schema.Component {
     displayName: 'Deployment Card';
   };
   attributes: {
-    backgroundLetter: Attribute.String;
+    bestFor: Attribute.String;
     description: Attribute.Text;
     featured: Attribute.Boolean;
     features: Attribute.Component<'api-toolkit.card-feature', true>;
