@@ -24,6 +24,16 @@
       "type": "component",
       "repeatable": true,
       "component": "api-toolkit.meta"
+    },
+    "primaryAction": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "secondaryAction": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
     }
   }
 }

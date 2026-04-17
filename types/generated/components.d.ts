@@ -79,6 +79,8 @@ export interface ApiToolkitHero extends Schema.Component {
     description: Attribute.Text;
     eyebrow: Attribute.String;
     meta: Attribute.Component<'api-toolkit.meta', true>;
+    primaryAction: Attribute.Component<'shared.link'>;
+    secondaryAction: Attribute.Component<'shared.link'>;
     titleAccent: Attribute.String;
     titleLeading: Attribute.String;
   };
