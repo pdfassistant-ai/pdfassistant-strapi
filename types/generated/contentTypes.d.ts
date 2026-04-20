@@ -983,7 +983,9 @@ export interface ApiPdfrestApiToolkitPdfrestApiToolkit
     heroContent: Attribute.Component<'api-toolkit.hero'>;
     midPageCtaContent: Attribute.Component<'api-toolkit.cta'>;
     publishedAt: Attribute.DateTime;
+    securityBadgeTitle: Attribute.String;
     securityComplianceContent: Attribute.Component<'api-toolkit.security-compliance-content'>;
+    trustedByTitle: Attribute.String;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::pdfrest-api-toolkit.pdfrest-api-toolkit',

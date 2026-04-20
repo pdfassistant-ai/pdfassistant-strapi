@@ -36,6 +36,12 @@
       "type": "component",
       "repeatable": true,
       "component": "api-toolkit.deployment-card"
+    },
+    "securityBadgeTitle": {
+      "type": "string"
+    },
+    "trustedByTitle": {
+      "type": "string"
     }
   }
 }
