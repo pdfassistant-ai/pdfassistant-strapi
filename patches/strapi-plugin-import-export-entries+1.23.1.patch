@@ -1,0 +1,13 @@
+diff --git a/node_modules/strapi-plugin-import-export-entries/admin/src/hooks/useSlug.js b/node_modules/strapi-plugin-import-export-entries/admin/src/hooks/useSlug.js
+index 3d206c9..24d3866 100644
+--- a/node_modules/strapi-plugin-import-export-entries/admin/src/hooks/useSlug.js
++++ b/node_modules/strapi-plugin-import-export-entries/admin/src/hooks/useSlug.js
+@@ -7,7 +7,7 @@ export const useSlug = () => {
+   const { pathname } = useLocation();
+ 
+   const slug = useMemo(() => {
+-    const matches = pathname.match(/content-manager\/(collectionType|singleType)\/([a-zA-Z0-9\-:_.]*)/);
++    const matches = pathname.match(/content-manager\/(collectionType|singleType|collection-types|single-types)\/([a-zA-Z0-9\-:_.]*)/);
+     return matches?.[2] ? matches[2] : SLUG_WHOLE_DB;
+   }, [pathname]);
+ 
