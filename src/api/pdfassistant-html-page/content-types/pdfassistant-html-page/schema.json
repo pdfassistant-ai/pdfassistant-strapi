@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pdfassistant_html_pages",
+  "info": {
+    "singularName": "pdfassistant-html-page",
+    "pluralName": "pdfassistant-html-pages",
+    "displayName": "Pdfassistant HTML Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "page_type": {
+      "type": "enumeration",
+      "enum": [
+        "features",
+        "use-cases",
+        "integrations",
+        "mcp-servers",
+        "plugins",
+        "api"
+      ]
+    },
+    "html_head": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.html"
+    },
+    "html_body": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.html"
+    },
+    "structured_data": {
+      "type": "json"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}
