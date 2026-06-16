@@ -116,6 +116,21 @@ export interface SharedLink extends Schema.Component {
   };
 }
 
+export interface SharedLandingSection extends Schema.Component {
+  collectionName: 'components_shared_landing_sections';
+  info: {
+    displayName: 'Landing Section';
+    icon: 'bulletList';
+  };
+  attributes: {
+    headline: Attribute.String;
+    title: Attribute.String;
+    description: Attribute.RichText;
+    cta: Attribute.Component<'shared.link'>;
+    json: Attribute.JSON;
+  };
+}
+
 export interface SharedHtml extends Schema.Component {
   collectionName: 'components_shared_htmls';
   info: {
@@ -175,6 +190,20 @@ export interface SharedContentSection extends Schema.Component {
     pricing_cards: Attribute.JSON;
     subsections: Attribute.JSON;
     overrides: Attribute.JSON;
+  };
+}
+
+export interface SharedChatPrompt extends Schema.Component {
+  collectionName: 'components_shared_chat_prompts';
+  info: {
+    displayName: 'Chat Prompt';
+    icon: 'discuss';
+  };
+  attributes: {
+    title: Attribute.String;
+    icon: Attribute.String;
+    prompt: Attribute.RichText;
+    response: Attribute.RichText;
   };
 }
 
@@ -562,10 +591,12 @@ declare module '@strapi/types' {
       'shared.quote': SharedQuote;
       'shared.media': SharedMedia;
       'shared.link': SharedLink;
+      'shared.landing-section': SharedLandingSection;
       'shared.html': SharedHtml;
       'shared.faq': SharedFaq;
       'shared.cta': SharedCta;
       'shared.content-section': SharedContentSection;
+      'shared.chat-prompt': SharedChatPrompt;
       'shared.card': SharedCard;
       'product.tool-group': ProductToolGroup;
       'product.plugins-group': ProductPluginsGroup;

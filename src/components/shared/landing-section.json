@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_shared_landing_sections",
+  "info": {
+    "displayName": "Landing Section",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "json": {
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_chat_prompts",
+  "info": {
+    "displayName": "Chat Prompt",
+    "icon": "discuss"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "prompt": {
+      "type": "richtext"
+    },
+    "response": {
+      "type": "richtext"
+    }
+  }
+}
