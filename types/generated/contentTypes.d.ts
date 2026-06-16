@@ -1312,6 +1312,38 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
 }
 
+export interface ApiPdfassistantHomepagePdfassistantHomepage
+  extends Schema.SingleType {
+  collectionName: 'pdfassistant_homepages';
+  info: {
+    singularName: 'pdfassistant-homepage';
+    pluralName: 'pdfassistant-homepages';
+    displayName: 'Pdfassistant Homepage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    capabilities_section: Attribute.Component<'shared.landing-section'>;
+    capabilities_prompts: Attribute.Component<'shared.chat-prompt', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pdfassistant-homepage.pdfassistant-homepage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pdfassistant-homepage.pdfassistant-homepage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPdfassistantHtmlPagePdfassistantHtmlPage
   extends Schema.CollectionType {
   collectionName: 'pdfassistant_html_pages';
@@ -2016,6 +2048,7 @@ declare module '@strapi/types' {
       'api::documentation-section.documentation-section': ApiDocumentationSectionDocumentationSection;
       'api::documentation-topic.documentation-topic': ApiDocumentationTopicDocumentationTopic;
       'api::global.global': ApiGlobalGlobal;
+      'api::pdfassistant-homepage.pdfassistant-homepage': ApiPdfassistantHomepagePdfassistantHomepage;
       'api::pdfassistant-html-page.pdfassistant-html-page': ApiPdfassistantHtmlPagePdfassistantHtmlPage;
       'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview': ApiPdfassistantPluginsOverviewPdfassistantPluginsOverview;
       'api::pdfassistant-pricing.pdfassistant-pricing': ApiPdfassistantPricingPdfassistantPricing;
