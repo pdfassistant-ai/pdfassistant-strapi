@@ -1325,8 +1325,22 @@ export interface ApiPdfassistantHomepagePdfassistantHomepage
     draftAndPublish: true;
   };
   attributes: {
+    hero: Attribute.Component<'shared.landing-section'>;
     capabilities_section: Attribute.Component<'shared.landing-section'>;
     capabilities_prompts: Attribute.Component<'shared.chat-prompt', true>;
+    features_section: Attribute.Component<'shared.landing-section'>;
+    features_cards: Attribute.Component<'shared.card', true>;
+    security_section: Attribute.Component<'shared.landing-section'>;
+    security_cards: Attribute.Component<'shared.card', true>;
+    ai_studio_section: Attribute.Component<'shared.landing-section'>;
+    ai_studio_prompts: Attribute.Component<'shared.chat-prompt', true>;
+    integrations_section: Attribute.Component<'shared.landing-section'>;
+    integrations_cards: Attribute.Component<'shared.card', true>;
+    use_cases_section: Attribute.Component<'shared.landing-section'>;
+    use_cases_cards: Attribute.Component<'shared.card', true>;
+    pricing_section: Attribute.Component<'shared.landing-section'>;
+    pdfrest_section: Attribute.Component<'shared.landing-section'>;
+    faq_section: Attribute.Component<'shared.landing-section'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -12,6 +12,11 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.landing-section"
+    },
     "capabilities_section": {
       "displayName": "Landing Section",
       "type": "component",
@@ -22,6 +27,71 @@
       "type": "component",
       "repeatable": true,
       "component": "shared.chat-prompt"
+    },
+    "features_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.landing-section"
+    },
+    "features_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "security_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.landing-section"
+    },
+    "security_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "ai_studio_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.landing-section"
+    },
+    "ai_studio_prompts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.chat-prompt"
+    },
+    "integrations_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.landing-section"
+    },
+    "integrations_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "use_cases_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.landing-section"
+    },
+    "use_cases_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card"
+    },
+    "pricing_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.landing-section"
+    },
+    "pdfrest_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.landing-section"
+    },
+    "faq_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.landing-section"
     }
   }
 }
