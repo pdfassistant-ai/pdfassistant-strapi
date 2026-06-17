@@ -1341,6 +1341,7 @@ export interface ApiPdfassistantHomepagePdfassistantHomepage
     pricing_section: Attribute.Component<'shared.landing-section'>;
     pdfrest_section: Attribute.Component<'shared.landing-section'>;
     faq_section: Attribute.Component<'shared.landing-section'>;
+    seo: Attribute.Component<'shared.seo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
