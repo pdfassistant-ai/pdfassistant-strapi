@@ -1319,6 +1319,7 @@ export interface ApiPdfassistantHomepagePdfassistantHomepage
     singularName: 'pdfassistant-homepage';
     pluralName: 'pdfassistant-homepages';
     displayName: 'Pdfassistant Homepage';
+    description: '';
   };
   options: {
     draftAndPublish: true;

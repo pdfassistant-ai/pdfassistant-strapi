@@ -121,12 +121,13 @@ export interface SharedLandingSection extends Schema.Component {
   info: {
     displayName: 'Landing Section';
     icon: 'bulletList';
+    description: '';
   };
   attributes: {
     headline: Attribute.String;
     title: Attribute.String;
     description: Attribute.RichText;
-    cta: Attribute.Component<'shared.link'>;
+    links: Attribute.Component<'shared.link', true>;
     json: Attribute.JSON;
   };
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pdfassistant-homepage",
     "pluralName": "pdfassistant-homepages",
-    "displayName": "Pdfassistant Homepage"
+    "displayName": "Pdfassistant Homepage",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
