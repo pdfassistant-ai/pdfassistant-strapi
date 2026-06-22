@@ -1312,6 +1312,37 @@ export interface ApiGlobalGlobal extends Schema.SingleType {
   };
 }
 
+export interface ApiLlmsTxtLlmsTxt extends Schema.CollectionType {
+  collectionName: 'llms_txts';
+  info: {
+    singularName: 'llms-txt';
+    pluralName: 'llms-txts';
+    displayName: 'Llms.txt';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    site: Attribute.Enumeration<['pdfrest', 'pdfassistant']>;
+    text: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::llms-txt.llms-txt',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::llms-txt.llms-txt',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPdfassistantHomepagePdfassistantHomepage
   extends Schema.SingleType {
   collectionName: 'pdfassistant_homepages';
@@ -2064,6 +2095,7 @@ declare module '@strapi/types' {
       'api::documentation-section.documentation-section': ApiDocumentationSectionDocumentationSection;
       'api::documentation-topic.documentation-topic': ApiDocumentationTopicDocumentationTopic;
       'api::global.global': ApiGlobalGlobal;
+      'api::llms-txt.llms-txt': ApiLlmsTxtLlmsTxt;
       'api::pdfassistant-homepage.pdfassistant-homepage': ApiPdfassistantHomepagePdfassistantHomepage;
       'api::pdfassistant-html-page.pdfassistant-html-page': ApiPdfassistantHtmlPagePdfassistantHtmlPage;
       'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview': ApiPdfassistantPluginsOverviewPdfassistantPluginsOverview;
