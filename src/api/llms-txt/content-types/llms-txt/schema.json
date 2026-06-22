@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "llms_txts",
+  "info": {
+    "singularName": "llms-txt",
+    "pluralName": "llms-txts",
+    "displayName": "Llms.txt"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "site": {
+      "type": "enumeration",
+      "enum": [
+        "pdfrest",
+        "pdfassistant"
+      ]
+    },
+    "text": {
+      "type": "richtext"
+    }
+  }
+}
