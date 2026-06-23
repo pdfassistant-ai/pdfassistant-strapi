@@ -1398,6 +1398,7 @@ export interface ApiPdfassistantHtmlPagePdfassistantHtmlPage
     singularName: 'pdfassistant-html-page';
     pluralName: 'pdfassistant-html-pages';
     displayName: 'Pdfassistant HTML Page';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1405,6 +1406,7 @@ export interface ApiPdfassistantHtmlPagePdfassistantHtmlPage
   attributes: {
     title: Attribute.String;
     slug: Attribute.String;
+    description: Attribute.Text;
     page_type: Attribute.Enumeration<
       ['features', 'use-cases', 'integrations', 'mcp-servers', 'plugins', 'api']
     >;

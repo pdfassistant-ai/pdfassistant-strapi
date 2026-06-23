@@ -27,13 +27,13 @@ You do **not** need to build a full website page. Only provide the pieces reques
 ### `title`
 
 What it is:
-An internal name for finding the entry later in Strapi.
+The public title shown on the header link for this page.
 
 How to fill it in:
 
 - Use a clear, human-readable title.
-- Write something you can search for easily later.
 - Match the topic of the page.
+- Write it the way you want users to see it in the header link.
 
 Good examples:
 
@@ -43,8 +43,29 @@ Good examples:
 
 Best practice:
 
-- Treat this as an internal label, not the URL.
+- Treat this as the public link title, not the URL.
 - Keep it descriptive and specific.
+
+### `description`
+
+What it is:
+The public description shown on the header link for this page.
+
+How to fill it in:
+
+- Write a short summary of what the page is about.
+- Make it useful to a reader scanning the header links.
+- Keep it specific to the page topic.
+
+Good examples:
+
+- `Explore MCP servers that connect AI tools to PDF workflows.`
+- `Connect Claude to pdfassistant for AI-powered PDF automation.`
+
+Best practice:
+
+- Treat this as supporting copy for the title.
+- Keep it concise, clear, and user-facing.
 
 ### `slug`
 
@@ -253,7 +274,8 @@ Example:
 
 Before publishing, confirm:
 
-- `title` is clear and searchable.
+- `title` is clear as the public header link title.
+- `description` is clear as the public header link description.
 - `slug` is filled in for detail pages and blank for overview pages.
 - `page_type` matches the page category.
 - `html_head` contains only head-related code.
@@ -276,12 +298,14 @@ Before publishing, confirm:
 ## Example: Overview Page
 
 - `title`: `MCP Servers Overview`
+- `description`: `Explore MCP servers that connect AI tools to PDF workflows.`
 - `slug`: leave blank
 - `page_type`: `mcp-servers`
 
 ## Example: Detail Page
 
 - `title`: `Claude`
+- `description`: `Connect Claude to pdfassistant for AI-powered PDF workflows.`
 - `slug`: `claude`
 - `page_type`: `integrations`
 
@@ -289,7 +313,8 @@ Before publishing, confirm:
 
 If you are unsure what belongs in a field, use this shortcut:
 
-- Search/organization name: `title`
+- Public header link title: `title`
+- Public header link description: `description`
 - URL piece: `slug`
 - Section/category: `page_type`
 - Styles and head links: `html_head`

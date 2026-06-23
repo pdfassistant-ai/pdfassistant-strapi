@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pdfassistant-html-page",
     "pluralName": "pdfassistant-html-pages",
-    "displayName": "Pdfassistant HTML Page"
+    "displayName": "Pdfassistant HTML Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +17,9 @@
     },
     "slug": {
       "type": "string"
+    },
+    "description": {
+      "type": "text"
     },
     "page_type": {
       "type": "enumeration",

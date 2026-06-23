@@ -9,6 +9,7 @@ Your output must match the field structure exactly and must avoid full-document 
 Generate content for these fields:
 
 - `title`
+- `description`
 - `slug`
 - `page_type`
 - `html_head`
@@ -20,11 +21,19 @@ Generate content for these fields:
 
 ### `title`
 
-- Purpose: internal tracking and search inside Strapi
-- Output: short human-readable page name
+- Purpose: public header link title shown to users
+- Output: short human-readable page name for the header link
 - Examples:
   - `MCP Servers Overview`
   - `Claude`
+
+### `description`
+
+- Purpose: public header link description shown to users
+- Output: short descriptive summary for the page link
+- Examples:
+  - `Explore MCP servers that connect AI tools to PDF workflows.`
+  - `Connect Claude to pdfassistant for AI-powered PDF automation.`
 
 ### `slug`
 
@@ -146,6 +155,9 @@ Example:
 title
 Claude
 
+description
+Connect Claude to pdfassistant for AI-powered PDF workflows.
+
 slug
 claude
 
@@ -181,7 +193,8 @@ Learn how Claude works with pdfassistant for AI-powered PDF workflows.
 
 Before returning content, confirm:
 
-- `title` is useful for internal search
+- `title` works as the public header link title
+- `description` works as the public header link description
 - `slug` is blank only for overview pages
 - `slug` uses kebab-case when present
 - `page_type` is valid
