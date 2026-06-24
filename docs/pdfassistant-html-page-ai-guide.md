@@ -130,6 +130,12 @@ Required pattern:
   - focus states: `focus:ring-primary-500 dark:focus:ring-primary-400`
   - gradients: `from-white to-primary-50 dark:from-gray-950 dark:to-primary-950`
   - icon/logo fills or text color: `text-primary-600 dark:text-primary-300`
+- Give code blocks stronger contrast than surrounding dark surfaces. If the page
+  background is already `dark:bg-gray-950` or similarly near-black, make code
+  blocks lighter than that surface, such as `dark:bg-gray-900` or
+  `dark:bg-gray-800` with `dark:text-slate-50` and a visible
+  `dark:border-slate-700` or `dark:border-slate-600`. Use equivalent scoped CSS
+  variables for custom CSS snippets.
 - Avoid hard-coded dark text on light-only assumptions, such as `text-black`
   without a `dark:` replacement.
 - Avoid hard-coded white panels, transparent overlays, borders, or shadows
