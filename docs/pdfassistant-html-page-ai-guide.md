@@ -119,8 +119,11 @@ Required pattern:
 - Add `transition` or `transition-colors duration-200` to interactive elements,
   cards, panels, buttons, links, badges, and other elements whose colors change.
 - Use `prose prose-primary dark:prose-invert` for rich text blocks.
+- Default the general light-mode page surface to `bg-gray-50` or an equivalent
+  soft off-white background, not pure white, unless a specific section needs a
+  stronger contrast surface.
 - Include dark variants for:
-  - backgrounds: `bg-white dark:bg-gray-900`
+  - backgrounds: `bg-gray-50 dark:bg-gray-900`
   - text: `text-gray-700 dark:text-gray-300`
   - headings: `text-gray-900 dark:text-white`
   - borders: `border-primary-100 dark:border-primary-800`
