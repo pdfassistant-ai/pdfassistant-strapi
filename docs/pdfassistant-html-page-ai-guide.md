@@ -141,6 +141,21 @@ Required pattern:
   - focus states: `focus:ring-primary-500 dark:focus:ring-primary-400`
   - gradients: `from-white to-primary-50 dark:from-gray-950 dark:to-primary-950`
   - icon/logo fills or text color: `text-primary-600 dark:text-primary-300`
+- Preserve the same section hierarchy in dark mode that exists in light mode. If
+  light mode alternates between base page sections, banded sections, cards, code
+  blocks, and CTA panels, dark mode must keep those layers visually distinct
+  instead of collapsing them into nearly identical backgrounds.
+- For custom CSS snippets, define separate dark-mode tokens for:
+  - the base page surface
+  - alternating banded sections
+  - cards and panels
+  - code blocks
+  - high-emphasis CTA regions
+- When using custom CSS variables, keep enough contrast between those dark-mode
+  layers that alternating sections still read clearly at a glance. For example,
+  a page wrapper can use a near-black surface, banded sections can step lighter,
+  cards can step lighter again, and code blocks or CTAs can use their own
+  distinct dark surfaces.
 - Give code blocks stronger contrast than surrounding dark surfaces. If the page
   background is already `dark:bg-gray-950` or similarly near-black, make code
   blocks lighter than that surface, such as `dark:bg-gray-900` or
@@ -172,7 +187,9 @@ Good Tailwind example:
 
 For generated page sections, the light and dark versions should feel like the
 same design system, not separate designs. Keep spacing, layout, radius, and
-typography stable while colors, borders, shadows, and contrast change.
+typography stable while colors, borders, shadows, and contrast change, and
+preserve the same visual rhythm of alternating sections and emphasis surfaces in
+both modes.
 
 ### `structured_data`
 
