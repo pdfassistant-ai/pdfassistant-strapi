@@ -106,6 +106,24 @@ Generated HTML must support both light and dark mode using Tailwind's
 class-based dark mode convention. The Nuxt 3 frontend toggles color mode by
 class, so each fragment must transition cleanly when `dark:` variants change.
 
+Theme token rules:
+
+- Use `primary` for brand accents, CTAs, filled links, borders, rings, and
+  emphasis states.
+- Use `gray` for neutral surfaces, body text, muted text, dividers, and
+  dark-mode backgrounds.
+- Default patterns:
+  - page surface: `bg-gray-50 dark:bg-gray-950`
+  - raised surface: `bg-white dark:bg-gray-900`
+  - body text: `text-gray-700 dark:text-gray-300`
+  - headings: `text-gray-900 dark:text-white`
+  - muted text: `text-gray-500 dark:text-gray-400`
+  - borders: `border-gray-200 dark:border-gray-800`
+  - primary buttons or filled links:
+    `bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-600`
+  - focus treatment:
+    `focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:focus-visible:outline-primary-400`
+
 Required pattern:
 
 - Pair every light visual class with an explicit `dark:` counterpart.
@@ -120,11 +138,11 @@ Required pattern:
   - text: `text-gray-700 dark:text-gray-300`
   - headings: `text-gray-900 dark:text-white`
   - borders: `border-primary-100 dark:border-primary-800`
-  - buttons/links: `bg-primary-500 text-white dark:bg-primary-400`
+  - buttons/links: `bg-primary-500 text-white dark:bg-primary-500`
   - rings/dividers: `ring-primary-100 dark:ring-primary-900`
   - shadows: `shadow-primary-900/5 dark:shadow-primary-950/30`
-  - hover states: `hover:bg-primary-50 dark:hover:bg-primary-900/40`
-  - focus states: `focus:ring-primary-500 dark:focus:ring-primary-400`
+  - hover states: `hover:bg-primary-600 dark:hover:bg-primary-600`
+  - focus states: `focus:outline-primary-500 dark:focus:outline-primary-400`
   - gradients: `from-white to-primary-50 dark:from-gray-950 dark:to-primary-950`
   - icon/logo fills or text color: `text-primary-600 dark:text-primary-300`
 - Preserve the same section hierarchy in dark mode as in light mode. If light
@@ -159,7 +177,7 @@ Good Tailwind example:
   <div class="rounded-xl border border-primary-100 bg-gray-50 p-6 shadow-sm shadow-primary-900/5 transition-colors duration-200 dark:border-primary-800 dark:bg-gray-900 dark:shadow-primary-950/30">
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white">PDF workflow automation</h2>
     <p class="mt-3 text-gray-700 dark:text-gray-300">Build reusable PDF actions from an AI conversation.</p>
-    <a class="mt-5 inline-flex rounded-full bg-primary-500 px-5 py-3 font-semibold text-white transition-colors duration-200 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-primary-400 dark:hover:bg-primary-300 dark:focus:ring-primary-400">
+    <a class="mt-5 inline-flex rounded-full bg-primary-500 px-5 py-3 font-semibold text-white transition-colors duration-200 hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 dark:bg-primary-500 dark:hover:bg-primary-600 dark:focus-visible:outline-primary-400">
       Start building
     </a>
   </div>
@@ -282,6 +300,8 @@ Before returning content, confirm:
 - `html_body` uses explicit Tailwind `dark:` variants for all colored elements
 - colored elements include smooth `transition` or `transition-colors` classes
 - rich text blocks use `prose prose-primary dark:prose-invert`
+- primary buttons and filled links follow the shared site pattern:
+  `bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-600`
 - `structured_data` is valid JSON-LD
 - `seo.metaTitle` and `seo.metaDescription` are present
 
@@ -302,5 +322,7 @@ Avoid these:
   generated content block
 - Light-only Tailwind classes such as `bg-white`, `text-gray-900`, or
   `border-primary-100` without matching `dark:` variants
+- Primary buttons or filled links that diverge from the site button pattern,
+  such as `dark:bg-primary-400` or `dark:hover:bg-primary-300`
 - Custom CSS that relies only on `@media (prefers-color-scheme: dark)` instead
   of Nuxt color-mode `.dark` state
