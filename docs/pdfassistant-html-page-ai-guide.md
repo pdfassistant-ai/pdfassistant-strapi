@@ -10,6 +10,7 @@ Generate content for these fields:
 
 - `title`
 - `description`
+- `icon`
 - `slug`
 - `page_type`
 - `html_head`
@@ -32,6 +33,16 @@ Generate content for these fields:
 - Examples:
   - `Explore MCP servers that connect AI tools to PDF workflows.`
   - `Connect Claude to pdfassistant for AI-powered PDF automation.`
+
+### `icon`
+
+- Optional Iconify icon name shown with the header link
+- Use a valid icon reference from [icones.js.org](https://icones.js.org) or another Iconify source
+- Return a plain string value or an empty value when no icon should be shown
+- Examples:
+  - `i-heroicons-check`
+  - `i-mdi-robot-outline`
+  - `i-lucide-sparkles`
 
 ### `slug`
 
@@ -214,6 +225,12 @@ stable while colors, borders, shadows, and contrast change.
 - `metaTitle` should be specific, keyword-aware, and readable.
 - `metaDescription` should summarize the page clearly and naturally.
 
+### `rank`
+
+- Do not generate `rank` in AI output.
+- A human editor should choose `rank` manually based on navigation order
+  within the selected `page_type`.
+
 ## Authoring Rules
 
 1. Never generate a full HTML document.
@@ -234,6 +251,8 @@ stable while colors, borders, shadows, and contrast change.
     leave mismatched light/dark surfaces.
 13. Format generated HTML with readable whitespace and line breaks instead of
     collapsing large sections into hard-to-scan single lines.
+14. Do not generate `rank`; leave that field for a human editor to set.
+15. Use `icon` only as an Iconify icon name string, or leave it empty.
 
 ## Recommended Output Format
 
@@ -247,6 +266,9 @@ Claude
 
 description
 Connect Claude to pdfassistant for AI-powered PDF workflows.
+
+icon
+i-mdi-robot-outline
 
 slug
 claude
@@ -287,6 +309,7 @@ Before returning content, confirm:
 
 - `title` works as the public header link title
 - `description` works as the public header link description
+- `icon` is blank or a valid Iconify icon name string
 - `slug` is blank only for overview pages
 - `slug` uses kebab-case when present
 - `page_type` is valid

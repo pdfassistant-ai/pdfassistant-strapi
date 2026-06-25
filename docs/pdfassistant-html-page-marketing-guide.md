@@ -67,6 +67,28 @@ Best practice:
 - Treat this as supporting copy for the title.
 - Keep it concise, clear, and user-facing.
 
+### `icon`
+
+What it is:
+An optional Iconify icon name shown with the header link for this page.
+
+How to fill it in:
+
+- Use a valid Iconify reference, such as an icon from [icones.js.org](https://icones.js.org).
+- Store the icon name as a string.
+- Leave it blank if the page should not show an icon in the header.
+
+Good examples:
+
+- `i-heroicons-check`
+- `i-mdi-robot-outline`
+- `i-lucide-sparkles`
+
+Best practice:
+
+- Choose an icon that matches the page topic.
+- Prefer widely available Iconify names over project-specific aliases.
+
 ### `slug`
 
 What it is:
@@ -98,6 +120,34 @@ Quick rule:
 
 - Detail page: add a slug.
 - Overview page: leave it blank.
+
+### `rank`
+
+What it is:
+The numeric sort order for pages within the same `page_type` group.
+
+How it works:
+
+- Lower numbers should appear first.
+- Pages are only ordered against other pages with the same `page_type`.
+- This is used for grouped navigation such as header and footer links.
+
+How to fill it in:
+
+- Use an integer.
+- Give each page a clear position relative to its siblings in the same group.
+- Leave gaps when useful, such as `10`, `20`, `30`, so later pages can be inserted easily.
+
+Example:
+
+- `10`
+- `20`
+- `30`
+
+Best practice:
+
+- Keep overview pages ahead of detail pages when that matches the navigation design.
+- Avoid duplicate ranks within the same `page_type` when possible.
 
 ### `page_type`
 
