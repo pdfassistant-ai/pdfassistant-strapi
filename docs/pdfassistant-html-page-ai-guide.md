@@ -95,6 +95,7 @@ Choose the closest matching category and do not invent new values.
   - cards or feature sections where useful
 - Prefer reusable classes and scoped CSS in `html_head` over inline styles.
 - Avoid redundant inline `style` attributes throughout `html_body`.
+- Use trailing slashes on internal links in `html_body`.
 - Keep HTML whitespace and line breaks readable so pasted snippets remain easy
   for a human to scan, edit, and debug
 
@@ -295,6 +296,7 @@ Before returning content, confirm:
 - generated CSS uses relatively unique class names or a page-specific prefix
 - `html_body` is a fragment, not a full page document
 - `html_body` does not rely on redundant inline `style` attributes
+- internal links in `html_body` use trailing slashes
 - repeated styling is expressed through classes and scoped CSS in `html_head`
 - HTML markup uses readable whitespace and line breaks
 - `html_body` uses explicit Tailwind `dark:` variants for all colored elements
@@ -320,6 +322,7 @@ Avoid these:
   hard to read or debug
 - Generic selectors or class names that could affect shared site UI outside the
   generated content block
+- Internal links in `html_body` without trailing slashes
 - Light-only Tailwind classes such as `bg-white`, `text-gray-900`, or
   `border-primary-100` without matching `dark:` variants
 - Primary buttons or filled links that diverge from the site button pattern,
