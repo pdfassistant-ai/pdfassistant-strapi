@@ -75,6 +75,8 @@ Choose the closest matching category and do not invent new values.
   - `<meta>`
 - Styling rules:
   - Keep CSS scoped to the custom page content
+  - Prefer relatively unique class names or a page-specific class prefix so
+    generated CSS does not affect shared site elements outside the page content
   - Do not style site navigation
   - Do not style site footer
   - Do not add global resets that could affect the rest of the site
@@ -103,8 +105,73 @@ Reason:
   - lists
   - CTA blocks
   - cards or feature sections where useful
+- Do not add redundant inline `style` attributes throughout `html_body`
+- Prefer reusable classes and scoped CSS in `html_head` over per-element inline
+  styles
+- Keep HTML whitespace and line breaks readable so pasted snippets remain easy
+  for a human to scan, edit, and debug
 
 Assume all page-specific styling must be supported by the CSS in `html_head`.
+
+### Tailwind color mode requirements
+
+Generated HTML must support both light and dark mode using Tailwind's class-based
+dark mode convention. The Nuxt 3 frontend switches color mode by toggling the
+site color-mode class, so every page fragment must transition cleanly when
+`dark:` variants become active or inactive.
+
+Required pattern:
+
+- Pair every light visual class with an explicit `dark:` counterpart.
+- Add `transition` or `transition-colors duration-200` to interactive elements,
+  cards, panels, buttons, links, badges, and other elements whose colors change.
+- Use `prose prose-primary dark:prose-invert` for rich text blocks.
+- Default the general light-mode page surface to `bg-gray-50` or an equivalent
+  soft off-white background, not pure white, unless a specific section needs a
+  stronger contrast surface.
+- Include dark variants for:
+  - backgrounds: `bg-gray-50 dark:bg-gray-900`
+  - text: `text-gray-700 dark:text-gray-300`
+  - headings: `text-gray-900 dark:text-white`
+  - borders: `border-primary-100 dark:border-primary-800`
+  - rings/dividers: `ring-primary-100 dark:ring-primary-900`
+  - shadows: `shadow-primary-900/5 dark:shadow-primary-950/30`
+  - hover states: `hover:bg-primary-50 dark:hover:bg-primary-900/40`
+  - focus states: `focus:ring-primary-500 dark:focus:ring-primary-400`
+  - gradients: `from-white to-primary-50 dark:from-gray-950 dark:to-primary-950`
+  - icon/logo fills or text color: `text-primary-600 dark:text-primary-300`
+- Give code blocks stronger contrast than surrounding dark surfaces. If the page
+  background is already `dark:bg-gray-950` or similarly near-black, make code
+  blocks lighter than that surface, such as `dark:bg-gray-900` or
+  `dark:bg-gray-800` with `dark:text-slate-50` and a visible
+  `dark:border-slate-700` or `dark:border-slate-600`. Use equivalent scoped CSS
+  variables for custom CSS snippets.
+- Avoid hard-coded dark text on light-only assumptions, such as `text-black`
+  without a `dark:` replacement.
+- Avoid hard-coded white panels, transparent overlays, borders, or shadows
+  unless they are intentionally paired with dark variants.
+- If custom CSS in `html_head` is necessary, scope it to the page wrapper and
+  include `.dark` variants for color, border, shadow, scrollbar, and background
+  declarations. Do not rely on `prefers-color-scheme`; the site mode is
+  controlled by Nuxt color mode.
+
+Good Tailwind example:
+
+```html
+<section class="bg-gradient-to-b from-gray-50 to-primary-50 py-12 transition-colors duration-200 dark:from-gray-950 dark:to-primary-950">
+  <div class="rounded-xl border border-primary-100 bg-gray-50 p-6 shadow-sm shadow-primary-900/5 transition-colors duration-200 dark:border-primary-800 dark:bg-gray-900 dark:shadow-primary-950/30">
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">PDF workflow automation</h2>
+    <p class="mt-3 text-gray-700 dark:text-gray-300">Build reusable PDF actions from an AI conversation.</p>
+    <a class="mt-5 inline-flex rounded-full bg-primary-600 px-5 py-3 font-semibold text-white transition-colors duration-200 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-primary-500 dark:hover:bg-primary-400 dark:focus:ring-primary-300">
+      Start building
+    </a>
+  </div>
+</section>
+```
+
+For generated page sections, the light and dark versions should feel like the
+same design system, not separate designs. Keep spacing, layout, radius, and
+typography stable while colors, borders, shadows, and contrast change.
 
 ### `structured_data`
 
@@ -140,10 +207,20 @@ Guidance:
 2. Separate head content from body content.
 3. Exclude duplicate SEO tags from generated HTML.
 4. Do not include nav or footer styling in CSS.
-5. Keep output easy for a human editor to paste into Strapi.
-6. Leave `slug` blank for overview pages.
-7. Use valid JSON for `structured_data`.
-8. Use only the allowed `page_type` enum values.
+5. Do not rely on redundant per-element inline `style` attributes in
+   `html_body`; prefer reusable classes and scoped CSS in `html_head`.
+6. Use relatively unique class names or a page-specific prefix so generated
+   styles do not leak into nav, footer, or other shared page UI.
+7. Keep output easy for a human editor to paste into Strapi.
+8. Leave `slug` blank for overview pages.
+9. Use valid JSON for `structured_data`.
+10. Use only the allowed `page_type` enum values.
+11. Use Tailwind `dark:` variants for every visual element that has color,
+    border, ring, shadow, gradient, hover, focus, icon, or prose styling.
+12. Add color transitions so Nuxt 3 color-mode changes do not snap abruptly or
+    leave mismatched light/dark surfaces.
+13. Format generated HTML with readable whitespace and line breaks instead of
+    collapsing large sections into hard-to-scan single lines.
 
 ## Recommended Output Format
 
@@ -170,9 +247,11 @@ html_head
 </style>
 
 html_body
-<section>
-  <h1>Claude Integration</h1>
-  <p>...</p>
+<section class="bg-gray-50 py-12 transition-colors duration-200 dark:bg-gray-950">
+  <div class="prose prose-primary dark:prose-invert">
+    <h1>Claude Integration</h1>
+    <p>...</p>
+  </div>
 </section>
 
 structured_data
@@ -201,7 +280,14 @@ Before returning content, confirm:
 - `html_head` contains no `<title>` or `<meta>`
 - `html_head` may include `<script>` tags if they are intentional
 - `html_head` contains no nav/footer styling
+- generated CSS uses relatively unique class names or a page-specific prefix
 - `html_body` is a fragment, not a full page document
+- `html_body` does not rely on redundant inline `style` attributes
+- repeated styling is expressed through classes and scoped CSS in `html_head`
+- HTML markup uses readable whitespace and line breaks
+- `html_body` uses explicit Tailwind `dark:` variants for all colored elements
+- colored elements include smooth `transition` or `transition-colors` classes
+- rich text blocks use `prose prose-primary dark:prose-invert`
 - `structured_data` is valid JSON-LD
 - `seo.metaTitle` and `seo.metaDescription` are present
 
@@ -215,3 +301,12 @@ Avoid these:
 - `<title>` inside `html_head`
 - `<script type="application/ld+json">` inside `structured_data`
 - A non-empty slug for an overview page
+- Repeating long inline `style` attributes on most elements in `html_body`
+- Large pasted HTML sections collapsed into dense single-line markup that is
+  hard to read or debug
+- Generic selectors or class names that could affect shared site UI outside the
+  generated content block
+- Light-only Tailwind classes such as `bg-white`, `text-gray-900`, or
+  `border-primary-100` without matching `dark:` variants
+- Custom CSS that relies only on `@media (prefers-color-scheme: dark)` instead
+  of Nuxt color-mode `.dark` state
