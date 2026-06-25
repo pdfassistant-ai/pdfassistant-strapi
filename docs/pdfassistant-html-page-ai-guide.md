@@ -75,6 +75,8 @@ Choose the closest matching category and do not invent new values.
   - `<meta>`
 - Styling rules:
   - Keep CSS scoped to the custom page content
+  - Prefer relatively unique class names or a page-specific class prefix so
+    generated CSS does not affect shared site elements outside the page content
   - Do not style site navigation
   - Do not style site footer
   - Do not add global resets that could affect the rest of the site
@@ -103,6 +105,9 @@ Reason:
   - lists
   - CTA blocks
   - cards or feature sections where useful
+- Do not add redundant inline `style` attributes throughout `html_body`
+- Prefer reusable classes and scoped CSS in `html_head` over per-element inline
+  styles
 
 Assume all page-specific styling must be supported by the CSS in `html_head`.
 
@@ -200,13 +205,17 @@ Guidance:
 2. Separate head content from body content.
 3. Exclude duplicate SEO tags from generated HTML.
 4. Do not include nav or footer styling in CSS.
-5. Keep output easy for a human editor to paste into Strapi.
-6. Leave `slug` blank for overview pages.
-7. Use valid JSON for `structured_data`.
-8. Use only the allowed `page_type` enum values.
-9. Use Tailwind `dark:` variants for every visual element that has color,
-   border, ring, shadow, gradient, hover, focus, icon, or prose styling.
-10. Add color transitions so Nuxt 3 color-mode changes do not snap abruptly or
+5. Do not rely on redundant per-element inline `style` attributes in
+   `html_body`; prefer reusable classes and scoped CSS in `html_head`.
+6. Use relatively unique class names or a page-specific prefix so generated
+   styles do not leak into nav, footer, or other shared page UI.
+7. Keep output easy for a human editor to paste into Strapi.
+8. Leave `slug` blank for overview pages.
+9. Use valid JSON for `structured_data`.
+10. Use only the allowed `page_type` enum values.
+11. Use Tailwind `dark:` variants for every visual element that has color,
+    border, ring, shadow, gradient, hover, focus, icon, or prose styling.
+12. Add color transitions so Nuxt 3 color-mode changes do not snap abruptly or
     leave mismatched light/dark surfaces.
 
 ## Recommended Output Format
@@ -267,7 +276,10 @@ Before returning content, confirm:
 - `html_head` contains no `<title>` or `<meta>`
 - `html_head` may include `<script>` tags if they are intentional
 - `html_head` contains no nav/footer styling
+- generated CSS uses relatively unique class names or a page-specific prefix
 - `html_body` is a fragment, not a full page document
+- `html_body` does not rely on redundant inline `style` attributes
+- repeated styling is expressed through classes and scoped CSS in `html_head`
 - `html_body` uses explicit Tailwind `dark:` variants for all colored elements
 - colored elements include smooth `transition` or `transition-colors` classes
 - rich text blocks use `prose prose-primary dark:prose-invert`
@@ -284,6 +296,9 @@ Avoid these:
 - `<title>` inside `html_head`
 - `<script type="application/ld+json">` inside `structured_data`
 - A non-empty slug for an overview page
+- Repeating long inline `style` attributes on most elements in `html_body`
+- Generic selectors or class names that could affect shared site UI outside the
+  generated content block
 - Light-only Tailwind classes such as `bg-white`, `text-gray-900`, or
   `border-primary-100` without matching `dark:` variants
 - Custom CSS that relies only on `@media (prefers-color-scheme: dark)` instead
