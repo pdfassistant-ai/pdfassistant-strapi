@@ -151,8 +151,8 @@ Required pattern:
 Good Tailwind example:
 
 ```html
-<section class="bg-gradient-to-b from-white to-primary-50 py-12 transition-colors duration-200 dark:from-gray-950 dark:to-primary-950">
-  <div class="rounded-xl border border-primary-100 bg-white p-6 shadow-sm shadow-primary-900/5 transition-colors duration-200 dark:border-primary-800 dark:bg-gray-900 dark:shadow-primary-950/30">
+<section class="bg-gradient-to-b from-gray-50 to-primary-50 py-12 transition-colors duration-200 dark:from-gray-950 dark:to-primary-950">
+  <div class="rounded-xl border border-primary-100 bg-gray-50 p-6 shadow-sm shadow-primary-900/5 transition-colors duration-200 dark:border-primary-800 dark:bg-gray-900 dark:shadow-primary-950/30">
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white">PDF workflow automation</h2>
     <p class="mt-3 text-gray-700 dark:text-gray-300">Build reusable PDF actions from an AI conversation.</p>
     <a class="mt-5 inline-flex rounded-full bg-primary-600 px-5 py-3 font-semibold text-white transition-colors duration-200 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-primary-500 dark:hover:bg-primary-400 dark:focus:ring-primary-300">
@@ -234,7 +234,7 @@ html_head
 </style>
 
 html_body
-<section class="bg-white py-12 transition-colors duration-200 dark:bg-gray-950">
+<section class="bg-gray-50 py-12 transition-colors duration-200 dark:bg-gray-950">
   <div class="prose prose-primary dark:prose-invert">
     <h1>Claude Integration</h1>
     <p>...</p>
