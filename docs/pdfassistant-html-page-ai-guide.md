@@ -2,7 +2,7 @@
 
 Use this guide when generating content for the `Pdfassistant HTML Page` collection type in Strapi.
 
-Your output must match the field structure exactly and must avoid full-document HTML.
+Match the field structure exactly and never output full-document HTML.
 
 ## Objective
 
@@ -21,29 +21,25 @@ Generate content for these fields:
 
 ### `title`
 
-- Purpose: public header link title shown to users
-- Output: short human-readable page name for the header link
+- Short public page name shown in the header link
 - Examples:
   - `MCP Servers Overview`
   - `Claude`
 
 ### `description`
 
-- Purpose: public header link description shown to users
-- Output: short descriptive summary for the page link
+- Short descriptive summary shown with the header link
 - Examples:
   - `Explore MCP servers that connect AI tools to PDF workflows.`
   - `Connect Claude to pdfassistant for AI-powered PDF automation.`
 
 ### `slug`
 
-- Purpose: page URL segment
-- Output: lowercase kebab-case string without slashes
+- Lowercase kebab-case URL segment without slashes
 - Example:
   - `press-ready-pdf-x`
-- Rule for overview pages:
-  - Return an empty value when the page is an overview page
-  - Example: `/integrations/mcp-servers` overview should have a blank slug
+- For overview pages, return an empty value.
+  Example: `/integrations/mcp-servers` should have a blank slug.
 
 ### `page_type`
 
@@ -59,21 +55,20 @@ Choose the closest matching category and do not invent new values.
 
 ### `html_head`
 
-- Purpose: content to inject into the page `<head>`
-- Strapi storage note:
-  - This is stored in the component field’s nested `body` value
-- Allowed content:
+- Content injected into the page `<head>`
+- Strapi stores this in the component field’s nested `body` value.
+- Allowed:
   - `<link>`
   - `<style>`
   - `<script>`
-- Allowed but unnecessary:
-  - `<head>` wrapper, which will be ignored
+- Optional but unnecessary:
+  - `<head>` wrapper
 - Do not include:
   - `<html>`
   - `<body>`
   - `<title>`
   - `<meta>`
-- Styling rules:
+- CSS rules:
   - Keep CSS scoped to the custom page content
   - Prefer relatively unique class names or a page-specific class prefix so
     generated CSS does not affect shared site elements outside the page content
@@ -81,19 +76,12 @@ Choose the closest matching category and do not invent new values.
   - Do not style site footer
   - Do not add global resets that could affect the rest of the site
 
-Reason:
-
-- Duplicate `<title>` and `<meta>` tags can hurt SEO.
-- Nav/footer CSS can break shared site layout.
-
 ### `html_body`
 
-- Purpose: visible page HTML
-- Strapi storage note:
-  - This is stored in the component field’s nested `body` value
-- Output only the body content fragment
-- Allowed but unnecessary:
-  - `<body>` wrapper, which will be ignored
+- Visible page HTML fragment only
+- Strapi stores this in the component field’s nested `body` value.
+- Optional but unnecessary:
+  - `<body>` wrapper
 - Do not include:
   - `<html>`
   - `<head>`
@@ -105,9 +93,8 @@ Reason:
   - lists
   - CTA blocks
   - cards or feature sections where useful
-- Do not add redundant inline `style` attributes throughout `html_body`
-- Prefer reusable classes and scoped CSS in `html_head` over per-element inline
-  styles
+- Prefer reusable classes and scoped CSS in `html_head` over inline styles.
+- Avoid redundant inline `style` attributes throughout `html_body`.
 - Keep HTML whitespace and line breaks readable so pasted snippets remain easy
   for a human to scan, edit, and debug
 
@@ -115,10 +102,9 @@ Assume all page-specific styling must be supported by the CSS in `html_head`.
 
 ### Tailwind color mode requirements
 
-Generated HTML must support both light and dark mode using Tailwind's class-based
-dark mode convention. The Nuxt 3 frontend switches color mode by toggling the
-site color-mode class, so every page fragment must transition cleanly when
-`dark:` variants become active or inactive.
+Generated HTML must support both light and dark mode using Tailwind's
+class-based dark mode convention. The Nuxt 3 frontend toggles color mode by
+class, so each fragment must transition cleanly when `dark:` variants change.
 
 Required pattern:
 
@@ -141,21 +127,17 @@ Required pattern:
   - focus states: `focus:ring-primary-500 dark:focus:ring-primary-400`
   - gradients: `from-white to-primary-50 dark:from-gray-950 dark:to-primary-950`
   - icon/logo fills or text color: `text-primary-600 dark:text-primary-300`
-- Preserve the same section hierarchy in dark mode that exists in light mode. If
-  light mode alternates between base page sections, banded sections, cards, code
-  blocks, and CTA panels, dark mode must keep those layers visually distinct
-  instead of collapsing them into nearly identical backgrounds.
+- Preserve the same section hierarchy in dark mode as in light mode. If light
+  mode alternates between base sections, banded sections, cards, code blocks,
+  and CTA panels, dark mode must keep those layers visually distinct.
 - For custom CSS snippets, define separate dark-mode tokens for:
   - the base page surface
   - alternating banded sections
   - cards and panels
   - code blocks
   - high-emphasis CTA regions
-- When using custom CSS variables, keep enough contrast between those dark-mode
-  layers that alternating sections still read clearly at a glance. For example,
-  a page wrapper can use a near-black surface, banded sections can step lighter,
-  cards can step lighter again, and code blocks or CTAs can use their own
-  distinct dark surfaces.
+- Keep enough contrast between those dark-mode layers that alternating sections
+  remain obvious at a glance.
 - Give code blocks stronger contrast than surrounding dark surfaces. If the page
   background is already `dark:bg-gray-950` or similarly near-black, make code
   blocks lighter than that surface, such as `dark:bg-gray-900` or
@@ -167,9 +149,8 @@ Required pattern:
 - Avoid hard-coded white panels, transparent overlays, borders, or shadows
   unless they are intentionally paired with dark variants.
 - If custom CSS in `html_head` is necessary, scope it to the page wrapper and
-  include `.dark` variants for color, border, shadow, scrollbar, and background
-  declarations. Do not rely on `prefers-color-scheme`; the site mode is
-  controlled by Nuxt color mode.
+  include `.dark` variants for color, border, shadow, scrollbar, and
+  background declarations. Do not rely on `prefers-color-scheme`.
 
 Good Tailwind example:
 
@@ -185,16 +166,13 @@ Good Tailwind example:
 </section>
 ```
 
-For generated page sections, the light and dark versions should feel like the
-same design system, not separate designs. Keep spacing, layout, radius, and
-typography stable while colors, borders, shadows, and contrast change, and
-preserve the same visual rhythm of alternating sections and emphasis surfaces in
-both modes.
+For generated page sections, light and dark mode should feel like the same
+design system. Keep spacing, layout, radius, typography, and section rhythm
+stable while colors, borders, shadows, and contrast change.
 
 ### `structured_data`
 
-- Purpose: JSON-LD schema markup injected into the `<head>`
-- Output format: raw JSON only
+- Raw JSON-LD schema markup injected into the `<head>`
 - Do not include:
   - `<script>` tags
   - HTML
@@ -213,8 +191,6 @@ both modes.
 - Optional:
   - `canonicalUrl`
   - `shareImage`
-
-Guidance:
 
 - `metaTitle` should be specific, keyword-aware, and readable.
 - `metaDescription` should summarize the page clearly and naturally.
