@@ -108,6 +108,8 @@ Reason:
 - Do not add redundant inline `style` attributes throughout `html_body`
 - Prefer reusable classes and scoped CSS in `html_head` over per-element inline
   styles
+- Keep HTML whitespace and line breaks readable so pasted snippets remain easy
+  for a human to scan, edit, and debug
 
 Assume all page-specific styling must be supported by the CSS in `html_head`.
 
@@ -217,6 +219,8 @@ Guidance:
     border, ring, shadow, gradient, hover, focus, icon, or prose styling.
 12. Add color transitions so Nuxt 3 color-mode changes do not snap abruptly or
     leave mismatched light/dark surfaces.
+13. Format generated HTML with readable whitespace and line breaks instead of
+    collapsing large sections into hard-to-scan single lines.
 
 ## Recommended Output Format
 
@@ -280,6 +284,7 @@ Before returning content, confirm:
 - `html_body` is a fragment, not a full page document
 - `html_body` does not rely on redundant inline `style` attributes
 - repeated styling is expressed through classes and scoped CSS in `html_head`
+- HTML markup uses readable whitespace and line breaks
 - `html_body` uses explicit Tailwind `dark:` variants for all colored elements
 - colored elements include smooth `transition` or `transition-colors` classes
 - rich text blocks use `prose prose-primary dark:prose-invert`
@@ -297,6 +302,8 @@ Avoid these:
 - `<script type="application/ld+json">` inside `structured_data`
 - A non-empty slug for an overview page
 - Repeating long inline `style` attributes on most elements in `html_body`
+- Large pasted HTML sections collapsed into dense single-line markup that is
+  hard to read or debug
 - Generic selectors or class names that could affect shared site UI outside the
   generated content block
 - Light-only Tailwind classes such as `bg-white`, `text-gray-900`, or
