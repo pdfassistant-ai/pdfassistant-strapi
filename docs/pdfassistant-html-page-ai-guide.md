@@ -134,6 +134,7 @@ Required pattern:
   - text: `text-gray-700 dark:text-gray-300`
   - headings: `text-gray-900 dark:text-white`
   - borders: `border-primary-100 dark:border-primary-800`
+  - buttons/links: `bg-primary-500 text-white dark:bg-primary-400`
   - rings/dividers: `ring-primary-100 dark:ring-primary-900`
   - shadows: `shadow-primary-900/5 dark:shadow-primary-950/30`
   - hover states: `hover:bg-primary-50 dark:hover:bg-primary-900/40`
@@ -162,7 +163,7 @@ Good Tailwind example:
   <div class="rounded-xl border border-primary-100 bg-gray-50 p-6 shadow-sm shadow-primary-900/5 transition-colors duration-200 dark:border-primary-800 dark:bg-gray-900 dark:shadow-primary-950/30">
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white">PDF workflow automation</h2>
     <p class="mt-3 text-gray-700 dark:text-gray-300">Build reusable PDF actions from an AI conversation.</p>
-    <a class="mt-5 inline-flex rounded-full bg-primary-600 px-5 py-3 font-semibold text-white transition-colors duration-200 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-primary-500 dark:hover:bg-primary-400 dark:focus:ring-primary-300">
+    <a class="mt-5 inline-flex rounded-full bg-primary-500 px-5 py-3 font-semibold text-white transition-colors duration-200 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-primary-400 dark:hover:bg-primary-300 dark:focus:ring-primary-400">
       Start building
     </a>
   </div>
