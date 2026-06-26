@@ -15,11 +15,17 @@
     "title": {
       "type": "string"
     },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "string"
+    },
     "slug": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
+    "rank": {
+      "type": "integer"
     },
     "page_type": {
       "type": "enumeration",

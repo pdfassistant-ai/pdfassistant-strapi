@@ -214,6 +214,19 @@ stable while colors, borders, shadows, and contrast change.
 - `metaTitle` should be specific, keyword-aware, and readable.
 - `metaDescription` should summarize the page clearly and naturally.
 
+### `icon`
+
+- Do not generate `icon` in AI output.
+- A human editor should choose `icon` manually if the page should display one.
+- When set manually, use a valid Iconify reference such as an icon from
+  [icones.js.org](https://icones.js.org).
+
+### `rank`
+
+- Do not generate `rank` in AI output.
+- A human editor should choose `rank` manually based on navigation order
+  within the selected `page_type`.
+
 ## Authoring Rules
 
 1. Never generate a full HTML document.
@@ -234,6 +247,8 @@ stable while colors, borders, shadows, and contrast change.
     leave mismatched light/dark surfaces.
 13. Format generated HTML with readable whitespace and line breaks instead of
     collapsing large sections into hard-to-scan single lines.
+14. Do not generate `rank`; leave that field for a human editor to set.
+15. Do not generate `icon`; leave that field for a human editor to set.
 
 ## Recommended Output Format
 
