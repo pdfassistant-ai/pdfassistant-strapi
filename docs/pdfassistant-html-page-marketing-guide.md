@@ -7,8 +7,8 @@ Use it when you are creating a new page for sections such as:
 - `features`
 - `use-cases`
 - `integrations`
-- `mcp-servers`
-- `plugins`
+- `ai-connections`
+- `adobe-express-add-ons`
 - `api`
 
 The goal is simple: enter the page details clearly, keep the HTML clean, and avoid anything that could hurt SEO or site styling.
@@ -114,7 +114,7 @@ Example:
 When to leave it blank:
 
 - Leave `slug` blank for overview pages.
-- Example: if the page is the main `/integrations/mcp-servers` overview page, leave it blank.
+- Example: if the page is the main `/integrations/ai-connections` overview page, leave it blank.
 
 Quick rule:
 
@@ -159,15 +159,15 @@ Allowed values:
 - `features`
 - `use-cases`
 - `integrations`
-- `mcp-servers`
-- `plugins`
+- `ai-connections`
+- `adobe-express-add-ons`
 - `api`
 
 How to choose:
 
 - Pick the option that best matches the page topic.
-- Use `mcp-servers` for MCP server pages.
-- Use `plugins` for plugin pages.
+- Use `ai-connections` for AI connection pages.
+- Use `adobe-express-add-ons` for Adobe Express add-on pages.
 - Use `use-cases` for workflow or scenario pages.
 
 ### `html_head`
@@ -347,10 +347,10 @@ Before publishing, confirm:
 
 ## Example: Overview Page
 
-- `title`: `MCP Servers Overview`
-- `description`: `Explore MCP servers that connect AI tools to PDF workflows.`
+- `title`: `AI Connections Overview`
+- `description`: `Explore AI connections that link pdfassistant to AI-powered PDF workflows.`
 - `slug`: leave blank
-- `page_type`: `mcp-servers`
+- `page_type`: `ai-connections`
 
 ## Example: Detail Page
 

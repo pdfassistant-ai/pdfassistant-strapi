@@ -1410,7 +1410,14 @@ export interface ApiPdfassistantHtmlPagePdfassistantHtmlPage
     slug: Attribute.String;
     rank: Attribute.Integer;
     page_type: Attribute.Enumeration<
-      ['features', 'use-cases', 'integrations', 'mcp-servers', 'plugins', 'api']
+      [
+        'features',
+        'use-cases',
+        'integrations',
+        'ai-connections',
+        'adobe-express-add-ons',
+        'api'
+      ]
     >;
     html_head: Attribute.Component<'shared.html'>;
     html_body: Attribute.Component<'shared.html'>;
