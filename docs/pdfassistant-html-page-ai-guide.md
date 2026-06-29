@@ -39,7 +39,7 @@ Generate content for these fields:
 - Example:
   - `press-ready-pdf-x`
 - For overview pages, return an empty value.
-  Example: `/integrations/mcp-servers` should have a blank slug.
+  Example: `/integrations/ai-connections` should have a blank slug.
 
 ### `page_type`
 
@@ -47,8 +47,8 @@ Generate content for these fields:
   - `features`
   - `use-cases`
   - `integrations`
-  - `mcp-servers`
-  - `plugins`
+  - `ai-connections`
+  - `adobe-express-add-ons`
   - `api`
 
 Choose the closest matching category and do not invent new values.
