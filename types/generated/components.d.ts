@@ -284,59 +284,6 @@ export interface ProductPdfassistantProductSection extends Schema.Component {
   };
 }
 
-export interface PricingFeature extends Schema.Component {
-  collectionName: 'components_pricing_features';
-  info: {
-    displayName: 'Feature';
-    icon: 'check';
-    description: '';
-  };
-  attributes: {
-    detail: Attribute.String;
-  };
-}
-
-export interface PricingCard extends Schema.Component {
-  collectionName: 'components_pricing_cards';
-  info: {
-    displayName: 'card';
-    icon: 'priceTag';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    features: Attribute.Component<'pricing.feature', true>;
-    price: Attribute.String;
-    discounted_price: Attribute.String;
-    user_state: Attribute.JSON;
-    discount_text: Attribute.String;
-    highlight: Attribute.Boolean;
-    badge_text: Attribute.String;
-    cycle: Attribute.String;
-    stripe_data: Attribute.JSON;
-    price_data: Attribute.JSON;
-  };
-}
-
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
-  };
-}
-
 export interface PricingSectionPricingSection extends Schema.Component {
   collectionName: 'components_pricing_section_pricing_sections';
   info: {
@@ -423,6 +370,59 @@ export interface PricingSectionCta extends Schema.Component {
     title: Attribute.String;
     description: Attribute.Text;
     link: Attribute.Component<'pricing-section.pricing-link', true>;
+  };
+}
+
+export interface PricingFeature extends Schema.Component {
+  collectionName: 'components_pricing_features';
+  info: {
+    displayName: 'Feature';
+    icon: 'check';
+    description: '';
+  };
+  attributes: {
+    detail: Attribute.String;
+  };
+}
+
+export interface PricingCard extends Schema.Component {
+  collectionName: 'components_pricing_cards';
+  info: {
+    displayName: 'card';
+    icon: 'priceTag';
+    description: '';
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.Text;
+    features: Attribute.Component<'pricing.feature', true>;
+    price: Attribute.String;
+    discounted_price: Attribute.String;
+    user_state: Attribute.JSON;
+    discount_text: Attribute.String;
+    highlight: Attribute.Boolean;
+    badge_text: Attribute.String;
+    cycle: Attribute.String;
+    stripe_data: Attribute.JSON;
+    price_data: Attribute.JSON;
+  };
+}
+
+export interface HeaderLink extends Schema.Component {
+  collectionName: 'components_header_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String;
+    description: Attribute.String;
+    to: Attribute.String;
+    icon: Attribute.String;
+    external: Attribute.Boolean;
+    target: Attribute.Enumeration<['_blank']>;
+    children: Attribute.JSON;
   };
 }
 
@@ -603,15 +603,15 @@ declare module '@strapi/types' {
       'product.tool-group': ProductToolGroup;
       'product.plugins-group': ProductPluginsGroup;
       'product.pdfassistant-product-section': ProductPdfassistantProductSection;
-      'pricing.feature': PricingFeature;
-      'pricing.card': PricingCard;
-      'header.link': HeaderLink;
       'pricing-section.pricing-section': PricingSectionPricingSection;
       'pricing-section.pricing-link': PricingSectionPricingLink;
       'pricing-section.pricing-features': PricingSectionPricingFeatures;
       'pricing-section.feature': PricingSectionFeature;
       'pricing-section.dynamic-cta': PricingSectionDynamicCta;
       'pricing-section.cta': PricingSectionCta;
+      'pricing.feature': PricingFeature;
+      'pricing.card': PricingCard;
+      'header.link': HeaderLink;
       'faq.question': FaqQuestion;
       'faq.faq-section': FaqFaqSection;
       'documentation.doc-section': DocumentationDocSection;

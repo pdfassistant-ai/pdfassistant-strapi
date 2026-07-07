@@ -2075,6 +2075,37 @@ export interface ApiPdfrestTermsOfServicePdfrestTermsOfService
   };
 }
 
+export interface ApiRobotsTxtRobotsTxt extends Schema.CollectionType {
+  collectionName: 'robots_txts';
+  info: {
+    singularName: 'robots-txt';
+    pluralName: 'robots-txts';
+    displayName: 'Robots.txt';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    site: Attribute.Enumeration<['pdfrest', 'pdfassistant']>;
+    text: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::robots-txt.robots-txt',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::robots-txt.robots-txt',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -2125,6 +2156,7 @@ declare module '@strapi/types' {
       'api::pdfrest-security.pdfrest-security': ApiPdfrestSecurityPdfrestSecurity;
       'api::pdfrest-security-certification.pdfrest-security-certification': ApiPdfrestSecurityCertificationPdfrestSecurityCertification;
       'api::pdfrest-terms-of-service.pdfrest-terms-of-service': ApiPdfrestTermsOfServicePdfrestTermsOfService;
+      'api::robots-txt.robots-txt': ApiRobotsTxtRobotsTxt;
     }
   }
 }
