@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "robots_txts",
+  "info": {
+    "singularName": "robots-txt",
+    "pluralName": "robots-txts",
+    "displayName": "Robots.txt"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "site": {
+      "type": "enumeration",
+      "enum": [
+        "pdfrest",
+        "pdfassistant"
+      ]
+    },
+    "text": {
+      "type": "richtext"
+    }
+  }
+}
