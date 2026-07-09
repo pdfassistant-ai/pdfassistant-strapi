@@ -870,6 +870,7 @@ export interface ApiApiToolApiTool extends Schema.CollectionType {
       Attribute.DefaultTo<'2024-08-29T05:00:00.000Z'>;
     rank: Attribute.Integer;
     cloud_only: Attribute.Boolean;
+    structured_data: Attribute.JSON;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
