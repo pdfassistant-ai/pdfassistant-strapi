@@ -26,6 +26,9 @@
     },
     "canonicalUrl": {
       "type": "string"
+    },
+    "structured_data": {
+      "type": "json"
     }
   }
 }
