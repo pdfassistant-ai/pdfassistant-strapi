@@ -98,9 +98,6 @@
     },
     "cloud_only": {
       "type": "boolean"
-    },
-    "structured_data": {
-      "type": "json"
     }
   }
 }
