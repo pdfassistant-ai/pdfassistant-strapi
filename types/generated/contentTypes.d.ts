@@ -1318,13 +1318,14 @@ export interface ApiLlmsTxtLlmsTxt extends Schema.CollectionType {
     singularName: 'llms-txt';
     pluralName: 'llms-txts';
     displayName: 'Llms.txt';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    site: Attribute.Enumeration<['pdfrest', 'pdfassistant']>;
     text: Attribute.RichText;
+    site: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -2081,13 +2082,14 @@ export interface ApiRobotsTxtRobotsTxt extends Schema.CollectionType {
     singularName: 'robots-txt';
     pluralName: 'robots-txts';
     displayName: 'Robots.txt';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    site: Attribute.Enumeration<['pdfrest', 'pdfassistant']>;
     text: Attribute.RichText;
+    site: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
