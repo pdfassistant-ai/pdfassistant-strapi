@@ -1,24 +1,23 @@
 {
   "dependencies": {
-    "@retikolo/drag-drop-content-types": "^1.7.1",
-    "@strapi/plugin-cloud": "4.25.6",
-    "@strapi/plugin-graphql": "^4.0.5",
-    "@strapi/plugin-i18n": "4.25.6",
-    "@strapi/plugin-seo": "^1.9.8",
-    "@strapi/plugin-users-permissions": "4.25.6",
-    "@strapi/strapi": "^4.25.6",
-    "better-sqlite3": "8.6.0",
+    "@retikolo/drag-drop-content-types": "2.0.0",
+    "@strapi/design-system": "2.2.4",
+    "@strapi/icons": "2.2.4",
+    "@strapi/plugin-cloud": "5.52.0",
+    "@strapi/plugin-graphql": "5.52.0",
+    "@strapi/plugin-seo": "2.0.9",
+    "@strapi/plugin-users-permissions": "5.52.0",
+    "@strapi/sdk-plugin": "5.4.0",
+    "@strapi/strapi": "5.52.0",
+    "@strapi/utils": "5.52.0",
+    "better-sqlite3": "12.8.0",
     "fs-extra": "^10.0.0",
-    "lodash.set": "^4.3.2",
     "mime-types": "^2.1.27",
-    "patch-package": "^8.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router-dom": "5.3.4",
-    "strapi-plugin-duplicate-button": "^1.1.14",
-    "strapi-plugin-import-export-entries": "^1.23.1",
-    "strapi-plugin-publisher": "^1.5.7",
-    "styled-components": "5.3.3"
+    "react-router-dom": "^6.0.0",
+    "strapi-plugin-publisher": "2.0.9",
+    "styled-components": "^6.0.0"
   },
   "name": "my-app-name",
   "private": true,
@@ -28,8 +27,7 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi",
-    "postinstall": "patch-package"
+    "strapi": "strapi"
   },
   "author": {
     "name": "A Strapi developer"
@@ -38,8 +36,14 @@
     "template": "blog"
   },
   "engines": {
-    "node": ">=18.0.0 <=20.x.x",
+    "node": ">=22.0.0 <=22.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/events": "3.0.3",
+    "@types/fs-extra": "11.0.4",
+    "@types/mime-types": "3.0.1",
+    "@types/node": "^22.0.0"
+  }
 }

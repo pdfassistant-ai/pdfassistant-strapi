@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
+    "module": "NodeNext",
     "moduleResolution": "nodenext",
     "target": "ES2021",
     "checkJs": true,
-    "allowJs": true
-  }
+    "allowJs": true,
+    "skipLibCheck": true
+  },
+  "include": ["config/**/*.js", "src/**/*.js", "types/**/*.d.ts"],
+  "exclude": ["build", "dist", "node_modules"]
 }

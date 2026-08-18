@@ -3,7 +3,6 @@
 const fs = require("fs-extra");
 const path = require("path");
 const mime = require("mime-types");
-const set = require("lodash.set");
 const {
   categories,
   authors,
@@ -91,7 +90,10 @@ async function uploadFile(file, name) {
 async function createEntry({ model, entry }) {
   try {
     // Actually create the entry in Strapi
-    await strapi.entityService.create(`api::${model}.${model}`, {
+    const uid = /** @type {import("@strapi/strapi").UID.ContentType} */ (
+      `api::${model}.${model}`
+    );
+    await strapi.documents(uid).create({
       data: entry,
     });
   } catch (error) {

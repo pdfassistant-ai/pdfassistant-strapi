@@ -1,12 +1,13 @@
 module.exports = () => ({
-  'duplicate-button': true,
+  graphql: {
+    config: {
+      v4CompatibilityMode: true,
+    },
+  },
   seo: {
       enabled: true,
     },
   'publisher': {
-    enabled: true,
-  },
-  'import-export-entries': {
     enabled: true,
   },
   'drag-drop-content-types': {
