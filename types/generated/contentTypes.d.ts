@@ -1,13 +1,16 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Schema, Struct } from '@strapi/strapi';
 
-export interface AdminPermission extends Schema.CollectionType {
-  collectionName: 'admin_permissions';
+export interface AdminApiToken extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_api_tokens';
   info: {
-    name: 'Permission';
     description: '';
-    singularName: 'permission';
-    pluralName: 'permissions';
-    displayName: 'Permission';
+    displayName: 'Api Token';
+    name: 'Api Token';
+    pluralName: 'api-tokens';
+    singularName: 'api-token';
+  };
+  options: {
+    draftAndPublish: false;
   };
   pluginOptions: {
     'content-manager': {
@@ -18,209 +21,67 @@ export interface AdminPermission extends Schema.CollectionType {
     };
   };
   attributes: {
-    action: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    accessKey: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    actionParameters: Attribute.JSON & Attribute.DefaultTo<{}>;
-    subject: Attribute.String &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    properties: Attribute.JSON & Attribute.DefaultTo<{}>;
-    conditions: Attribute.JSON & Attribute.DefaultTo<[]>;
-    role: Attribute.Relation<'admin::permission', 'manyToOne', 'admin::role'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'admin::permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface AdminUser extends Schema.CollectionType {
-  collectionName: 'admin_users';
-  info: {
-    name: 'User';
-    description: '';
-    singularName: 'user';
-    pluralName: 'users';
-    displayName: 'User';
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    firstname: Attribute.String &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    lastname: Attribute.String &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    username: Attribute.String;
-    email: Attribute.Email &
-      Attribute.Required &
-      Attribute.Private &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        minLength: 6;
-      }>;
-    password: Attribute.Password &
-      Attribute.Private &
-      Attribute.SetMinMaxLength<{
-        minLength: 6;
-      }>;
-    resetPasswordToken: Attribute.String & Attribute.Private;
-    registrationToken: Attribute.String & Attribute.Private;
-    isActive: Attribute.Boolean &
-      Attribute.Private &
-      Attribute.DefaultTo<false>;
-    roles: Attribute.Relation<'admin::user', 'manyToMany', 'admin::role'> &
-      Attribute.Private;
-    blocked: Attribute.Boolean & Attribute.Private & Attribute.DefaultTo<false>;
-    preferedLanguage: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'admin::user', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'admin::user', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface AdminRole extends Schema.CollectionType {
-  collectionName: 'admin_roles';
-  info: {
-    name: 'Role';
-    description: '';
-    singularName: 'role';
-    pluralName: 'roles';
-    displayName: 'Role';
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    code: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    description: Attribute.String;
-    users: Attribute.Relation<'admin::role', 'manyToMany', 'admin::user'>;
-    permissions: Attribute.Relation<
-      'admin::role',
+    adminPermissions: Schema.Attribute.Relation<
       'oneToMany',
       'admin::permission'
     >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'admin::role', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'admin::role', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface AdminApiToken extends Schema.CollectionType {
-  collectionName: 'strapi_api_tokens';
-  info: {
-    name: 'Api Token';
-    singularName: 'api-token';
-    pluralName: 'api-tokens';
-    displayName: 'Api Token';
-    description: '';
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        minLength: 1;
-      }>;
-    description: Attribute.String &
-      Attribute.SetMinMaxLength<{
+    adminUserOwner: Schema.Attribute.Relation<'manyToOne', 'admin::user'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }> &
-      Attribute.DefaultTo<''>;
-    type: Attribute.Enumeration<['read-only', 'full-access', 'custom']> &
-      Attribute.Required &
-      Attribute.DefaultTo<'read-only'>;
-    accessKey: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+      Schema.Attribute.DefaultTo<''>;
+    encryptedKey: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    lastUsedAt: Attribute.DateTime;
-    permissions: Attribute.Relation<
-      'admin::api-token',
+    expiresAt: Schema.Attribute.DateTime;
+    kind: Schema.Attribute.Enumeration<['content-api', 'admin']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'content-api'>;
+    lastUsedAt: Schema.Attribute.DateTime;
+    lifespan: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::api-token'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    permissions: Schema.Attribute.Relation<
       'oneToMany',
       'admin::api-token-permission'
     >;
-    expiresAt: Attribute.DateTime;
-    lifespan: Attribute.BigInteger;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::api-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'admin::api-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.Enumeration<['read-only', 'full-access', 'custom']> &
+      Schema.Attribute.DefaultTo<'read-only'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface AdminApiTokenPermission extends Schema.CollectionType {
+export interface AdminApiTokenPermission extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_api_token_permissions';
   info: {
-    name: 'API Token Permission';
     description: '';
-    singularName: 'api-token-permission';
-    pluralName: 'api-token-permissions';
     displayName: 'API Token Permission';
+    name: 'API Token Permission';
+    pluralName: 'api-token-permissions';
+    singularName: 'api-token-permission';
+  };
+  options: {
+    draftAndPublish: false;
   };
   pluginOptions: {
     'content-manager': {
@@ -231,41 +92,39 @@ export interface AdminApiTokenPermission extends Schema.CollectionType {
     };
   };
   attributes: {
-    action: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    action: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    token: Attribute.Relation<
-      'admin::api-token-permission',
-      'manyToOne',
-      'admin::api-token'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::api-token-permission',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'admin::api-token-permission'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'admin::api-token-permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    token: Schema.Attribute.Relation<'manyToOne', 'admin::api-token'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface AdminTransferToken extends Schema.CollectionType {
-  collectionName: 'strapi_transfer_tokens';
+export interface AdminPermission extends Struct.CollectionTypeSchema {
+  collectionName: 'admin_permissions';
   info: {
-    name: 'Transfer Token';
-    singularName: 'transfer-token';
-    pluralName: 'transfer-tokens';
-    displayName: 'Transfer Token';
     description: '';
+    displayName: 'Permission';
+    name: 'Permission';
+    pluralName: 'permissions';
+    singularName: 'permission';
+  };
+  options: {
+    draftAndPublish: false;
   };
   pluginOptions: {
     'content-manager': {
@@ -276,55 +135,212 @@ export interface AdminTransferToken extends Schema.CollectionType {
     };
   };
   attributes: {
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
+    action: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    description: Attribute.String &
-      Attribute.SetMinMaxLength<{
+    actionParameters: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<{}>;
+    apiToken: Schema.Attribute.Relation<'manyToOne', 'admin::api-token'>;
+    conditions: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::permission'> &
+      Schema.Attribute.Private;
+    properties: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<{}>;
+    publishedAt: Schema.Attribute.DateTime;
+    role: Schema.Attribute.Relation<'manyToOne', 'admin::role'>;
+    subject: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface AdminRole extends Struct.CollectionTypeSchema {
+  collectionName: 'admin_roles';
+  info: {
+    description: '';
+    displayName: 'Role';
+    name: 'Role';
+    pluralName: 'roles';
+    singularName: 'role';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    code: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::role'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    permissions: Schema.Attribute.Relation<'oneToMany', 'admin::permission'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users: Schema.Attribute.Relation<'manyToMany', 'admin::user'>;
+  };
+}
+
+export interface AdminSession extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_sessions';
+  info: {
+    description: 'Session Manager storage';
+    displayName: 'Session';
+    name: 'Session';
+    pluralName: 'sessions';
+    singularName: 'session';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+    i18n: {
+      localized: false;
+    };
+  };
+  attributes: {
+    absoluteExpiresAt: Schema.Attribute.DateTime & Schema.Attribute.Private;
+    childId: Schema.Attribute.String & Schema.Attribute.Private;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deviceId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    expiresAt: Schema.Attribute.DateTime &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::session'> &
+      Schema.Attribute.Private;
+    metadata: Schema.Attribute.JSON & Schema.Attribute.Private;
+    origin: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sessionId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private &
+      Schema.Attribute.Unique;
+    status: Schema.Attribute.String & Schema.Attribute.Private;
+    type: Schema.Attribute.String & Schema.Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface AdminTransferToken extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_transfer_tokens';
+  info: {
+    description: '';
+    displayName: 'Transfer Token';
+    name: 'Transfer Token';
+    pluralName: 'transfer-tokens';
+    singularName: 'transfer-token';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    accessKey: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }> &
-      Attribute.DefaultTo<''>;
-    accessKey: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+      Schema.Attribute.DefaultTo<''>;
+    expiresAt: Schema.Attribute.DateTime;
+    lastUsedAt: Schema.Attribute.DateTime;
+    lifespan: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'admin::transfer-token'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    lastUsedAt: Attribute.DateTime;
-    permissions: Attribute.Relation<
-      'admin::transfer-token',
+    permissions: Schema.Attribute.Relation<
       'oneToMany',
       'admin::transfer-token-permission'
     >;
-    expiresAt: Attribute.DateTime;
-    lifespan: Attribute.BigInteger;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::transfer-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'admin::transfer-token',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface AdminTransferTokenPermission extends Schema.CollectionType {
+export interface AdminTransferTokenPermission
+  extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_transfer_token_permissions';
   info: {
-    name: 'Transfer Token Permission';
     description: '';
-    singularName: 'transfer-token-permission';
-    pluralName: 'transfer-token-permissions';
     displayName: 'Transfer Token Permission';
+    name: 'Transfer Token Permission';
+    pluralName: 'transfer-token-permissions';
+    singularName: 'transfer-token-permission';
+  };
+  options: {
+    draftAndPublish: false;
   };
   pluginOptions: {
     'content-manager': {
@@ -335,1809 +351,1910 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
     };
   };
   attributes: {
-    action: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    action: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
-    token: Attribute.Relation<
-      'admin::transfer-token-permission',
-      'manyToOne',
-      'admin::transfer-token'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'admin::transfer-token-permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'admin::transfer-token-permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginUploadFile extends Schema.CollectionType {
-  collectionName: 'files';
-  info: {
-    singularName: 'file';
-    pluralName: 'files';
-    displayName: 'File';
-    description: '';
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    alternativeText: Attribute.String;
-    caption: Attribute.String;
-    width: Attribute.Integer;
-    height: Attribute.Integer;
-    formats: Attribute.JSON;
-    hash: Attribute.String & Attribute.Required;
-    ext: Attribute.String;
-    mime: Attribute.String & Attribute.Required;
-    size: Attribute.Decimal & Attribute.Required;
-    url: Attribute.String & Attribute.Required;
-    previewUrl: Attribute.String;
-    provider: Attribute.String & Attribute.Required;
-    provider_metadata: Attribute.JSON;
-    related: Attribute.Relation<'plugin::upload.file', 'morphToMany'>;
-    folder: Attribute.Relation<
-      'plugin::upload.file',
-      'manyToOne',
-      'plugin::upload.folder'
-    > &
-      Attribute.Private;
-    folderPath: Attribute.String &
-      Attribute.Required &
-      Attribute.Private &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::upload.file',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::upload.file',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginUploadFolder extends Schema.CollectionType {
-  collectionName: 'upload_folders';
-  info: {
-    singularName: 'folder';
-    pluralName: 'folders';
-    displayName: 'Folder';
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
-    pathId: Attribute.Integer & Attribute.Required & Attribute.Unique;
-    parent: Attribute.Relation<
-      'plugin::upload.folder',
-      'manyToOne',
-      'plugin::upload.folder'
-    >;
-    children: Attribute.Relation<
-      'plugin::upload.folder',
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'plugin::upload.folder'
-    >;
-    files: Attribute.Relation<
-      'plugin::upload.folder',
-      'oneToMany',
-      'plugin::upload.file'
-    >;
-    path: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::upload.folder',
-      'oneToOne',
-      'admin::user'
+      'admin::transfer-token-permission'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::upload.folder',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    token: Schema.Attribute.Relation<'manyToOne', 'admin::transfer-token'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface PluginContentReleasesRelease extends Schema.CollectionType {
-  collectionName: 'strapi_releases';
+export interface AdminUser extends Struct.CollectionTypeSchema {
+  collectionName: 'admin_users';
   info: {
-    singularName: 'release';
-    pluralName: 'releases';
-    displayName: 'Release';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    releasedAt: Attribute.DateTime;
-    scheduledAt: Attribute.DateTime;
-    timezone: Attribute.String;
-    status: Attribute.Enumeration<
-      ['ready', 'blocked', 'failed', 'done', 'empty']
-    > &
-      Attribute.Required;
-    actions: Attribute.Relation<
-      'plugin::content-releases.release',
-      'oneToMany',
-      'plugin::content-releases.release-action'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::content-releases.release',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::content-releases.release',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginContentReleasesReleaseAction
-  extends Schema.CollectionType {
-  collectionName: 'strapi_release_actions';
-  info: {
-    singularName: 'release-action';
-    pluralName: 'release-actions';
-    displayName: 'Release Action';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    type: Attribute.Enumeration<['publish', 'unpublish']> & Attribute.Required;
-    entry: Attribute.Relation<
-      'plugin::content-releases.release-action',
-      'morphToOne'
-    >;
-    contentType: Attribute.String & Attribute.Required;
-    locale: Attribute.String;
-    release: Attribute.Relation<
-      'plugin::content-releases.release-action',
-      'manyToOne',
-      'plugin::content-releases.release'
-    >;
-    isEntryValid: Attribute.Boolean;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::content-releases.release-action',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::content-releases.release-action',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginPublisherAction extends Schema.CollectionType {
-  collectionName: 'actions';
-  info: {
-    singularName: 'action';
-    pluralName: 'actions';
-    displayName: 'actions';
-  };
-  options: {
-    draftAndPublish: false;
-    comment: '';
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    executeAt: Attribute.DateTime;
-    mode: Attribute.String;
-    entityId: Attribute.Integer;
-    entitySlug: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::publisher.action',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::publisher.action',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
-  info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
     description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 50;
-        },
-        number
-      >;
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginUsersPermissionsPermission
-  extends Schema.CollectionType {
-  collectionName: 'up_permissions';
-  info: {
-    name: 'permission';
-    description: '';
-    singularName: 'permission';
-    pluralName: 'permissions';
-    displayName: 'Permission';
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    action: Attribute.String & Attribute.Required;
-    role: Attribute.Relation<
-      'plugin::users-permissions.permission',
-      'manyToOne',
-      'plugin::users-permissions.role'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::users-permissions.permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::users-permissions.permission',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginUsersPermissionsRole extends Schema.CollectionType {
-  collectionName: 'up_roles';
-  info: {
-    name: 'role';
-    description: '';
-    singularName: 'role';
-    pluralName: 'roles';
-    displayName: 'Role';
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        minLength: 3;
-      }>;
-    description: Attribute.String;
-    type: Attribute.String & Attribute.Unique;
-    permissions: Attribute.Relation<
-      'plugin::users-permissions.role',
-      'oneToMany',
-      'plugin::users-permissions.permission'
-    >;
-    users: Attribute.Relation<
-      'plugin::users-permissions.role',
-      'oneToMany',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::users-permissions.role',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::users-permissions.role',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginUsersPermissionsUser extends Schema.CollectionType {
-  collectionName: 'up_users';
-  info: {
-    name: 'user';
-    description: '';
-    singularName: 'user';
-    pluralName: 'users';
     displayName: 'User';
+    name: 'User';
+    pluralName: 'users';
+    singularName: 'user';
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
   };
   attributes: {
-    username: Attribute.String &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMaxLength<{
-        minLength: 3;
-      }>;
-    email: Attribute.Email &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
+    apiTokens: Schema.Attribute.Relation<'oneToMany', 'admin::api-token'> &
+      Schema.Attribute.Private;
+    blocked: Schema.Attribute.Boolean &
+      Schema.Attribute.Private &
+      Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    provider: Attribute.String;
-    password: Attribute.Password &
-      Attribute.Private &
-      Attribute.SetMinMaxLength<{
+    firstname: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    isActive: Schema.Attribute.Boolean &
+      Schema.Attribute.Private &
+      Schema.Attribute.DefaultTo<false>;
+    lastname: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::user'> &
+      Schema.Attribute.Private;
+    password: Schema.Attribute.Password &
+      Schema.Attribute.Private &
+      Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    resetPasswordToken: Attribute.String & Attribute.Private;
-    confirmationToken: Attribute.String & Attribute.Private;
-    confirmed: Attribute.Boolean & Attribute.DefaultTo<false>;
-    blocked: Attribute.Boolean & Attribute.DefaultTo<false>;
-    role: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'manyToOne',
-      'plugin::users-permissions.role'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    preferedLanguage: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    registrationToken: Schema.Attribute.String & Schema.Attribute.Private;
+    resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
+    resetPasswordTokenExpiresAt: Schema.Attribute.DateTime &
+      Schema.Attribute.Private;
+    roles: Schema.Attribute.Relation<'manyToMany', 'admin::role'> &
+      Schema.Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.String;
   };
 }
 
-export interface ApiApiToolApiTool extends Schema.CollectionType {
-  collectionName: 'api_tools';
-  info: {
-    singularName: 'api-tool';
-    pluralName: 'api-tools';
-    displayName: 'API Tool';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    tool_page_desc: Attribute.RichText;
-    new_tool: Attribute.Boolean;
-    pro_tool: Attribute.Boolean;
-    api_tool_bucket: Attribute.Relation<
-      'api::api-tool.api-tool',
-      'manyToOne',
-      'api::api-tool-bucket.api-tool-bucket'
-    >;
-    header_blurb: Attribute.String;
-    tool_card_desc: Attribute.Text;
-    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    youtube_url: Attribute.String;
-    parameters: Attribute.DynamicZone<['tool.parameter']>;
-    api_tool_endpoints: Attribute.Relation<
-      'api::api-tool.api-tool',
-      'oneToMany',
-      'api::api-tool-endpoint.api-tool-endpoint'
-    >;
-    why_cards: Attribute.DynamicZone<['tool.card']>;
-    why_section_title: Attribute.String;
-    why_section_desc: Attribute.Text;
-    slug: Attribute.UID<'api::api-tool.api-tool', 'name'>;
-    seo: Attribute.Component<'shared.seo'>;
-    faq: Attribute.DynamicZone<['shared.faq']>;
-    publish_date: Attribute.DateTime &
-      Attribute.DefaultTo<'2024-08-29T05:00:00.000Z'>;
-    rank: Attribute.Integer;
-    cloud_only: Attribute.Boolean;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::api-tool.api-tool',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::api-tool.api-tool',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiApiToolBucketApiToolBucket extends Schema.CollectionType {
+export interface ApiApiToolBucketApiToolBucket
+  extends Struct.CollectionTypeSchema {
   collectionName: 'api_tool_buckets';
   info: {
-    singularName: 'api-tool-bucket';
-    pluralName: 'api-tool-buckets';
-    displayName: 'API Tool Bucket';
     description: '';
+    displayName: 'API Tool Bucket';
+    pluralName: 'api-tool-buckets';
+    singularName: 'api-tool-bucket';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
-    description: Attribute.Text;
-    api_tools: Attribute.Relation<
-      'api::api-tool-bucket.api-tool-bucket',
+    api_tools: Schema.Attribute.Relation<'oneToMany', 'api::api-tool.api-tool'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::api-tool.api-tool'
-    >;
-    rank: Attribute.Integer;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::api-tool-bucket.api-tool-bucket',
-      'oneToOne',
-      'admin::user'
+      'api::api-tool-bucket.api-tool-bucket'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::api-tool-bucket.api-tool-bucket',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    rank: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiApiToolEndpointApiToolEndpoint
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'api_tool_endpoints';
   info: {
-    singularName: 'api-tool-endpoint';
-    pluralName: 'api-tool-endpoints';
     displayName: 'API Tool Endpoint';
+    pluralName: 'api-tool-endpoints';
+    singularName: 'api-tool-endpoint';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    endpoint: Attribute.String;
-    api_lab_json: Attribute.JSON;
-    api_tool: Attribute.Relation<
-      'api::api-tool-endpoint.api-tool-endpoint',
-      'manyToOne',
-      'api::api-tool.api-tool'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::api-tool-endpoint.api-tool-endpoint',
-      'oneToOne',
-      'admin::user'
+    api_lab_json: Schema.Attribute.JSON;
+    api_tool: Schema.Attribute.Relation<'manyToOne', 'api::api-tool.api-tool'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    endpoint: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::api-tool-endpoint.api-tool-endpoint'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::api-tool-endpoint.api-tool-endpoint',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiBlogBlog extends Schema.SingleType {
+export interface ApiApiToolApiTool extends Struct.CollectionTypeSchema {
+  collectionName: 'api_tools';
+  info: {
+    description: '';
+    displayName: 'API Tool';
+    pluralName: 'api-tools';
+    singularName: 'api-tool';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    api_tool_bucket: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::api-tool-bucket.api-tool-bucket'
+    >;
+    api_tool_endpoints: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::api-tool-endpoint.api-tool-endpoint'
+    >;
+    cloud_only: Schema.Attribute.Boolean;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    faq: Schema.Attribute.DynamicZone<['shared.faq']>;
+    header_blurb: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::api-tool.api-tool'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    new_tool: Schema.Attribute.Boolean;
+    parameters: Schema.Attribute.DynamicZone<['tool.parameter']>;
+    pro_tool: Schema.Attribute.Boolean;
+    publish_date: Schema.Attribute.DateTime &
+      Schema.Attribute.DefaultTo<'2024-08-29T05:00:00.000Z'>;
+    publishedAt: Schema.Attribute.DateTime;
+    rank: Schema.Attribute.Integer;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'name'>;
+    tool_card_desc: Schema.Attribute.Text;
+    tool_page_desc: Schema.Attribute.RichText;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    why_cards: Schema.Attribute.DynamicZone<['tool.card']>;
+    why_section_desc: Schema.Attribute.Text;
+    why_section_title: Schema.Attribute.String;
+    youtube_url: Schema.Attribute.String;
+  };
+}
+
+export interface ApiBlogPostTopicBlogPostTopic
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'blog_post_topics';
+  info: {
+    description: '';
+    displayName: 'Blog Post Topic';
+    pluralName: 'blog-post-topics';
+    singularName: 'blog-post-topic';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    blog_posts: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::blog-post.blog-post'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::blog-post-topic.blog-post-topic'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBlogPostTypeBlogPostType
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'blog_post_types';
+  info: {
+    description: '';
+    displayName: 'Blog Post Type';
+    pluralName: 'blog-post-types';
+    singularName: 'blog-post-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    blog_posts: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::blog-post.blog-post'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::blog-post-type.blog-post-type'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    name_plural: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    rank: Schema.Attribute.Integer;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'name'>;
+    slug_plural: Schema.Attribute.UID<'name_plural'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
+  collectionName: 'blog_posts';
+  info: {
+    description: '';
+    displayName: 'Blog Post';
+    pluralName: 'blog-posts';
+    singularName: 'blog-post';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    blocks: Schema.Attribute.DynamicZone<['shared.rich-text', 'shared.html']>;
+    blog_post_topics: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::blog-post-topic.blog-post-topic'
+    >;
+    blog_post_type: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::blog-post-type.blog-post-type'
+    >;
+    cover: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80;
+      }>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::blog-post.blog-post'
+    > &
+      Schema.Attribute.Private;
+    publish_date: Schema.Attribute.DateTime &
+      Schema.Attribute.DefaultTo<'2024-05-14T05:00:01.148Z'>;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    short_title: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBlogBlog extends Struct.SingleTypeSchema {
   collectionName: 'blogs';
   info: {
-    singularName: 'blog';
-    pluralName: 'blogs';
     displayName: ' Blog';
+    pluralName: 'blogs';
+    singularName: 'blog';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::blog.blog', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiBlogPostBlogPost extends Schema.CollectionType {
-  collectionName: 'blog_posts';
-  info: {
-    singularName: 'blog-post';
-    pluralName: 'blog-posts';
-    displayName: 'Blog Post';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text &
-      Attribute.SetMinMaxLength<{
-        maxLength: 80;
-      }>;
-    slug: Attribute.UID<'api::blog-post.blog-post', 'title'>;
-    cover: Attribute.Media<'images' | 'files' | 'videos'>;
-    publish_date: Attribute.DateTime &
-      Attribute.DefaultTo<'2024-05-14T05:00:01.148Z'>;
-    blog_post_topics: Attribute.Relation<
-      'api::blog-post.blog-post',
-      'manyToMany',
-      'api::blog-post-topic.blog-post-topic'
-    >;
-    blog_post_type: Attribute.Relation<
-      'api::blog-post.blog-post',
-      'manyToOne',
-      'api::blog-post-type.blog-post-type'
-    >;
-    blocks: Attribute.DynamicZone<['shared.rich-text', 'shared.html']>;
-    seo: Attribute.Component<'shared.seo'>;
-    short_title: Attribute.String;
-    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::blog-post.blog-post',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::blog-post.blog-post',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiBlogPostTopicBlogPostTopic extends Schema.CollectionType {
-  collectionName: 'blog_post_topics';
-  info: {
-    singularName: 'blog-post-topic';
-    pluralName: 'blog-post-topics';
-    displayName: 'Blog Post Topic';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    slug: Attribute.UID<'api::blog-post-topic.blog-post-topic', 'name'> &
-      Attribute.Required;
-    description: Attribute.Text;
-    blog_posts: Attribute.Relation<
-      'api::blog-post-topic.blog-post-topic',
-      'manyToMany',
-      'api::blog-post.blog-post'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::blog-post-topic.blog-post-topic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::blog-post-topic.blog-post-topic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiBlogPostTypeBlogPostType extends Schema.CollectionType {
-  collectionName: 'blog_post_types';
-  info: {
-    singularName: 'blog-post-type';
-    pluralName: 'blog-post-types';
-    displayName: 'Blog Post Type';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String;
-    slug: Attribute.UID<'api::blog-post-type.blog-post-type', 'name'>;
-    description: Attribute.Text;
-    blog_posts: Attribute.Relation<
-      'api::blog-post-type.blog-post-type',
-      'oneToMany',
-      'api::blog-post.blog-post'
-    >;
-    rank: Attribute.Integer;
-    name_plural: Attribute.String;
-    slug_plural: Attribute.UID<
-      'api::blog-post-type.blog-post-type',
-      'name_plural'
-    >;
-    seo: Attribute.Component<'shared.seo'>;
-    icon: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::blog-post-type.blog-post-type',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::blog-post-type.blog-post-type',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiChatFeedbackModalChatFeedbackModal
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'chat_feedback_modals';
   info: {
-    singularName: 'chat-feedback-modal';
-    pluralName: 'chat-feedback-modals';
-    displayName: 'Chat Feedback Modal';
     description: '';
+    displayName: 'Chat Feedback Modal';
+    pluralName: 'chat-feedback-modals';
+    singularName: 'chat-feedback-modal';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    input_placeholder: Attribute.String;
-    prompts: Attribute.Component<'shared.string', true>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::chat-feedback-modal.chat-feedback-modal',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    input_placeholder: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::chat-feedback-modal.chat-feedback-modal'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::chat-feedback-modal.chat-feedback-modal',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiDocumentationDocumentation extends Schema.SingleType {
-  collectionName: 'documentations';
-  info: {
-    singularName: 'documentation';
-    pluralName: 'documentations';
-    displayName: 'Documentation';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::documentation.documentation',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::documentation.documentation',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    prompts: Schema.Attribute.Component<'shared.string', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiDocumentationSectionDocumentationSection
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'documentation_sections';
   info: {
-    singularName: 'documentation-section';
-    pluralName: 'documentation-sections';
-    displayName: 'Documentation Section';
     description: '';
+    displayName: 'Documentation Section';
+    pluralName: 'documentation-sections';
+    singularName: 'documentation-section';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    content: Attribute.RichText & Attribute.Required;
-    title: Attribute.String & Attribute.Required;
-    description: Attribute.Text;
-    creation_date: Attribute.Date;
-    documentation_subsections: Attribute.Relation<
-      'api::documentation-section.documentation-section',
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    creation_date: Schema.Attribute.Date;
+    description: Schema.Attribute.Text;
+    documentation_subsections: Schema.Attribute.Relation<
       'oneToMany',
       'api::documentation-section.documentation-section'
     >;
-    slug: Attribute.UID<
-      'api::documentation-section.documentation-section',
-      'title'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::documentation-section.documentation-section',
-      'oneToOne',
-      'admin::user'
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::documentation-section.documentation-section'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::documentation-section.documentation-section',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiDocumentationTopicDocumentationTopic
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'documentation_topics';
   info: {
-    singularName: 'documentation-topic';
-    pluralName: 'documentation-topics';
-    displayName: 'Documentation Topic';
     description: '';
+    displayName: 'Documentation Topic';
+    pluralName: 'documentation-topics';
+    singularName: 'documentation-topic';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    content: Attribute.RichText;
-    creation_date: Attribute.Date;
-    title: Attribute.String & Attribute.Required;
-    description: Attribute.Text;
-    slug: Attribute.UID<
-      'api::documentation-topic.documentation-topic',
-      'title'
-    > &
-      Attribute.Required;
-    documentation_sections: Attribute.Relation<
-      'api::documentation-topic.documentation-topic',
+    content: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    creation_date: Schema.Attribute.Date;
+    description: Schema.Attribute.Text;
+    documentation_sections: Schema.Attribute.Relation<
       'oneToMany',
       'api::documentation-section.documentation-section'
     >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::documentation-topic.documentation-topic',
-      'oneToOne',
-      'admin::user'
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::documentation-topic.documentation-topic'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::documentation-topic.documentation-topic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiGlobalGlobal extends Schema.SingleType {
+export interface ApiDocumentationDocumentation extends Struct.SingleTypeSchema {
+  collectionName: 'documentations';
+  info: {
+    displayName: 'Documentation';
+    pluralName: 'documentations';
+    singularName: 'documentation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::documentation.documentation'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
-    singularName: 'global';
-    pluralName: 'globals';
-    displayName: 'Global';
     description: 'Define global settings';
+    displayName: 'Global';
+    pluralName: 'globals';
+    singularName: 'global';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    siteName: Attribute.String & Attribute.Required;
-    favicon: Attribute.Media<'images' | 'files' | 'videos'>;
-    siteDescription: Attribute.Text & Attribute.Required;
-    defaultSeo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::global.global',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    defaultSeo: Schema.Attribute.Component<'shared.seo', false>;
+    favicon: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::global.global'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::global.global',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    siteDescription: Schema.Attribute.Text & Schema.Attribute.Required;
+    siteName: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiLlmsTxtLlmsTxt extends Schema.CollectionType {
+export interface ApiLlmsTxtLlmsTxt extends Struct.CollectionTypeSchema {
   collectionName: 'llms_txts';
   info: {
-    singularName: 'llms-txt';
-    pluralName: 'llms-txts';
-    displayName: 'Llms.txt';
     description: '';
+    displayName: 'Llms.txt';
+    pluralName: 'llms-txts';
+    singularName: 'llms-txt';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    text: Attribute.RichText;
-    site: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::llms-txt.llms-txt',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::llms-txt.llms-txt'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::llms-txt.llms-txt',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    site: Schema.Attribute.String;
+    text: Schema.Attribute.RichText;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfassistantHomepagePdfassistantHomepage
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pdfassistant_homepages';
   info: {
-    singularName: 'pdfassistant-homepage';
-    pluralName: 'pdfassistant-homepages';
-    displayName: 'Pdfassistant Homepage';
     description: '';
+    displayName: 'Pdfassistant Homepage';
+    pluralName: 'pdfassistant-homepages';
+    singularName: 'pdfassistant-homepage';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    hero: Attribute.Component<'shared.landing-section'>;
-    capabilities_section: Attribute.Component<'shared.landing-section'>;
-    capabilities_prompts: Attribute.Component<'shared.chat-prompt', true>;
-    features_section: Attribute.Component<'shared.landing-section'>;
-    features_cards: Attribute.Component<'shared.card', true>;
-    security_section: Attribute.Component<'shared.landing-section'>;
-    security_cards: Attribute.Component<'shared.card', true>;
-    ai_studio_section: Attribute.Component<'shared.landing-section'>;
-    ai_studio_prompts: Attribute.Component<'shared.chat-prompt', true>;
-    integrations_section: Attribute.Component<'shared.landing-section'>;
-    integrations_cards: Attribute.Component<'shared.card', true>;
-    use_cases_section: Attribute.Component<'shared.landing-section'>;
-    use_cases_cards: Attribute.Component<'shared.card', true>;
-    pricing_section: Attribute.Component<'shared.landing-section'>;
-    pdfrest_section: Attribute.Component<'shared.landing-section'>;
-    faq_section: Attribute.Component<'shared.landing-section'>;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfassistant-homepage.pdfassistant-homepage',
-      'oneToOne',
-      'admin::user'
+    ai_studio_prompts: Schema.Attribute.Component<'shared.chat-prompt', true>;
+    ai_studio_section: Schema.Attribute.Component<
+      'shared.landing-section',
+      false
+    >;
+    capabilities_prompts: Schema.Attribute.Component<
+      'shared.chat-prompt',
+      true
+    >;
+    capabilities_section: Schema.Attribute.Component<
+      'shared.landing-section',
+      false
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    faq_section: Schema.Attribute.Component<'shared.landing-section', false>;
+    features_cards: Schema.Attribute.Component<'shared.card', true>;
+    features_section: Schema.Attribute.Component<
+      'shared.landing-section',
+      false
+    >;
+    hero: Schema.Attribute.Component<'shared.landing-section', false>;
+    integrations_cards: Schema.Attribute.Component<'shared.card', true>;
+    integrations_section: Schema.Attribute.Component<
+      'shared.landing-section',
+      false
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfassistant-homepage.pdfassistant-homepage'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfassistant-homepage.pdfassistant-homepage',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    pdfrest_section: Schema.Attribute.Component<
+      'shared.landing-section',
+      false
+    >;
+    pricing_section: Schema.Attribute.Component<
+      'shared.landing-section',
+      false
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    security_cards: Schema.Attribute.Component<'shared.card', true>;
+    security_section: Schema.Attribute.Component<
+      'shared.landing-section',
+      false
+    >;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    use_cases_cards: Schema.Attribute.Component<'shared.card', true>;
+    use_cases_section: Schema.Attribute.Component<
+      'shared.landing-section',
+      false
+    >;
   };
 }
 
 export interface ApiPdfassistantHtmlPagePdfassistantHtmlPage
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'pdfassistant_html_pages';
   info: {
-    singularName: 'pdfassistant-html-page';
-    pluralName: 'pdfassistant-html-pages';
-    displayName: 'Pdfassistant HTML Page';
     description: '';
+    displayName: 'Pdfassistant HTML Page';
+    pluralName: 'pdfassistant-html-pages';
+    singularName: 'pdfassistant-html-page';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    icon: Attribute.String;
-    slug: Attribute.String;
-    rank: Attribute.Integer;
-    page_type: Attribute.Enumeration<
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    html_body: Schema.Attribute.Component<'shared.html', false>;
+    html_head: Schema.Attribute.Component<'shared.html', false>;
+    icon: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfassistant-html-page.pdfassistant-html-page'
+    > &
+      Schema.Attribute.Private;
+    page_type: Schema.Attribute.Enumeration<
       [
         'features',
         'use-cases',
         'integrations',
         'ai-connections',
         'adobe-express-add-ons',
-        'api'
+        'api',
       ]
     >;
-    html_head: Attribute.Component<'shared.html'>;
-    html_body: Attribute.Component<'shared.html'>;
-    structured_data: Attribute.JSON;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfassistant-html-page.pdfassistant-html-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfassistant-html-page.pdfassistant-html-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    rank: Schema.Attribute.Integer;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.String;
+    structured_data: Schema.Attribute.JSON;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfassistantPluginsOverviewPdfassistantPluginsOverview
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pdfassistant_plugins_overviews';
   info: {
-    singularName: 'pdfassistant-plugins-overview';
-    pluralName: 'pdfassistant-plugins-overviews';
-    displayName: 'Pdfassistant Plugins Overview';
     description: '';
+    displayName: 'Pdfassistant Plugins Overview';
+    pluralName: 'pdfassistant-plugins-overviews';
+    singularName: 'pdfassistant-plugins-overview';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    content: Attribute.DynamicZone<
+    content: Schema.Attribute.DynamicZone<
       ['shared.content-section', 'product.plugins-group']
     >;
-    seo: Attribute.Component<'shared.seo'>;
-    hero: Attribute.Component<'shared.content-section'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Component<'shared.content-section', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfassistant-plugins-overview.pdfassistant-plugins-overview',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfassistantPricingPdfassistantPricing
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pdfassistant_pricings';
   info: {
-    singularName: 'pdfassistant-pricing';
-    pluralName: 'pdfassistant-pricings';
-    displayName: 'Pdfassistant Pricing';
     description: '';
+    displayName: 'Pdfassistant Pricing';
+    pluralName: 'pdfassistant-pricings';
+    singularName: 'pdfassistant-pricing';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    faq: Attribute.DynamicZone<['shared.faq']>;
-    credit_plans: Attribute.DynamicZone<['pricing.card']>;
-    seo: Attribute.Component<'shared.seo', true>;
-    plan_details_table: Attribute.JSON;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfassistant-pricing.pdfassistant-pricing',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    credit_plans: Schema.Attribute.DynamicZone<['pricing.card']>;
+    description: Schema.Attribute.Text;
+    faq: Schema.Attribute.DynamicZone<['shared.faq']>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfassistant-pricing.pdfassistant-pricing'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfassistant-pricing.pdfassistant-pricing',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    plan_details_table: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', true>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfassistantProductPdfassistantProduct
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'pdfassistant_products';
   info: {
-    singularName: 'pdfassistant-product';
-    pluralName: 'pdfassistant-products';
-    displayName: 'Pdfassistant Product';
     description: '';
+    displayName: 'Pdfassistant Product';
+    pluralName: 'pdfassistant-products';
+    singularName: 'pdfassistant-product';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    seo: Attribute.Component<'shared.seo'>;
-    content: Attribute.DynamicZone<['shared.content-section']>;
-    slug: Attribute.UID<
-      'api::pdfassistant-product.pdfassistant-product',
-      'title'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfassistant-product.pdfassistant-product',
-      'oneToOne',
-      'admin::user'
+    content: Schema.Attribute.DynamicZone<['shared.content-section']>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfassistant-product.pdfassistant-product'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfassistant-product.pdfassistant-product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfrestApiToolkitPdfrestApiToolkit
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pdfrest_api_toolkits';
   info: {
-    singularName: 'pdfrest-api-toolkit';
-    pluralName: 'pdfrest-api-toolkits';
-    displayName: 'Pdfrest API Toolkit';
     description: '';
+    displayName: 'Pdfrest API Toolkit';
+    pluralName: 'pdfrest-api-toolkits';
+    singularName: 'pdfrest-api-toolkit';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    heroContent: Attribute.Component<'api-toolkit.hero'>;
-    securityComplianceContent: Attribute.Component<'api-toolkit.security-compliance-content'>;
-    midPageCtaContent: Attribute.Component<'api-toolkit.cta'>;
-    deploymentContent: Attribute.Component<'api-toolkit.deployment-content'>;
-    deploymentCards: Attribute.Component<'api-toolkit.deployment-card', true>;
-    securityBadgeTitle: Attribute.String;
-    trustedByTitle: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-api-toolkit.pdfrest-api-toolkit',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deploymentCards: Schema.Attribute.Component<
+      'api-toolkit.deployment-card',
+      true
+    >;
+    deploymentContent: Schema.Attribute.Component<
+      'api-toolkit.deployment-content',
+      false
+    >;
+    heroContent: Schema.Attribute.Component<'api-toolkit.hero', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-api-toolkit.pdfrest-api-toolkit'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-api-toolkit.pdfrest-api-toolkit',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    midPageCtaContent: Schema.Attribute.Component<'api-toolkit.cta', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    securityBadgeTitle: Schema.Attribute.String;
+    securityComplianceContent: Schema.Attribute.Component<
+      'api-toolkit.security-compliance-content',
+      false
+    >;
+    trustedByTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfrestContainerLicenseKeyRequestPdfrestContainerLicenseKeyRequest
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pdfrest_container_license_key_requests';
   info: {
-    singularName: 'pdfrest-container-license-key-request';
-    pluralName: 'pdfrest-container-license-key-requests';
     displayName: 'Pdfrest Container License Key Request';
+    pluralName: 'pdfrest-container-license-key-requests';
+    singularName: 'pdfrest-container-license-key-request';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-container-license-key-request.pdfrest-container-license-key-request',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-container-license-key-request.pdfrest-container-license-key-request'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-container-license-key-request.pdfrest-container-license-key-request',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfrestDataProcessingAgreementPdfrestDataProcessingAgreement
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pdfrest_data_processing_agreements';
   info: {
-    singularName: 'pdfrest-data-processing-agreement';
-    pluralName: 'pdfrest-data-processing-agreements';
-    displayName: 'Pdfrest Data Processing Agreement';
     description: '';
+    displayName: 'Pdfrest Data Processing Agreement';
+    pluralName: 'pdfrest-data-processing-agreements';
+    singularName: 'pdfrest-data-processing-agreement';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    body: Attribute.RichText;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-data-processing-agreement.pdfrest-data-processing-agreement',
-      'oneToOne',
-      'admin::user'
+    body: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-data-processing-agreement.pdfrest-data-processing-agreement'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-data-processing-agreement.pdfrest-data-processing-agreement',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfrestDocumentationPagePdfrestDocumentationPage
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'pdfrest_documentation_pages';
   info: {
-    singularName: 'pdfrest-documentation-page';
-    pluralName: 'pdfrest-documentation-pages';
-    displayName: 'Pdfrest Documentation Page';
     description: '';
+    displayName: 'Pdfrest Documentation Page';
+    pluralName: 'pdfrest-documentation-pages';
+    singularName: 'pdfrest-documentation-page';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    slug: Attribute.UID<
-      'api::pdfrest-documentation-page.pdfrest-documentation-page',
-      'title'
-    >;
-    content: Attribute.DynamicZone<
+    content: Schema.Attribute.DynamicZone<
       [
         'documentation.doc-section',
         'shared.rich-text',
         'shared.html',
-        'shared.card'
+        'shared.card',
       ]
     >;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-documentation-page.pdfrest-documentation-page',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-documentation-page.pdfrest-documentation-page'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-documentation-page.pdfrest-documentation-page',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiPdfrestGlobalPdfrestGlobal extends Schema.SingleType {
+export interface ApiPdfrestGlobalPdfrestGlobal extends Struct.SingleTypeSchema {
   collectionName: 'pdfrest_globals';
   info: {
-    singularName: 'pdfrest-global';
-    pluralName: 'pdfrest-globals';
-    displayName: 'PdfRest Global';
     description: '';
+    displayName: 'PdfRest Global';
+    pluralName: 'pdfrest-globals';
+    singularName: 'pdfrest-global';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    nav: Attribute.DynamicZone<['header.link']>;
-    seo: Attribute.Component<'shared.seo'>;
-    api_tool_buckets: Attribute.Relation<
-      'api::pdfrest-global.pdfrest-global',
+    api_tool_buckets: Schema.Attribute.Relation<
       'oneToMany',
       'api::api-tool-bucket.api-tool-bucket'
     >;
-    footer_developers: Attribute.DynamicZone<['header.link']>;
-    footer_products: Attribute.DynamicZone<['header.link']>;
-    stateful_cta: Attribute.JSON;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-global.pdfrest-global',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-global.pdfrest-global',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPdfrestPricingPdfrestPricing extends Schema.SingleType {
-  collectionName: 'pdfrest_pricings';
-  info: {
-    singularName: 'pdfrest-pricing';
-    pluralName: 'pdfrest-pricings';
-    displayName: 'Pdfrest Pricing';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    features_table: Attribute.JSON;
-    seo: Attribute.Component<'shared.seo'>;
-    title_cloud: Attribute.String;
-    description_cloud: Attribute.RichText;
-    pdfrest_pricing_card_group: Attribute.Relation<
-      'api::pdfrest-pricing.pdfrest-pricing',
-      'oneToOne',
-      'api::pdfrest-pricing-card.pdfrest-pricing-card'
-    >;
-    pdfrest_pricing_sections: Attribute.Relation<
-      'api::pdfrest-pricing.pdfrest-pricing',
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    footer_developers: Schema.Attribute.DynamicZone<['header.link']>;
+    footer_products: Schema.Attribute.DynamicZone<['header.link']>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::pdfrest-pricing-section.pdfrest-pricing-section'
-    >;
-    image_cloud: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    features_table_title: Attribute.String;
-    dynamic_cta: Attribute.Component<'pricing-section.dynamic-cta', true>;
-    faq_sections: Attribute.Component<'faq.faq-section', true>;
-    cloud_faq_link: Attribute.Component<'pricing-section.pricing-link'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-pricing.pdfrest-pricing',
-      'oneToOne',
-      'admin::user'
+      'api::pdfrest-global.pdfrest-global'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-pricing.pdfrest-pricing',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    nav: Schema.Attribute.DynamicZone<['header.link']>;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    stateful_cta: Schema.Attribute.JSON;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfrestPricingCardPdfrestPricingCard
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'pdfrest_pricing_cards';
   info: {
-    singularName: 'pdfrest-pricing-card';
-    pluralName: 'pdfrest-pricing-cards';
-    displayName: 'Pdfrest Pricing Card Group';
     description: '';
+    displayName: 'Pdfrest Pricing Card Group';
+    pluralName: 'pdfrest-pricing-cards';
+    singularName: 'pdfrest-pricing-card';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    card: Attribute.Component<'pricing.card', true>;
-    title: Attribute.String & Attribute.Required & Attribute.Private;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-pricing-card.pdfrest-pricing-card',
-      'oneToOne',
-      'admin::user'
+    card: Schema.Attribute.Component<'pricing.card', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-pricing-card.pdfrest-pricing-card'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-pricing-card.pdfrest-pricing-card',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfrestPricingSectionPdfrestPricingSection
-  extends Schema.CollectionType {
+  extends Struct.CollectionTypeSchema {
   collectionName: 'pdfrest_pricing_sections';
   info: {
-    singularName: 'pdfrest-pricing-section';
-    pluralName: 'pdfrest-pricing-sections';
-    displayName: 'Pdfrest Pricing Section';
     description: '';
+    displayName: 'Pdfrest Pricing Section';
+    pluralName: 'pdfrest-pricing-sections';
+    singularName: 'pdfrest-pricing-section';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    section_header: Attribute.Component<'pricing-section.pricing-section'>;
-    features: Attribute.Component<'pricing-section.pricing-features'>;
-    cta_link: Attribute.Component<'pricing-section.pricing-link'>;
-    pdfrest_pricing_card_group: Attribute.Relation<
-      'api::pdfrest-pricing-section.pdfrest-pricing-section',
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta_link: Schema.Attribute.Component<'pricing-section.pricing-link', false>;
+    cta_title: Schema.Attribute.String;
+    ctas: Schema.Attribute.Component<'pricing-section.cta', true>;
+    faq_link: Schema.Attribute.Component<'pricing-section.pricing-link', false>;
+    features: Schema.Attribute.Component<
+      'pricing-section.pricing-features',
+      false
+    >;
+    features_table: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-pricing-section.pdfrest-pricing-section'
+    > &
+      Schema.Attribute.Private;
+    pdfrest_pricing_card_group: Schema.Attribute.Relation<
       'oneToOne',
       'api::pdfrest-pricing-card.pdfrest-pricing-card'
     >;
-    pricing_card_title: Attribute.String;
-    pricing_card_description: Attribute.Text;
-    Title: Attribute.String & Attribute.Required & Attribute.Private;
-    cta_title: Attribute.String;
-    ctas: Attribute.Component<'pricing-section.cta', true>;
-    faq_link: Attribute.Component<'pricing-section.pricing-link'>;
-    features_table: Attribute.JSON;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-pricing-section.pdfrest-pricing-section',
-      'oneToOne',
-      'admin::user'
+    pricing_card_description: Schema.Attribute.Text;
+    pricing_card_title: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    section_header: Schema.Attribute.Component<
+      'pricing-section.pricing-section',
+      false
+    >;
+    Title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPdfrestPricingPdfrestPricing
+  extends Struct.SingleTypeSchema {
+  collectionName: 'pdfrest_pricings';
+  info: {
+    description: '';
+    displayName: 'Pdfrest Pricing';
+    pluralName: 'pdfrest-pricings';
+    singularName: 'pdfrest-pricing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cloud_faq_link: Schema.Attribute.Component<
+      'pricing-section.pricing-link',
+      false
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    description_cloud: Schema.Attribute.RichText;
+    dynamic_cta: Schema.Attribute.Component<
+      'pricing-section.dynamic-cta',
+      true
+    >;
+    faq_sections: Schema.Attribute.Component<'faq.faq-section', true>;
+    features_table: Schema.Attribute.JSON;
+    features_table_title: Schema.Attribute.String;
+    image_cloud: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-pricing.pdfrest-pricing'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-pricing-section.pdfrest-pricing-section',
+      Schema.Attribute.Private;
+    pdfrest_pricing_card_group: Schema.Attribute.Relation<
       'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      'api::pdfrest-pricing-card.pdfrest-pricing-card'
+    >;
+    pdfrest_pricing_sections: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-pricing-section.pdfrest-pricing-section'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String;
+    title_cloud: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfrestPrivacyPolicyPdfrestPrivacyPolicy
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pdfrest_privacy_policies';
   info: {
-    singularName: 'pdfrest-privacy-policy';
-    pluralName: 'pdfrest-privacy-policies';
-    displayName: 'Pdfrest Privacy Policy';
     description: '';
+    displayName: 'Pdfrest Privacy Policy';
+    pluralName: 'pdfrest-privacy-policies';
+    singularName: 'pdfrest-privacy-policy';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    body: Attribute.RichText;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-privacy-policy.pdfrest-privacy-policy',
-      'oneToOne',
-      'admin::user'
+    body: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-privacy-policy.pdfrest-privacy-policy'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-privacy-policy.pdfrest-privacy-policy',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiPdfrestProductPdfrestProduct extends Schema.CollectionType {
+export interface ApiPdfrestProductPdfrestProduct
+  extends Struct.CollectionTypeSchema {
   collectionName: 'pdfrest_products';
   info: {
-    singularName: 'pdfrest-product';
-    pluralName: 'pdfrest-products';
-    displayName: 'Pdfrest Product';
     description: '';
+    displayName: 'Pdfrest Product';
+    pluralName: 'pdfrest-products';
+    singularName: 'pdfrest-product';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    cta: Attribute.Component<'shared.cta'>;
-    overview_cards: Attribute.Component<'shared.card', true>;
-    overview_sections: Attribute.Component<'shared.card', true>;
-    tools_section_title: Attribute.String;
-    tools_section_description: Attribute.RichText;
-    tool_groups: Attribute.Component<'product.tool-group', true>;
-    pricing_section_title: Attribute.String;
-    pricing_section_description: Attribute.RichText;
-    pricing_links: Attribute.Component<'header.link', true>;
-    docs_section_title: Attribute.String;
-    docs_section_description: Attribute.RichText;
-    docs_links: Attribute.Component<'header.link', true>;
-    icon: Attribute.String;
-    slug: Attribute.UID<'api::pdfrest-product.pdfrest-product', 'title'>;
-    seo: Attribute.Component<'shared.seo'>;
-    final_cta: Attribute.Component<'shared.cta'>;
-    deployment: Attribute.Component<'shared.content-section'>;
-    pro_tools_title: Attribute.String;
-    pro_tools_description: Attribute.RichText;
-    pdfrest_pricing_card_group: Attribute.Relation<
-      'api::pdfrest-product.pdfrest-product',
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta: Schema.Attribute.Component<'shared.cta', false>;
+    deployment: Schema.Attribute.Component<'shared.content-section', false>;
+    description: Schema.Attribute.Text;
+    docs_links: Schema.Attribute.Component<'header.link', true>;
+    docs_section_description: Schema.Attribute.RichText;
+    docs_section_title: Schema.Attribute.String;
+    final_cta: Schema.Attribute.Component<'shared.cta', false>;
+    icon: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-product.pdfrest-product'
+    > &
+      Schema.Attribute.Private;
+    overview_cards: Schema.Attribute.Component<'shared.card', true>;
+    overview_sections: Schema.Attribute.Component<'shared.card', true>;
+    pdfrest_pricing_card_group: Schema.Attribute.Relation<
       'oneToOne',
       'api::pdfrest-pricing-card.pdfrest-pricing-card'
     >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-product.pdfrest-product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-product.pdfrest-product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPdfrestSecurityPdfrestSecurity extends Schema.SingleType {
-  collectionName: 'pdfrest_securities';
-  info: {
-    singularName: 'pdfrest-security';
-    pluralName: 'pdfrest-securities';
-    displayName: 'Pdfrest Security';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    seo: Attribute.Component<'shared.seo'>;
-    content: Attribute.Component<'product.pdfassistant-product-section', true>;
-    cta: Attribute.Component<'shared.cta'>;
-    hero: Attribute.Component<'product.pdfassistant-product-section'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-security.pdfrest-security',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-security.pdfrest-security',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+    pricing_links: Schema.Attribute.Component<'header.link', true>;
+    pricing_section_description: Schema.Attribute.RichText;
+    pricing_section_title: Schema.Attribute.String;
+    pro_tools_description: Schema.Attribute.RichText;
+    pro_tools_title: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
+    tool_groups: Schema.Attribute.Component<'product.tool-group', true>;
+    tools_section_description: Schema.Attribute.RichText;
+    tools_section_title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfrestSecurityCertificationPdfrestSecurityCertification
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pdfrest_security_certifications';
   info: {
-    singularName: 'pdfrest-security-certification';
-    pluralName: 'pdfrest-security-certifications';
-    displayName: 'Pdfrest Security Certification';
     description: '';
+    displayName: 'Pdfrest Security Certification';
+    pluralName: 'pdfrest-security-certifications';
+    singularName: 'pdfrest-security-certification';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    certification_icons: Attribute.Media<
+    certification_icons: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    links: Attribute.Component<'pricing-section.pricing-link', true>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-security-certification.pdfrest-security-certification',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    links: Schema.Attribute.Component<'pricing-section.pricing-link', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-security-certification.pdfrest-security-certification'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-security-certification.pdfrest-security-certification',
-      'oneToOne',
-      'admin::user'
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPdfrestSecurityPdfrestSecurity
+  extends Struct.SingleTypeSchema {
+  collectionName: 'pdfrest_securities';
+  info: {
+    description: '';
+    displayName: 'Pdfrest Security';
+    pluralName: 'pdfrest-securities';
+    singularName: 'pdfrest-security';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.Component<
+      'product.pdfassistant-product-section',
+      true
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta: Schema.Attribute.Component<'shared.cta', false>;
+    hero: Schema.Attribute.Component<
+      'product.pdfassistant-product-section',
+      false
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-security.pdfrest-security'
     > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
 export interface ApiPdfrestTermsOfServicePdfrestTermsOfService
-  extends Schema.SingleType {
+  extends Struct.SingleTypeSchema {
   collectionName: 'pdfrest_terms_of_services';
   info: {
-    singularName: 'pdfrest-terms-of-service';
-    pluralName: 'pdfrest-terms-of-services';
-    displayName: 'Pdfrest Terms of Service';
     description: '';
+    displayName: 'Pdfrest Terms of Service';
+    pluralName: 'pdfrest-terms-of-services';
+    singularName: 'pdfrest-terms-of-service';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    body: Attribute.RichText;
-    seo: Attribute.Component<'shared.seo'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::pdfrest-terms-of-service.pdfrest-terms-of-service',
-      'oneToOne',
-      'admin::user'
+    body: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfrest-terms-of-service.pdfrest-terms-of-service'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::pdfrest-terms-of-service.pdfrest-terms-of-service',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiRobotsTxtRobotsTxt extends Schema.CollectionType {
+export interface ApiRobotsTxtRobotsTxt extends Struct.CollectionTypeSchema {
   collectionName: 'robots_txts';
   info: {
-    singularName: 'robots-txt';
-    pluralName: 'robots-txts';
-    displayName: 'Robots.txt';
     description: '';
+    displayName: 'Robots.txt';
+    pluralName: 'robots-txts';
+    singularName: 'robots-txt';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    text: Attribute.RichText;
-    site: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::robots-txt.robots-txt',
-      'oneToOne',
-      'admin::user'
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::robots-txt.robots-txt'
     > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::robots-txt.robots-txt',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    site: Schema.Attribute.String;
+    text: Schema.Attribute.RichText;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface ContentTypes {
-      'admin::permission': AdminPermission;
-      'admin::user': AdminUser;
-      'admin::role': AdminRole;
+export interface PluginContentReleasesRelease
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_releases';
+  info: {
+    displayName: 'Release';
+    pluralName: 'releases';
+    singularName: 'release';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    actions: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::content-releases.release-action'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::content-releases.release'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    releasedAt: Schema.Attribute.DateTime;
+    scheduledAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['ready', 'blocked', 'failed', 'done', 'empty']
+    > &
+      Schema.Attribute.Required;
+    timezone: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginContentReleasesReleaseAction
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_release_actions';
+  info: {
+    displayName: 'Release Action';
+    pluralName: 'release-actions';
+    singularName: 'release-action';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    contentType: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    entryDocumentId: Schema.Attribute.String;
+    isEntryValid: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::content-releases.release-action'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    release: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::content-releases.release'
+    >;
+    type: Schema.Attribute.Enumeration<['publish', 'unpublish']> &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginI18NLocale extends Struct.CollectionTypeSchema {
+  collectionName: 'i18n_locale';
+  info: {
+    collectionName: 'locales';
+    description: '';
+    displayName: 'Locale';
+    pluralName: 'locales';
+    singularName: 'locale';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    code: Schema.Attribute.String & Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::i18n.locale'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 50;
+          min: 1;
+        },
+        number
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginPublisherAction extends Struct.CollectionTypeSchema {
+  collectionName: 'actions';
+  info: {
+    displayName: 'actions';
+    pluralName: 'actions';
+    singularName: 'action';
+  };
+  options: {
+    comment: '';
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    entityId: Schema.Attribute.String & Schema.Attribute.Required;
+    entitySlug: Schema.Attribute.String & Schema.Attribute.Required;
+    executeAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::publisher.action'
+    > &
+      Schema.Attribute.Private;
+    mode: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginReviewWorkflowsWorkflow
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_workflows';
+  info: {
+    description: '';
+    displayName: 'Workflow';
+    name: 'Workflow';
+    pluralName: 'workflows';
+    singularName: 'workflow';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    contentTypes: Schema.Attribute.JSON &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'[]'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::review-workflows.workflow'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    stageRequiredToPublish: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::review-workflows.workflow-stage'
+    >;
+    stages: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::review-workflows.workflow-stage'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginReviewWorkflowsWorkflowStage
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_workflows_stages';
+  info: {
+    description: '';
+    displayName: 'Stages';
+    name: 'Workflow Stage';
+    pluralName: 'workflow-stages';
+    singularName: 'workflow-stage';
+  };
+  options: {
+    draftAndPublish: false;
+    version: '1.1.0';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#4945FF'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::review-workflows.workflow-stage'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    permissions: Schema.Attribute.Relation<'manyToMany', 'admin::permission'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    workflow: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::review-workflows.workflow'
+    >;
+  };
+}
+
+export interface PluginUploadFile extends Struct.CollectionTypeSchema {
+  collectionName: 'files';
+  info: {
+    description: '';
+    displayName: 'File';
+    pluralName: 'files';
+    singularName: 'file';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    alternativeText: Schema.Attribute.Text;
+    caption: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ext: Schema.Attribute.String;
+    focalPoint: Schema.Attribute.JSON;
+    folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
+      Schema.Attribute.Private;
+    folderPath: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    formats: Schema.Attribute.JSON;
+    hash: Schema.Attribute.String & Schema.Attribute.Required;
+    height: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::upload.file'
+    > &
+      Schema.Attribute.Private;
+    mime: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    previewUrl: Schema.Attribute.Text;
+    provider: Schema.Attribute.String & Schema.Attribute.Required;
+    provider_metadata: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    related: Schema.Attribute.Relation<'morphToMany'>;
+    size: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
+    width: Schema.Attribute.Integer;
+  };
+}
+
+export interface PluginUploadFolder extends Struct.CollectionTypeSchema {
+  collectionName: 'upload_folders';
+  info: {
+    displayName: 'Folder';
+    pluralName: 'folders';
+    singularName: 'folder';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    children: Schema.Attribute.Relation<'oneToMany', 'plugin::upload.folder'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    files: Schema.Attribute.Relation<'oneToMany', 'plugin::upload.file'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::upload.folder'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    parent: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'>;
+    path: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
+    pathId: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginUsersPermissionsPermission
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'up_permissions';
+  info: {
+    description: '';
+    displayName: 'Permission';
+    name: 'permission';
+    pluralName: 'permissions';
+    singularName: 'permission';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    action: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.permission'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    role: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.role'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginUsersPermissionsRole
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'up_roles';
+  info: {
+    description: '';
+    displayName: 'Role';
+    name: 'role';
+    pluralName: 'roles';
+    singularName: 'role';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.role'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 3;
+      }>;
+    permissions: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.permission'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String & Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface PluginUsersPermissionsUser
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'up_users';
+  info: {
+    description: '';
+    displayName: 'User';
+    name: 'user';
+    pluralName: 'users';
+    singularName: 'user';
+  };
+  options: {
+    draftAndPublish: false;
+    timestamps: true;
+  };
+  attributes: {
+    blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
+    confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 6;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    > &
+      Schema.Attribute.Private;
+    password: Schema.Attribute.Password &
+      Schema.Attribute.Private &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 6;
+      }>;
+    provider: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
+    role: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.role'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 3;
+      }>;
+  };
+}
+
+declare module '@strapi/strapi' {
+  export namespace Public {
+    export interface ContentTypeSchemas {
       'admin::api-token': AdminApiToken;
       'admin::api-token-permission': AdminApiTokenPermission;
+      'admin::permission': AdminPermission;
+      'admin::role': AdminRole;
+      'admin::session': AdminSession;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'plugin::upload.file': PluginUploadFile;
-      'plugin::upload.folder': PluginUploadFolder;
-      'plugin::content-releases.release': PluginContentReleasesRelease;
-      'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
-      'plugin::publisher.action': PluginPublisherAction;
-      'plugin::i18n.locale': PluginI18NLocale;
-      'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
-      'plugin::users-permissions.role': PluginUsersPermissionsRole;
-      'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'api::api-tool.api-tool': ApiApiToolApiTool;
+      'admin::user': AdminUser;
       'api::api-tool-bucket.api-tool-bucket': ApiApiToolBucketApiToolBucket;
       'api::api-tool-endpoint.api-tool-endpoint': ApiApiToolEndpointApiToolEndpoint;
-      'api::blog.blog': ApiBlogBlog;
-      'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::api-tool.api-tool': ApiApiToolApiTool;
       'api::blog-post-topic.blog-post-topic': ApiBlogPostTopicBlogPostTopic;
       'api::blog-post-type.blog-post-type': ApiBlogPostTypeBlogPostType;
+      'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::blog.blog': ApiBlogBlog;
       'api::chat-feedback-modal.chat-feedback-modal': ApiChatFeedbackModalChatFeedbackModal;
-      'api::documentation.documentation': ApiDocumentationDocumentation;
       'api::documentation-section.documentation-section': ApiDocumentationSectionDocumentationSection;
       'api::documentation-topic.documentation-topic': ApiDocumentationTopicDocumentationTopic;
+      'api::documentation.documentation': ApiDocumentationDocumentation;
       'api::global.global': ApiGlobalGlobal;
       'api::llms-txt.llms-txt': ApiLlmsTxtLlmsTxt;
       'api::pdfassistant-homepage.pdfassistant-homepage': ApiPdfassistantHomepagePdfassistantHomepage;
@@ -2150,15 +2267,26 @@ declare module '@strapi/types' {
       'api::pdfrest-data-processing-agreement.pdfrest-data-processing-agreement': ApiPdfrestDataProcessingAgreementPdfrestDataProcessingAgreement;
       'api::pdfrest-documentation-page.pdfrest-documentation-page': ApiPdfrestDocumentationPagePdfrestDocumentationPage;
       'api::pdfrest-global.pdfrest-global': ApiPdfrestGlobalPdfrestGlobal;
-      'api::pdfrest-pricing.pdfrest-pricing': ApiPdfrestPricingPdfrestPricing;
       'api::pdfrest-pricing-card.pdfrest-pricing-card': ApiPdfrestPricingCardPdfrestPricingCard;
       'api::pdfrest-pricing-section.pdfrest-pricing-section': ApiPdfrestPricingSectionPdfrestPricingSection;
+      'api::pdfrest-pricing.pdfrest-pricing': ApiPdfrestPricingPdfrestPricing;
       'api::pdfrest-privacy-policy.pdfrest-privacy-policy': ApiPdfrestPrivacyPolicyPdfrestPrivacyPolicy;
       'api::pdfrest-product.pdfrest-product': ApiPdfrestProductPdfrestProduct;
-      'api::pdfrest-security.pdfrest-security': ApiPdfrestSecurityPdfrestSecurity;
       'api::pdfrest-security-certification.pdfrest-security-certification': ApiPdfrestSecurityCertificationPdfrestSecurityCertification;
+      'api::pdfrest-security.pdfrest-security': ApiPdfrestSecurityPdfrestSecurity;
       'api::pdfrest-terms-of-service.pdfrest-terms-of-service': ApiPdfrestTermsOfServicePdfrestTermsOfService;
       'api::robots-txt.robots-txt': ApiRobotsTxtRobotsTxt;
+      'plugin::content-releases.release': PluginContentReleasesRelease;
+      'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::i18n.locale': PluginI18NLocale;
+      'plugin::publisher.action': PluginPublisherAction;
+      'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow;
+      'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;
+      'plugin::upload.file': PluginUploadFile;
+      'plugin::upload.folder': PluginUploadFolder;
+      'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
+      'plugin::users-permissions.role': PluginUsersPermissionsRole;
+      'plugin::users-permissions.user': PluginUsersPermissionsUser;
     }
   }
 }

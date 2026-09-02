@@ -1,629 +1,635 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Schema, Struct } from '@strapi/strapi';
 
-export interface ToolParameter extends Schema.Component {
-  collectionName: 'components_tool_parameters';
+export interface ApiToolkitCardFeature extends Struct.ComponentSchema {
+  collectionName: 'components_api_toolkit_card_features';
   info: {
-    displayName: 'Parameter';
-    icon: 'apps';
-    description: '';
+    displayName: 'Card Feature';
   };
   attributes: {
-    name: Attribute.String;
-    description: Attribute.RichText;
-    highlighted_parameter: Attribute.Boolean & Attribute.DefaultTo<false>;
+    highlighted: Schema.Attribute.Boolean;
+    text: Schema.Attribute.String;
   };
 }
 
-export interface ToolCard extends Schema.Component {
-  collectionName: 'components_tool_cards';
+export interface ApiToolkitComparisonTable extends Struct.ComponentSchema {
+  collectionName: 'components_api_toolkit_comparison_tables';
   info: {
-    displayName: 'Card';
-    description: '';
+    displayName: 'Comparison Table';
   };
   attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
+    content: Schema.Attribute.JSON;
+    header: Schema.Attribute.String;
   };
 }
 
-export interface SharedString extends Schema.Component {
-  collectionName: 'components_shared_strings';
-  info: {
-    displayName: 'String';
-  };
-  attributes: {
-    text: Attribute.String;
-  };
-}
-
-export interface SharedSlider extends Schema.Component {
-  collectionName: 'components_shared_sliders';
-  info: {
-    displayName: 'Slider';
-    icon: 'address-book';
-    description: '';
-  };
-  attributes: {
-    files: Attribute.Media<'images', true>;
-  };
-}
-
-export interface SharedSeo extends Schema.Component {
-  collectionName: 'components_shared_seos';
-  info: {
-    name: 'Seo';
-    icon: 'allergies';
-    displayName: 'Seo';
-    description: '';
-  };
-  attributes: {
-    metaTitle: Attribute.String & Attribute.Required;
-    metaDescription: Attribute.Text & Attribute.Required;
-    shareImage: Attribute.Media<'images'>;
-    canonicalUrl: Attribute.String;
-    structured_data: Attribute.JSON;
-  };
-}
-
-export interface SharedRichText extends Schema.Component {
-  collectionName: 'components_shared_rich_texts';
-  info: {
-    displayName: 'Markdown';
-    icon: 'strikeThrough';
-    description: '';
-  };
-  attributes: {
-    body: Attribute.RichText;
-  };
-}
-
-export interface SharedQuote extends Schema.Component {
-  collectionName: 'components_shared_quotes';
-  info: {
-    displayName: 'Quote';
-    icon: 'indent';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.Text;
-  };
-}
-
-export interface SharedMedia extends Schema.Component {
-  collectionName: 'components_shared_media';
-  info: {
-    displayName: 'Media';
-    icon: 'file-video';
-  };
-  attributes: {
-    file: Attribute.Media<'images' | 'files' | 'videos'>;
-  };
-}
-
-export interface SharedLink extends Schema.Component {
-  collectionName: 'components_shared_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
-  };
-}
-
-export interface SharedLandingSection extends Schema.Component {
-  collectionName: 'components_shared_landing_sections';
-  info: {
-    displayName: 'Landing Section';
-    icon: 'bulletList';
-    description: '';
-  };
-  attributes: {
-    headline: Attribute.String;
-    title: Attribute.String;
-    description: Attribute.RichText;
-    links: Attribute.Component<'shared.link', true>;
-    json: Attribute.JSON;
-  };
-}
-
-export interface SharedHtml extends Schema.Component {
-  collectionName: 'components_shared_htmls';
-  info: {
-    displayName: 'HTML';
-    icon: 'code';
-    description: '';
-  };
-  attributes: {
-    body: Attribute.RichText;
-  };
-}
-
-export interface SharedFaq extends Schema.Component {
-  collectionName: 'components_shared_faqs';
-  info: {
-    displayName: 'FAQ';
-    icon: 'question';
-  };
-  attributes: {
-    label: Attribute.String;
-    content: Attribute.RichText;
-  };
-}
-
-export interface SharedCta extends Schema.Component {
-  collectionName: 'components_shared_ctas';
+export interface ApiToolkitCta extends Struct.ComponentSchema {
+  collectionName: 'components_api_toolkit_ctas';
   info: {
     displayName: 'CTA';
-    icon: 'cursor';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    primaryAction: Schema.Attribute.Component<'shared.link', false>;
+    secondaryAction: Schema.Attribute.Component<'shared.link', false>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface ApiToolkitDeploymentCard extends Struct.ComponentSchema {
+  collectionName: 'components_api_toolkit_deployment_cards';
+  info: {
     description: '';
+    displayName: 'Deployment Card';
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    links: Attribute.Component<'header.link', true>;
-    stateful: Attribute.Boolean;
+    bestFor: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    featured: Schema.Attribute.Boolean;
+    features: Schema.Attribute.Component<'api-toolkit.card-feature', true>;
+    name: Schema.Attribute.String;
+    primaryAction: Schema.Attribute.Component<'shared.link', false>;
+    secondaryAction: Schema.Attribute.Component<'shared.link', false>;
+    subtitle: Schema.Attribute.String;
+    tag: Schema.Attribute.String;
   };
 }
 
-export interface SharedContentSection extends Schema.Component {
-  collectionName: 'components_shared_content_sections';
+export interface ApiToolkitDeploymentContent extends Struct.ComponentSchema {
+  collectionName: 'components_api_toolkit_deployment_contents';
   info: {
-    displayName: 'Content Section';
-    icon: 'bulletList';
+    displayName: 'Deployment Content';
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    align: Attribute.Enumeration<['left', 'center', 'right']>;
-    card_style: Attribute.Enumeration<['landing']>;
-    icon: Attribute.String;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    full_width: Attribute.Boolean;
-    features: Attribute.Component<'shared.card', true>;
-    cards: Attribute.Component<'shared.card', true>;
-    links: Attribute.Component<'shared.link', true>;
-    pricing_cards: Attribute.JSON;
-    subsections: Attribute.JSON;
-    overrides: Attribute.JSON;
+    description: Schema.Attribute.Text;
+    eyebrow: Schema.Attribute.String;
+    titleAccent: Schema.Attribute.String;
+    titleLeading: Schema.Attribute.String;
+    titleTrailing: Schema.Attribute.String;
   };
 }
 
-export interface SharedChatPrompt extends Schema.Component {
-  collectionName: 'components_shared_chat_prompts';
+export interface ApiToolkitHero extends Struct.ComponentSchema {
+  collectionName: 'components_api_toolkit_heroes';
   info: {
-    displayName: 'Chat Prompt';
-    icon: 'discuss';
-  };
-  attributes: {
-    title: Attribute.String;
-    icon: Attribute.String;
-    prompt: Attribute.RichText;
-    response: Attribute.RichText;
-  };
-}
-
-export interface SharedCard extends Schema.Component {
-  collectionName: 'components_shared_cards';
-  info: {
-    displayName: 'Card';
-    icon: 'dashboard';
     description: '';
+    displayName: 'Hero';
+    icon: 'alien';
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    icon: Attribute.String;
-    badge: Attribute.String;
-    json: Attribute.JSON;
+    description: Schema.Attribute.Text;
+    eyebrow: Schema.Attribute.String;
+    meta: Schema.Attribute.Component<'api-toolkit.meta', true>;
+    primaryAction: Schema.Attribute.Component<'shared.link', false>;
+    secondaryAction: Schema.Attribute.Component<'shared.link', false>;
+    titleAccent: Schema.Attribute.String;
+    titleLeading: Schema.Attribute.String;
   };
 }
 
-export interface ProductToolGroup extends Schema.Component {
-  collectionName: 'components_product_tool_groups';
+export interface ApiToolkitMeta extends Struct.ComponentSchema {
+  collectionName: 'components_api_toolkit_metas';
   info: {
-    displayName: 'Tool Group';
-    icon: 'apps';
+    displayName: 'meta';
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    api_tools: Attribute.Relation<
-      'product.tool-group',
-      'oneToMany',
-      'api::api-tool.api-tool'
-    >;
+    text: Schema.Attribute.String;
   };
 }
 
-export interface ProductPluginsGroup extends Schema.Component {
-  collectionName: 'components_product_plugins_groups';
-  info: {
-    displayName: 'Plugins Group';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    pdfassistant_products: Attribute.Relation<
-      'product.plugins-group',
-      'oneToMany',
-      'api::pdfassistant-product.pdfassistant-product'
-    >;
-  };
-}
-
-export interface ProductPdfassistantProductSection extends Schema.Component {
-  collectionName: 'components_product_pdfassistant_product_sections';
-  info: {
-    displayName: 'Section';
-    icon: 'apps';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    align: Attribute.Enumeration<['left', 'center', 'right']>;
-    features: Attribute.Component<'shared.card', true>;
-    cards: Attribute.Component<'shared.card', true>;
-    full_width: Attribute.Boolean;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    subsections: Attribute.JSON;
-    overrides: Attribute.JSON;
-    pricing_cards: Attribute.JSON;
-    links: Attribute.Component<'shared.link', true>;
-    icon: Attribute.String;
-    card_style: Attribute.Enumeration<['landing']>;
-  };
-}
-
-export interface PricingSectionPricingSection extends Schema.Component {
-  collectionName: 'components_pricing_section_pricing_sections';
-  info: {
-    displayName: 'Section Header';
-    icon: 'expand';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    body: Attribute.RichText;
-    description_link: Attribute.Component<'pricing-section.pricing-link'>;
-    title_image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-  };
-}
-
-export interface PricingSectionPricingLink extends Schema.Component {
-  collectionName: 'components_pricing_section_pricing_links';
-  info: {
-    displayName: 'Pricing Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    url: Attribute.String;
-    external: Attribute.Boolean;
-  };
-}
-
-export interface PricingSectionPricingFeatures extends Schema.Component {
-  collectionName: 'components_pricing_section_pricing_features';
-  info: {
-    displayName: 'Pricing Features';
-    icon: 'bulletList';
-  };
-  attributes: {
-    title: Attribute.String;
-    feature: Attribute.Component<'pricing-section.feature', true>;
-  };
-}
-
-export interface PricingSectionFeature extends Schema.Component {
-  collectionName: 'components_pricing_section_features';
-  info: {
-    displayName: 'Feature';
-    icon: 'check';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    description: Attribute.RichText;
-    iconify_icon: Attribute.String;
-  };
-}
-
-export interface PricingSectionDynamicCta extends Schema.Component {
-  collectionName: 'components_pricing_section_dynamic_ctas';
-  info: {
-    displayName: 'Dynamic CTA';
-    icon: 'phone';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    condition: Attribute.Enumeration<
-      ['no_account', 'is_starter', 'is_premium_or_pro', 'is_enterprise']
-    >;
-    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    iconify_icon_name: Attribute.String;
-  };
-}
-
-export interface PricingSectionCta extends Schema.Component {
-  collectionName: 'components_pricing_section_ctas';
-  info: {
-    displayName: 'CTA';
-    icon: 'magic';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    link: Attribute.Component<'pricing-section.pricing-link', true>;
-  };
-}
-
-export interface PricingFeature extends Schema.Component {
-  collectionName: 'components_pricing_features';
-  info: {
-    displayName: 'Feature';
-    icon: 'check';
-    description: '';
-  };
-  attributes: {
-    detail: Attribute.String;
-  };
-}
-
-export interface PricingCard extends Schema.Component {
-  collectionName: 'components_pricing_cards';
-  info: {
-    displayName: 'card';
-    icon: 'priceTag';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    features: Attribute.Component<'pricing.feature', true>;
-    price: Attribute.String;
-    discounted_price: Attribute.String;
-    user_state: Attribute.JSON;
-    discount_text: Attribute.String;
-    highlight: Attribute.Boolean;
-    badge_text: Attribute.String;
-    cycle: Attribute.String;
-    stripe_data: Attribute.JSON;
-    price_data: Attribute.JSON;
-  };
-}
-
-export interface HeaderLink extends Schema.Component {
-  collectionName: 'components_header_links';
-  info: {
-    displayName: 'Link';
-    icon: 'link';
-    description: '';
-  };
-  attributes: {
-    label: Attribute.String;
-    description: Attribute.String;
-    to: Attribute.String;
-    icon: Attribute.String;
-    external: Attribute.Boolean;
-    target: Attribute.Enumeration<['_blank']>;
-    children: Attribute.JSON;
-  };
-}
-
-export interface FaqQuestion extends Schema.Component {
-  collectionName: 'components_faq_questions';
-  info: {
-    displayName: 'Question';
-    icon: 'question';
-  };
-  attributes: {
-    title: Attribute.String;
-    body: Attribute.RichText;
-  };
-}
-
-export interface FaqFaqSection extends Schema.Component {
-  collectionName: 'components_faq_faq_sections';
-  info: {
-    displayName: 'FAQ Section';
-    icon: 'question';
-    description: '';
-  };
-  attributes: {
-    title: Attribute.String;
-    questions: Attribute.Component<'faq.question', true>;
-  };
-}
-
-export interface DocumentationDocSection extends Schema.Component {
-  collectionName: 'components_documentation_doc_sections';
-  info: {
-    displayName: 'Doc Section';
-    icon: 'file';
-  };
-  attributes: {
-    title: Attribute.String;
-    description: Attribute.RichText;
-    text_content: Attribute.RichText;
-    tabs: Attribute.Component<'tool.parameter', true>;
-    links: Attribute.Component<'header.link', true>;
-  };
-}
-
-export interface ApiToolkitSecurityComplianceContent extends Schema.Component {
+export interface ApiToolkitSecurityComplianceContent
+  extends Struct.ComponentSchema {
   collectionName: 'components_api_toolkit_security_compliance_contents';
   info: {
     displayName: 'Security Compliance Content';
     icon: 'shield';
   };
   attributes: {
-    eyebrow: Attribute.String;
-    titleLeading: Attribute.String;
-    titleAccent: Attribute.String;
-    titleTrailing: Attribute.String;
-    description: Attribute.Text;
-    primaryAction: Attribute.Component<'shared.link'>;
-    secondaryAction: Attribute.Component<'shared.link'>;
-    credentials: Attribute.Component<'shared.card', true>;
-    comparisonTable: Attribute.Component<'api-toolkit.comparison-table'>;
+    comparisonTable: Schema.Attribute.Component<
+      'api-toolkit.comparison-table',
+      false
+    >;
+    credentials: Schema.Attribute.Component<'shared.card', true>;
+    description: Schema.Attribute.Text;
+    eyebrow: Schema.Attribute.String;
+    primaryAction: Schema.Attribute.Component<'shared.link', false>;
+    secondaryAction: Schema.Attribute.Component<'shared.link', false>;
+    titleAccent: Schema.Attribute.String;
+    titleLeading: Schema.Attribute.String;
+    titleTrailing: Schema.Attribute.String;
   };
 }
 
-export interface ApiToolkitMeta extends Schema.Component {
-  collectionName: 'components_api_toolkit_metas';
+export interface DocumentationDocSection extends Struct.ComponentSchema {
+  collectionName: 'components_documentation_doc_sections';
   info: {
-    displayName: 'meta';
+    displayName: 'Doc Section';
+    icon: 'file';
   };
   attributes: {
-    text: Attribute.String;
+    description: Schema.Attribute.RichText;
+    links: Schema.Attribute.Component<'header.link', true>;
+    tabs: Schema.Attribute.Component<'tool.parameter', true>;
+    text_content: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
   };
 }
 
-export interface ApiToolkitHero extends Schema.Component {
-  collectionName: 'components_api_toolkit_heroes';
+export interface FaqFaqSection extends Struct.ComponentSchema {
+  collectionName: 'components_faq_faq_sections';
   info: {
-    displayName: 'Hero';
-    icon: 'alien';
     description: '';
+    displayName: 'FAQ Section';
+    icon: 'question';
   };
   attributes: {
-    eyebrow: Attribute.String;
-    titleLeading: Attribute.String;
-    titleAccent: Attribute.String;
-    description: Attribute.Text;
-    meta: Attribute.Component<'api-toolkit.meta', true>;
-    primaryAction: Attribute.Component<'shared.link'>;
-    secondaryAction: Attribute.Component<'shared.link'>;
+    questions: Schema.Attribute.Component<'faq.question', true>;
+    title: Schema.Attribute.String;
   };
 }
 
-export interface ApiToolkitDeploymentContent extends Schema.Component {
-  collectionName: 'components_api_toolkit_deployment_contents';
+export interface FaqQuestion extends Struct.ComponentSchema {
+  collectionName: 'components_faq_questions';
   info: {
-    displayName: 'Deployment Content';
+    displayName: 'Question';
+    icon: 'question';
   };
   attributes: {
-    eyebrow: Attribute.String;
-    titleLeading: Attribute.String;
-    titleAccent: Attribute.String;
-    titleTrailing: Attribute.String;
-    description: Attribute.Text;
+    body: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
   };
 }
 
-export interface ApiToolkitDeploymentCard extends Schema.Component {
-  collectionName: 'components_api_toolkit_deployment_cards';
+export interface HeaderLink extends Struct.ComponentSchema {
+  collectionName: 'components_header_links';
   info: {
-    displayName: 'Deployment Card';
     description: '';
+    displayName: 'Link';
+    icon: 'link';
   };
   attributes: {
-    tag: Attribute.String;
-    name: Attribute.String;
-    subtitle: Attribute.String;
-    description: Attribute.Text;
-    features: Attribute.Component<'api-toolkit.card-feature', true>;
-    primaryAction: Attribute.Component<'shared.link'>;
-    secondaryAction: Attribute.Component<'shared.link'>;
-    featured: Attribute.Boolean;
-    bestFor: Attribute.String;
+    children: Schema.Attribute.JSON;
+    description: Schema.Attribute.String;
+    external: Schema.Attribute.Boolean;
+    icon: Schema.Attribute.String;
+    label: Schema.Attribute.String;
+    target: Schema.Attribute.Enumeration<['_blank']>;
+    to: Schema.Attribute.String;
   };
 }
 
-export interface ApiToolkitCta extends Schema.Component {
-  collectionName: 'components_api_toolkit_ctas';
+export interface PricingSectionCta extends Struct.ComponentSchema {
+  collectionName: 'components_pricing_section_ctas';
   info: {
+    description: '';
     displayName: 'CTA';
+    icon: 'magic';
   };
   attributes: {
-    title: Attribute.String;
-    description: Attribute.Text;
-    primaryAction: Attribute.Component<'shared.link'>;
-    secondaryAction: Attribute.Component<'shared.link'>;
+    description: Schema.Attribute.Text;
+    link: Schema.Attribute.Component<'pricing-section.pricing-link', true>;
+    title: Schema.Attribute.String;
   };
 }
 
-export interface ApiToolkitComparisonTable extends Schema.Component {
-  collectionName: 'components_api_toolkit_comparison_tables';
+export interface PricingSectionDynamicCta extends Struct.ComponentSchema {
+  collectionName: 'components_pricing_section_dynamic_ctas';
   info: {
-    displayName: 'Comparison Table';
+    description: '';
+    displayName: 'Dynamic CTA';
+    icon: 'phone';
   };
   attributes: {
-    header: Attribute.String;
-    content: Attribute.JSON;
+    condition: Schema.Attribute.Enumeration<
+      ['no_account', 'is_starter', 'is_premium_or_pro', 'is_enterprise']
+    >;
+    description: Schema.Attribute.RichText;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    iconify_icon_name: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
-export interface ApiToolkitCardFeature extends Schema.Component {
-  collectionName: 'components_api_toolkit_card_features';
+export interface PricingSectionFeature extends Struct.ComponentSchema {
+  collectionName: 'components_pricing_section_features';
   info: {
-    displayName: 'Card Feature';
+    description: '';
+    displayName: 'Feature';
+    icon: 'check';
   };
   attributes: {
-    text: Attribute.String;
-    highlighted: Attribute.Boolean;
+    description: Schema.Attribute.RichText;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    iconify_icon: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
-      'tool.parameter': ToolParameter;
-      'tool.card': ToolCard;
-      'shared.string': SharedString;
-      'shared.slider': SharedSlider;
-      'shared.seo': SharedSeo;
-      'shared.rich-text': SharedRichText;
-      'shared.quote': SharedQuote;
-      'shared.media': SharedMedia;
-      'shared.link': SharedLink;
-      'shared.landing-section': SharedLandingSection;
-      'shared.html': SharedHtml;
-      'shared.faq': SharedFaq;
-      'shared.cta': SharedCta;
-      'shared.content-section': SharedContentSection;
-      'shared.chat-prompt': SharedChatPrompt;
-      'shared.card': SharedCard;
-      'product.tool-group': ProductToolGroup;
-      'product.plugins-group': ProductPluginsGroup;
-      'product.pdfassistant-product-section': ProductPdfassistantProductSection;
-      'pricing-section.pricing-section': PricingSectionPricingSection;
-      'pricing-section.pricing-link': PricingSectionPricingLink;
-      'pricing-section.pricing-features': PricingSectionPricingFeatures;
-      'pricing-section.feature': PricingSectionFeature;
-      'pricing-section.dynamic-cta': PricingSectionDynamicCta;
-      'pricing-section.cta': PricingSectionCta;
-      'pricing.feature': PricingFeature;
-      'pricing.card': PricingCard;
-      'header.link': HeaderLink;
-      'faq.question': FaqQuestion;
-      'faq.faq-section': FaqFaqSection;
-      'documentation.doc-section': DocumentationDocSection;
-      'api-toolkit.security-compliance-content': ApiToolkitSecurityComplianceContent;
-      'api-toolkit.meta': ApiToolkitMeta;
-      'api-toolkit.hero': ApiToolkitHero;
-      'api-toolkit.deployment-content': ApiToolkitDeploymentContent;
-      'api-toolkit.deployment-card': ApiToolkitDeploymentCard;
-      'api-toolkit.cta': ApiToolkitCta;
-      'api-toolkit.comparison-table': ApiToolkitComparisonTable;
+export interface PricingSectionPricingFeatures extends Struct.ComponentSchema {
+  collectionName: 'components_pricing_section_pricing_features';
+  info: {
+    displayName: 'Pricing Features';
+    icon: 'bulletList';
+  };
+  attributes: {
+    feature: Schema.Attribute.Component<'pricing-section.feature', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface PricingSectionPricingLink extends Struct.ComponentSchema {
+  collectionName: 'components_pricing_section_pricing_links';
+  info: {
+    description: '';
+    displayName: 'Pricing Link';
+    icon: 'link';
+  };
+  attributes: {
+    external: Schema.Attribute.Boolean;
+    title: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface PricingSectionPricingSection extends Struct.ComponentSchema {
+  collectionName: 'components_pricing_section_pricing_sections';
+  info: {
+    description: '';
+    displayName: 'Section Header';
+    icon: 'expand';
+  };
+  attributes: {
+    body: Schema.Attribute.RichText;
+    description: Schema.Attribute.Text;
+    description_link: Schema.Attribute.Component<
+      'pricing-section.pricing-link',
+      false
+    >;
+    title: Schema.Attribute.String;
+    title_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+  };
+}
+
+export interface PricingCard extends Struct.ComponentSchema {
+  collectionName: 'components_pricing_cards';
+  info: {
+    description: '';
+    displayName: 'card';
+    icon: 'priceTag';
+  };
+  attributes: {
+    badge_text: Schema.Attribute.String;
+    cycle: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    discount_text: Schema.Attribute.String;
+    discounted_price: Schema.Attribute.String;
+    features: Schema.Attribute.Component<'pricing.feature', true>;
+    highlight: Schema.Attribute.Boolean;
+    price: Schema.Attribute.String;
+    price_data: Schema.Attribute.JSON;
+    stripe_data: Schema.Attribute.JSON;
+    title: Schema.Attribute.String;
+    user_state: Schema.Attribute.JSON;
+  };
+}
+
+export interface PricingFeature extends Struct.ComponentSchema {
+  collectionName: 'components_pricing_features';
+  info: {
+    description: '';
+    displayName: 'Feature';
+    icon: 'check';
+  };
+  attributes: {
+    detail: Schema.Attribute.String;
+  };
+}
+
+export interface ProductPdfassistantProductSection
+  extends Struct.ComponentSchema {
+  collectionName: 'components_product_pdfassistant_product_sections';
+  info: {
+    description: '';
+    displayName: 'Section';
+    icon: 'apps';
+  };
+  attributes: {
+    align: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
+    card_style: Schema.Attribute.Enumeration<['landing']>;
+    cards: Schema.Attribute.Component<'shared.card', true>;
+    description: Schema.Attribute.RichText;
+    features: Schema.Attribute.Component<'shared.card', true>;
+    full_width: Schema.Attribute.Boolean;
+    icon: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    links: Schema.Attribute.Component<'shared.link', true>;
+    overrides: Schema.Attribute.JSON;
+    pricing_cards: Schema.Attribute.JSON;
+    subsections: Schema.Attribute.JSON;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface ProductPluginsGroup extends Struct.ComponentSchema {
+  collectionName: 'components_product_plugins_groups';
+  info: {
+    description: '';
+    displayName: 'Plugins Group';
+    icon: 'apps';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText;
+    pdfassistant_products: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pdfassistant-product.pdfassistant-product'
+    >;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface ProductToolGroup extends Struct.ComponentSchema {
+  collectionName: 'components_product_tool_groups';
+  info: {
+    displayName: 'Tool Group';
+    icon: 'apps';
+  };
+  attributes: {
+    api_tools: Schema.Attribute.Relation<'oneToMany', 'api::api-tool.api-tool'>;
+    description: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedCard extends Struct.ComponentSchema {
+  collectionName: 'components_shared_cards';
+  info: {
+    description: '';
+    displayName: 'Card';
+    icon: 'dashboard';
+  };
+  attributes: {
+    badge: Schema.Attribute.String;
+    description: Schema.Attribute.RichText;
+    icon: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    json: Schema.Attribute.JSON;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedChatPrompt extends Struct.ComponentSchema {
+  collectionName: 'components_shared_chat_prompts';
+  info: {
+    displayName: 'Chat Prompt';
+    icon: 'discuss';
+  };
+  attributes: {
+    icon: Schema.Attribute.String;
+    prompt: Schema.Attribute.RichText;
+    response: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedContentSection extends Struct.ComponentSchema {
+  collectionName: 'components_shared_content_sections';
+  info: {
+    displayName: 'Content Section';
+    icon: 'bulletList';
+  };
+  attributes: {
+    align: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
+    card_style: Schema.Attribute.Enumeration<['landing']>;
+    cards: Schema.Attribute.Component<'shared.card', true>;
+    description: Schema.Attribute.RichText;
+    features: Schema.Attribute.Component<'shared.card', true>;
+    full_width: Schema.Attribute.Boolean;
+    icon: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    links: Schema.Attribute.Component<'shared.link', true>;
+    overrides: Schema.Attribute.JSON;
+    pricing_cards: Schema.Attribute.JSON;
+    subsections: Schema.Attribute.JSON;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedCta extends Struct.ComponentSchema {
+  collectionName: 'components_shared_ctas';
+  info: {
+    description: '';
+    displayName: 'CTA';
+    icon: 'cursor';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText;
+    links: Schema.Attribute.Component<'header.link', true>;
+    stateful: Schema.Attribute.Boolean;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedFaq extends Struct.ComponentSchema {
+  collectionName: 'components_shared_faqs';
+  info: {
+    displayName: 'FAQ';
+    icon: 'question';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    label: Schema.Attribute.String;
+  };
+}
+
+export interface SharedHtml extends Struct.ComponentSchema {
+  collectionName: 'components_shared_htmls';
+  info: {
+    description: '';
+    displayName: 'HTML';
+    icon: 'code';
+  };
+  attributes: {
+    body: Schema.Attribute.RichText;
+  };
+}
+
+export interface SharedLandingSection extends Struct.ComponentSchema {
+  collectionName: 'components_shared_landing_sections';
+  info: {
+    description: '';
+    displayName: 'Landing Section';
+    icon: 'bulletList';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText;
+    headline: Schema.Attribute.String;
+    json: Schema.Attribute.JSON;
+    links: Schema.Attribute.Component<'shared.link', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedLink extends Struct.ComponentSchema {
+  collectionName: 'components_shared_links';
+  info: {
+    displayName: 'Link';
+    icon: 'link';
+  };
+  attributes: {
+    children: Schema.Attribute.JSON;
+    description: Schema.Attribute.String;
+    external: Schema.Attribute.Boolean;
+    icon: Schema.Attribute.String;
+    label: Schema.Attribute.String;
+    target: Schema.Attribute.Enumeration<['_blank']>;
+    to: Schema.Attribute.String;
+  };
+}
+
+export interface SharedMedia extends Struct.ComponentSchema {
+  collectionName: 'components_shared_media';
+  info: {
+    displayName: 'Media';
+    icon: 'file-video';
+  };
+  attributes: {
+    file: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
+  };
+}
+
+export interface SharedQuote extends Struct.ComponentSchema {
+  collectionName: 'components_shared_quotes';
+  info: {
+    displayName: 'Quote';
+    icon: 'indent';
+  };
+  attributes: {
+    body: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SharedRichText extends Struct.ComponentSchema {
+  collectionName: 'components_shared_rich_texts';
+  info: {
+    description: '';
+    displayName: 'Markdown';
+    icon: 'strikeThrough';
+  };
+  attributes: {
+    body: Schema.Attribute.RichText;
+  };
+}
+
+export interface SharedSeo extends Struct.ComponentSchema {
+  collectionName: 'components_shared_seos';
+  info: {
+    description: '';
+    displayName: 'Seo';
+    icon: 'allergies';
+    name: 'Seo';
+  };
+  attributes: {
+    canonicalUrl: Schema.Attribute.String;
+    metaDescription: Schema.Attribute.Text & Schema.Attribute.Required;
+    metaTitle: Schema.Attribute.String & Schema.Attribute.Required;
+    shareImage: Schema.Attribute.Media<'images'>;
+    structured_data: Schema.Attribute.JSON;
+  };
+}
+
+export interface SharedSlider extends Struct.ComponentSchema {
+  collectionName: 'components_shared_sliders';
+  info: {
+    description: '';
+    displayName: 'Slider';
+    icon: 'address-book';
+  };
+  attributes: {
+    files: Schema.Attribute.Media<'images', true>;
+  };
+}
+
+export interface SharedString extends Struct.ComponentSchema {
+  collectionName: 'components_shared_strings';
+  info: {
+    displayName: 'String';
+  };
+  attributes: {
+    text: Schema.Attribute.String;
+  };
+}
+
+export interface ToolCard extends Struct.ComponentSchema {
+  collectionName: 'components_tool_cards';
+  info: {
+    description: '';
+    displayName: 'Card';
+  };
+  attributes: {
+    body: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface ToolParameter extends Struct.ComponentSchema {
+  collectionName: 'components_tool_parameters';
+  info: {
+    description: '';
+    displayName: 'Parameter';
+    icon: 'apps';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText;
+    highlighted_parameter: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    name: Schema.Attribute.String;
+  };
+}
+
+declare module '@strapi/strapi' {
+  export namespace Public {
+    export interface ComponentSchemas {
       'api-toolkit.card-feature': ApiToolkitCardFeature;
+      'api-toolkit.comparison-table': ApiToolkitComparisonTable;
+      'api-toolkit.cta': ApiToolkitCta;
+      'api-toolkit.deployment-card': ApiToolkitDeploymentCard;
+      'api-toolkit.deployment-content': ApiToolkitDeploymentContent;
+      'api-toolkit.hero': ApiToolkitHero;
+      'api-toolkit.meta': ApiToolkitMeta;
+      'api-toolkit.security-compliance-content': ApiToolkitSecurityComplianceContent;
+      'documentation.doc-section': DocumentationDocSection;
+      'faq.faq-section': FaqFaqSection;
+      'faq.question': FaqQuestion;
+      'header.link': HeaderLink;
+      'pricing-section.cta': PricingSectionCta;
+      'pricing-section.dynamic-cta': PricingSectionDynamicCta;
+      'pricing-section.feature': PricingSectionFeature;
+      'pricing-section.pricing-features': PricingSectionPricingFeatures;
+      'pricing-section.pricing-link': PricingSectionPricingLink;
+      'pricing-section.pricing-section': PricingSectionPricingSection;
+      'pricing.card': PricingCard;
+      'pricing.feature': PricingFeature;
+      'product.pdfassistant-product-section': ProductPdfassistantProductSection;
+      'product.plugins-group': ProductPluginsGroup;
+      'product.tool-group': ProductToolGroup;
+      'shared.card': SharedCard;
+      'shared.chat-prompt': SharedChatPrompt;
+      'shared.content-section': SharedContentSection;
+      'shared.cta': SharedCta;
+      'shared.faq': SharedFaq;
+      'shared.html': SharedHtml;
+      'shared.landing-section': SharedLandingSection;
+      'shared.link': SharedLink;
+      'shared.media': SharedMedia;
+      'shared.quote': SharedQuote;
+      'shared.rich-text': SharedRichText;
+      'shared.seo': SharedSeo;
+      'shared.slider': SharedSlider;
+      'shared.string': SharedString;
+      'tool.card': ToolCard;
+      'tool.parameter': ToolParameter;
     }
   }
 }
