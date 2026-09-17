@@ -8,7 +8,7 @@ This project runs on Strapi 5.52.0 and requires Node.js 22.
 
 - GraphQL v4 compatibility mode is temporarily enabled in `config/plugins.js`. Migrate API consumers to the Strapi 5 GraphQL response format before disabling it.
 - REST consumers that still expect the Strapi 4 response shape must send the `Strapi-Response-Format: v4` header while they are being migrated.
-- `strapi-plugin-import-export-entries` and `strapi-plugin-duplicate-button` were removed because their published packages are not compatible with the current Strapi 5 dependency and runtime requirements.
+- `strapi-plugin-import-export-entries` remains removed because its published package is not compatible with the current Strapi 5 dependency and runtime requirements. Use the Strapi 5-compatible `strapi-import-export` plugin instead.
 - Back up production data before the first v5 deployment. Strapi performs one-time database migrations when the upgraded application starts.
 
 ## localhost - IPv4 vs. IPv6
