@@ -1,0 +1,16 @@
+{
+  "name": "strapi-plugin-duplicate-entry",
+  "version": "1.0.0",
+  "private": true,
+  "strapi": {
+    "kind": "plugin",
+    "name": "duplicate-entry",
+    "displayName": "Duplicate Entry",
+    "description": "Adds a duplicate action to collection-type entries"
+  },
+  "exports": {
+    "./strapi-admin": {
+      "import": "./admin/src/index.js"
+    }
+  }
+}
