@@ -12,5 +12,9 @@ module.exports = () => ({
   },
   'drag-drop-content-types': {
     enabled: true
+  },
+  'duplicate-entry': {
+    enabled: true,
+    resolve: './src/plugins/duplicate-entry',
   }
 });
