@@ -1028,7 +1028,6 @@ export interface ApiPdfassistantHtmlPagePdfassistantHtmlPage
     rank: Schema.Attribute.Integer;
     seo: Schema.Attribute.Component<'shared.seo', false>;
     slug: Schema.Attribute.String;
-    structured_data: Schema.Attribute.JSON;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

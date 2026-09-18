@@ -40,21 +40,18 @@
     },
     "html_head": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.html"
+      "component": "shared.html",
+      "repeatable": false
     },
     "html_body": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.html"
-    },
-    "structured_data": {
-      "type": "json"
+      "component": "shared.html",
+      "repeatable": false
     },
     "seo": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "repeatable": false
     }
   }
 }
