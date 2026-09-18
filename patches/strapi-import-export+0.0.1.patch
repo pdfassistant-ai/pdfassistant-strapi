@@ -1,0 +1,108 @@
+diff --git a/node_modules/strapi-import-export/dist/server/index.js b/node_modules/strapi-import-export/dist/server/index.js
+index d9e9b69..f98e9fd 100644
+--- a/node_modules/strapi-import-export/dist/server/index.js
++++ b/node_modules/strapi-import-export/dist/server/index.js
+@@ -13603,7 +13603,12 @@ async function findEntries(slug, deepness, { search, ids }) {
+         }
+       });
+     }
+-    const entries = await strapi.documents(slug).findMany(queryBuilder.get());
++    const query = queryBuilder.get();
++    const model = getModel(slug);
++    const entries = model?.modelType === "component" ? await strapi.db.query(slug).findMany({
++      ...omit$1(query, ["filters"]),
++      ...query.filters ? { where: query.filters } : {}
++    }) : await strapi.documents(slug).findMany(query);
+     return entries;
+   } catch (_2) {
+     return [];
+@@ -110951,7 +110956,7 @@ const updateOrCreateCollectionTypeEntry = async (user, slug, fileId, fileEntry,
+       });
+     } else {
+       return strapi.documents(slug).update({
+-        documentId: dbEntry.id,
++        documentId: dbEntry.documentId,
+         data: omit$1(fileEntry, ["id"])
+       });
+     }
+@@ -111011,7 +111016,7 @@ const updateOrCreateCollectionTypeEntry = async (user, slug, fileId, fileEntry,
+         return insertLocalizedEntry({ id: dbEntryDefaultLocaleId, data: omit$1({ ...fileEntry }, ["id"]) });
+       } else {
+         return strapi.documents(slug).update({
+-          documentId: dbEntry.id,
++          documentId: dbEntry.documentId,
+           data: omit$1({ ...fileEntry }, ["id"])
+         });
+       }
+@@ -111028,7 +111033,7 @@ const updateOrCreateSingleTypeEntry = async (user, slug, fileId, fileEntry, { im
+       });
+     } else {
+       return strapi.documents(slug).update({
+-        documentId: dbEntry.id,
++        documentId: dbEntry.documentId,
+         data: omit$1(fileEntry, ["id"])
+       });
+     }
+@@ -111052,7 +111057,7 @@ const updateOrCreateSingleTypeEntry = async (user, slug, fileId, fileEntry, { im
+         });
+       } else {
+         return strapi.documents(slug).update({
+-          documentId: entryDefaultLocale.id,
++          documentId: entryDefaultLocale.documentId,
+           data: fileEntry
+         });
+       }
+diff --git a/node_modules/strapi-import-export/dist/server/index.mjs b/node_modules/strapi-import-export/dist/server/index.mjs
+index 8a9071e..4bd99ab 100644
+--- a/node_modules/strapi-import-export/dist/server/index.mjs
++++ b/node_modules/strapi-import-export/dist/server/index.mjs
+@@ -13583,7 +13583,12 @@ async function findEntries(slug, deepness, { search, ids }) {
+         }
+       });
+     }
+-    const entries = await strapi.documents(slug).findMany(queryBuilder.get());
++    const query = queryBuilder.get();
++    const model = getModel(slug);
++    const entries = model?.modelType === "component" ? await strapi.db.query(slug).findMany({
++      ...omit$1(query, ["filters"]),
++      ...query.filters ? { where: query.filters } : {}
++    }) : await strapi.documents(slug).findMany(query);
+     return entries;
+   } catch (_2) {
+     return [];
+@@ -110931,7 +110936,7 @@ const updateOrCreateCollectionTypeEntry = async (user, slug, fileId, fileEntry,
+       });
+     } else {
+       return strapi.documents(slug).update({
+-        documentId: dbEntry.id,
++        documentId: dbEntry.documentId,
+         data: omit$1(fileEntry, ["id"])
+       });
+     }
+@@ -110991,7 +110996,7 @@ const updateOrCreateCollectionTypeEntry = async (user, slug, fileId, fileEntry,
+         return insertLocalizedEntry({ id: dbEntryDefaultLocaleId, data: omit$1({ ...fileEntry }, ["id"]) });
+       } else {
+         return strapi.documents(slug).update({
+-          documentId: dbEntry.id,
++          documentId: dbEntry.documentId,
+           data: omit$1({ ...fileEntry }, ["id"])
+         });
+       }
+@@ -111008,7 +111013,7 @@ const updateOrCreateSingleTypeEntry = async (user, slug, fileId, fileEntry, { im
+       });
+     } else {
+       return strapi.documents(slug).update({
+-        documentId: dbEntry.id,
++        documentId: dbEntry.documentId,
+         data: omit$1(fileEntry, ["id"])
+       });
+     }
+@@ -111032,7 +111037,7 @@ const updateOrCreateSingleTypeEntry = async (user, slug, fileId, fileEntry, { im
+         });
+       } else {
+         return strapi.documents(slug).update({
+-          documentId: entryDefaultLocale.id,
++          documentId: entryDefaultLocale.documentId,
+           data: fileEntry
+         });
+       }
